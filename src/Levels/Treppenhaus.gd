@@ -17,9 +17,13 @@ func _ready() -> void:
 
 
 func _on_Timer_timeout() -> void:
-	var trash:Node = Muell.instance()
-	trash.position.x = $Player.position.x
-	trash.position.y = $Player.position.y - 10
-	trash.connect("player_entered", $Player, "_on_Muell_player_entered")
-	trash.connect("player_exited", $Player, "_on_Muell_player_exited")
+	var trash:Muell = Muell.instance()
+	trash.position.x = ($Player as Player).position.x
+	trash.position.y = ($Player as Player).position.y - 10
+	var error_code = trash.connect("player_entered", $Player, "_on_Muell_player_entered")
+	if error_code != 0:
+		print("Error: ", error_code)
+	error_code = trash.connect("player_exited", $Player, "_on_Muell_player_exited")
+	if error_code != 0:
+		print("Error: ", error_code)
 	add_child(trash)

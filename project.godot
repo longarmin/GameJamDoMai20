@@ -10,11 +10,6 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
-"class": "Actor",
-"language": "GDScript",
-"path": "res://src demo/Acotrs/Actor.gd"
-}, {
-"base": "KinematicBody2D",
 "class": "Bewohner",
 "language": "GDScript",
 "path": "res://src/Bewohner/Bewohner.gd"
@@ -28,12 +23,29 @@ _global_script_classes=[ {
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
+}, {
+"base": "Area2D",
+"class": "Muell",
+"language": "GDScript",
+"path": "res://src/Bewohner/Muell.gd"
+}, {
+"base": "Bewohner",
+"class": "Player",
+"language": "GDScript",
+"path": "res://src/Bewohner/Player.gd"
+}, {
+"base": "Area2D",
+"class": "Stairwell",
+"language": "GDScript",
+"path": "res://src/Levels/Stairwell.gd"
 } ]
 _global_script_class_icons={
-"Actor": "",
 "Bewohner": "",
 "BewohnerNPC": "",
-"GitAPI": ""
+"GitAPI": "",
+"Muell": "",
+"Player": "",
+"Stairwell": ""
 }
 
 [application]
@@ -41,6 +53,21 @@ _global_script_class_icons={
 config/name="GameJamMai20"
 run/main_scene="res://src/Levels/Treppenhaus.tscn"
 config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/unused_class_variable=true
+gdscript/warnings/unsafe_property_access=true
+gdscript/warnings/unsafe_method_access=true
+gdscript/warnings/unsafe_cast=true
+gdscript/warnings/unsafe_call_argument=true
+
+[display]
+
+window/size/width=512
+window/size/height=300
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [gdnative]
 
@@ -65,8 +92,10 @@ action2={
 2d_physics/layer_2="bewohner"
 2d_physics/layer_3="player"
 2d_physics/layer_4="muell"
+2d_physics/layer_5="stairwell"
 2d_physics/layer_10="oma_etage"
 2d_physics/layer_11="oma_stairs"
+2d_physics/layer_20="alanin"
 
 [rendering]
 

@@ -17,8 +17,8 @@ func _ready() -> void:
 
 
 func _on_Player_trash_collected(trash_amount) -> void:
-	$Label.text = "Müll: " + str(trash_amount)
+	($Label as Label).text = "Müll: " + str(trash_amount)
 
 
 func _on_Player_trash_dropped(trash_amount) -> void:
-	$Label.text = "Müll: " + str(trash_amount)
+	($Label as Label).text = "Müll: " + str(trash_amount)

@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/Bewohner/Oma.gd" type="Script" id=1]
 [ext_resource path="res://assets/oma.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 13.6283, 19.5603 )
+extents = Vector2( 13.6283, 20.1036 )
 
 [sub_resource type="AnimatedTexture" id=2]
 
@@ -25,24 +25,24 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=4]
-radius = 71.0782
-height = 353.779
+[sub_resource type="SegmentShape2D" id=4]
+a = Vector2( -0.262699, -102.295 )
+b = Vector2( -0.929425, 89.254 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 25.6939, 34.2536 )
 
 [node name="Oma" type="KinematicBody2D"]
-collision_layer = 1025
-collision_mask = 0
+scale = Vector2( 0.5, 0.5 )
+collision_layer = 0
 script = ExtResource( 1 )
+speed = Vector2( 50, 1000 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1.15678, -4.10384 )
+position = Vector2( -1.39274, 3.91909 )
 scale = Vector2( 1.95, 1.69 )
 shape = SubResource( 1 )
 one_way_collision_margin = 0.0
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.209564, 3.749 )
@@ -55,18 +55,15 @@ autoplay = "Oma_Laufend"
 playback_speed = 1.87
 anims/Oma_Laufend = SubResource( 3 )
 
-[node name="Timer2" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
 [node name="Character_Detector" type="Area2D" parent="."]
 position = Vector2( 0.765228, 1.21585 )
 rotation = 1.5708
 input_pickable = false
 collision_layer = 0
-collision_mask = 3
+collision_mask = 4
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector"]
+position = Vector2( 9.53674e-06, 2.43372 )
 shape = SubResource( 4 )
 
 [node name="SpeechBubble" type="TextEdit" parent="."]
@@ -76,7 +73,17 @@ margin_top = -74.6491
 margin_right = 68.4105
 margin_bottom = -51.6491
 text = "Hallo Herr Meier!"
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2( -1.17984, 3.7755 )
+shape = SubResource( 5 )
 [connection signal="body_entered" from="Character_Detector" to="." method="_on_Character_Detector_body_entered"]
 [connection signal="body_exited" from="Character_Detector" to="." method="_on_Character_Detector_body_exited"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]

@@ -1,5 +1,5 @@
+class_name Muell
 extends Area2D
-
 
 # Declare member variables here. Examples:
 # var a: int = 2
@@ -8,7 +8,6 @@ signal player_entered(node)
 signal player_exited(node)
 
 var playerNear:bool = false
-var newTrash:bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,13 +28,8 @@ func _on_Muell_body_exited(body: Node) -> void:
 		emit_signal("player_exited", self)
 
 func _on_Muell_area_entered(area: Area2D) -> void:
-	if newTrash:
-		var distanceOptions = [-30, 30]
-		self.position.x += distanceOptions[randi() % 2]
+	if area.name == "Muell":
+		var distanceOptionsX = [-30, -15, 15, 30]
+		self.position.x += distanceOptionsX[randi() % 4]
 
-func _on_Timer_timeout() -> void:
-	newTrash = false
-	
-func startTimer() -> void:
-	$Timer.start()
 

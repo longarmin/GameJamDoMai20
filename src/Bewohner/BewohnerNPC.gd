@@ -13,14 +13,13 @@ var direction:= Vector2(1,0)
 func _ready() -> void:
 	set_physics_process(true)
 	_velocity.x = speed.x
-	speed = Vector2(150.0, 1000.0)
 #	change_direction()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass
 
-func _physics_process(delta: float) -> void:	
+func _physics_process(_delta: float) -> void:	
 
 #	_velocity.y = move_and_slide(_velocity, FLOOR_NORMAL).y
 #	_velocity.y += gravity * delta
@@ -34,9 +33,9 @@ func _physics_process(delta: float) -> void:
 	
 func sprite_flip_direction():
 	if direction.x < 0:
-		$Sprite.flip_h = true
+		($Sprite as Sprite).flip_h = true
 	else:
-		$Sprite.flip_h = false
+		($Sprite as Sprite).flip_h = false
 	
 func calculate_move_velocity(
 		linear_velocity: Vector2,

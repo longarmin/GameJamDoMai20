@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/door.png" type="Texture" id=1]
+[ext_resource path="res://src/Levels/Stairwell.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 13.2148, 12.1778 )
+
+[node name="Stairwell" type="Area2D"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 8.4757 )
+scale = Vector2( 1, 2 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1, 2 )
+texture = ExtResource( 1 )
