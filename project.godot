@@ -64,8 +64,10 @@ gdscript/warnings/unsafe_call_argument=true
 
 [display]
 
-window/size/width=512
-window/size/height=300
+window/size/width=160
+window/size/height=90
+window/size/test_width=960
+window/size/test_height=540
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
@@ -93,8 +95,7 @@ action2={
 2d_physics/layer_3="player"
 2d_physics/layer_4="muell"
 2d_physics/layer_5="stairwell"
-2d_physics/layer_10="oma_etage"
-2d_physics/layer_11="oma_stairs"
+2d_physics/layer_6="oma"
 2d_physics/layer_20="alanin"
 
 [rendering]

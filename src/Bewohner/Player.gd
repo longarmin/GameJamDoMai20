@@ -9,14 +9,18 @@ var carrying_trash: bool = false
 var near_trash: Array
 var carried_trash: Array
 var on_door: bool = false
+var climbing_stairs: bool = false
 
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var collectTrashLabel: Label = $CollectTrash
 onready var dropTrashLabel: Label = $DropTrash
 onready var alaninLabel: Label = $AlaninLabel
+onready var timer_climbingStairs: Timer = $timer_climbingStairs
 
 signal trash_collected
 signal trash_dropped
+signal stairs_climbing
+signal stairs_climbed
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,7 +35,6 @@ func _physics_process(_delta: float) -> void:
 	var direction: = get_direction()
 	_velocity = calculate_move_velocity(_velocity, direction, speed)
 	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
-#	change_layer()
 	change_floor()
 	drop_trash()
 	collect_trash()
@@ -57,10 +60,21 @@ func calculate_move_velocity(
 	return out
 
 func change_floor() -> void:
+	if (climbing_stairs):
+		return
 	if (on_door && Input.is_action_pressed("ui_up") && self.position.y > 150):
 		self.position.y -= 96
+		climbing_stairs = true
+		emit_signal("stairs_climbing")
+		timer_climbingStairs.start()
+		self.hide()
 	elif (on_door && Input.is_action_pressed("ui_down") &&  self.position.y < 250):
 		self.position.y += 96
+		climbing_stairs = true
+		emit_signal("stairs_climbing")
+		timer_climbingStairs.start()
+		self.hide()
+
 
 func collect_trash():
 	if near_trash.size() > 0 && Input.is_action_just_pressed("action1"):
@@ -105,12 +119,12 @@ func playing_animation():
 		else:
 			animated_sprite.play("default")
 
-func _on_Muell_player_entered(trash) -> void:
+func _on_Muell_player_entered(trash: Muell) -> void:
 	near_trash.push_back(trash)
 	if carrying_trash == false:
 		collectTrashLabel.show()
 	
-func _on_Muell_player_exited(trash) -> void:
+func _on_Muell_player_exited(trash: Muell) -> void:
 	near_trash.erase(trash)
 	collectTrashLabel.hide()
 
@@ -126,6 +140,12 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 	if (area is Stairwell):
 		on_door = true
 
-func _on_HitBox_area_exited(area):
-	if (area is Stairwell):
+func _on_HitBox_area_exited(area: Area2D) -> void:
+	if (area is Stairwell && !climbing_stairs):
 		on_door = false
+
+
+func _on_timer_climbingStairs_timeout():
+	climbing_stairs = false
+	emit_signal("stairs_climbed")
+	self.show()

@@ -6,7 +6,6 @@ var fBodyInViewRange := false
 
 onready var speechBubble: TextEdit = $SpeechBubble
 onready var sprite: Sprite = $Sprite
-onready var animationPlayer: AnimationPlayer = $Sprite/AnimationPlayer
 
 func _physics_process(_delta: float) -> void:
 	pass
@@ -34,7 +33,6 @@ func decide_Etagenwechsel()->void:
 
 func _on_Character_Detector_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
-		print('Player in visual range of Oma\n')
 		speed.x -= 25
 		PlayerPositionX = body.position.x
 		fBodyInViewRange = true
@@ -42,7 +40,6 @@ func _on_Character_Detector_body_entered(body: PhysicsBody2D) -> void:
 		
 func _on_Character_Detector_body_exited(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
-		print('Player out of Oma\'s visual range')
 		speed.x += 25
 		fBodyInViewRange = false
 

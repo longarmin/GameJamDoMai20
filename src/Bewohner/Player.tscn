@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/Bewohner/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/player1.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/player4.png" type="Texture" id=5]
 [ext_resource path="res://assets/player5.png" type="Texture" id=6]
 [ext_resource path="res://assets/player6.png" type="Texture" id=7]
+[ext_resource path="res://assets/DotGothic16-Regular.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://src/util/ContextBubble.tscn" type="PackedScene" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -21,22 +22,34 @@ animations = [ {
 "name": "defaultTrash",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "walking",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "walkingTrash",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "walking",
 "speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 5.42038, 15.9692 )
 
+[sub_resource type="DynamicFont" id=5]
+size = 8
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 8
+font_data = ExtResource( 8 )
+
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 3.06608, 41.8635 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 8
+font_data = ExtResource( 8 )
 
 [sub_resource type="CapsuleShape2D" id=4]
 radius = 5.08612
@@ -49,7 +62,7 @@ script = ExtResource( 1 )
 speed = Vector2( 50, 1000 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.543009, -16.0186 )
+position = Vector2( 0, -16 )
 frames = SubResource( 1 )
 animation = "walkingTrash"
 
@@ -64,17 +77,14 @@ limit_left = 0
 limit_top = 0
 limit_right = 512
 limit_bottom = 300
-limit_smoothed = true
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = true
 
 [node name="CollectTrash" type="Label" parent="."]
 visible = false
-margin_left = -27.0821
-margin_top = -55.6145
-margin_right = 120.918
-margin_bottom = -41.6145
+margin_left = -42.0
+margin_top = -48.25
+margin_right = 42.0
+margin_bottom = -34.25
+custom_fonts/font = SubResource( 5 )
 text = "Müll aufsammeln mit Y"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -82,10 +92,11 @@ __meta__ = {
 
 [node name="DropTrash" type="Label" parent="."]
 visible = false
-margin_left = -26.7572
-margin_top = -55.2971
-margin_right = 112.243
-margin_bottom = -41.2971
+margin_left = -37.25
+margin_top = -48.25
+margin_right = 37.75
+margin_bottom = -34.25
+custom_fonts/font = SubResource( 6 )
 text = "Müll ablegen mit X"
 autowrap = true
 __meta__ = {
@@ -103,11 +114,12 @@ shape = SubResource( 3 )
 
 [node name="AlaninLabel" type="Label" parent="."]
 visible = false
-margin_left = -44.9472
-margin_top = -52.3674
-margin_right = 132.053
-margin_bottom = -21.3674
+margin_left = -44.4472
+margin_top = -70.6174
+margin_right = 132.553
+margin_bottom = -39.6174
 rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = SubResource( 7 )
 text = "Hey Armin!
 Alles Gute zum Geburtstag!"
 align = 1
@@ -125,7 +137,14 @@ shape = SubResource( 4 )
 
 [node name="Area2D" parent="." instance=ExtResource( 9 )]
 position = Vector2( 0.481049, -5.27078 )
+
+[node name="timer_climbingStairs" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+[connection signal="stairs_climbed" from="." to="Area2D" method="_on_Player_stairs_climbed"]
+[connection signal="stairs_climbing" from="." to="Area2D" method="_on_Player_stairs_climbing"]
 [connection signal="body_entered" from="Alanin" to="." method="_on_Alanin_body_entered"]
 [connection signal="body_exited" from="Alanin" to="." method="_on_Alanin_body_exited"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_HitBox_area_exited"]
+[connection signal="timeout" from="timer_climbingStairs" to="." method="_on_timer_climbingStairs_timeout"]

@@ -1,14 +1,65 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://assets/door.png" type="Texture" id=1]
+[ext_resource path="res://assets/door-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://src/Levels/Stairwell.gd" type="Script" id=2]
+[ext_resource path="res://assets/DotGothic16-Regular.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 13.2148, 12.1778 )
+extents = Vector2( 11.306, 12.1778 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": false,
+"name": "opening",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": false,
+"name": "closing",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": false,
+"name": "0_default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=12]
+size = 8
+font_data = ExtResource( 3 )
 
 [node name="Stairwell" type="Area2D"]
 collision_layer = 16
-collision_mask = 4
+collision_mask = 36
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -16,6 +67,19 @@ position = Vector2( 0, 8.4757 )
 scale = Vector2( 1, 2 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 1, 2 )
-texture = ExtResource( 1 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 5 )
+animation = "0_default"
+
+[node name="Label" type="Label" parent="."]
+margin_left = -14.0
+margin_top = -30.0
+margin_right = 14.0
+margin_bottom = -17.0
+custom_fonts/font = SubResource( 12 )
+text = "Treppen"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="." to="." method="_on_Stairwell_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Stairwell_body_exited"]

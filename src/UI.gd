@@ -5,6 +5,7 @@ extends CanvasLayer
 # var a: int = 2
 # var b: String = "text"
 
+onready var label: Label = $MarginContainer/Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,8 +18,8 @@ func _ready() -> void:
 
 
 func _on_Player_trash_collected(trash_amount) -> void:
-	($Label as Label).text = "Müll: " + str(trash_amount)
+	label.text = "Müll: " + str(trash_amount)
 
 
 func _on_Player_trash_dropped(trash_amount) -> void:
-	($Label as Label).text = "Müll: " + str(trash_amount)
+	label.text = "Müll: " + str(trash_amount)

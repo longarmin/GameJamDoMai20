@@ -15,3 +15,4 @@ var popularity: = 0
 
 #func _physics_process(delta: float) -> void:
 #	_velocity.y += gravity * delta
+
