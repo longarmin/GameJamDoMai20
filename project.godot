@@ -13,16 +13,27 @@ _global_script_classes=[ {
 "class": "Actor",
 "language": "GDScript",
 "path": "res://src demo/Acotrs/Actor.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Bewohner",
+"language": "GDScript",
+"path": "res://src/Bewohner/Bewohner.gd"
 } ]
 _global_script_class_icons={
-"Actor": ""
+"Actor": "",
+"Bewohner": ""
 }
 
 [application]
 
 config/name="GameJamMai20"
-run/main_scene="res://src/Levels/Treppenhaus.tscn"
 config/icon="res://icon.png"
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="bewohner"
+2d_physics/layer_3="player"
 
 [rendering]
 
