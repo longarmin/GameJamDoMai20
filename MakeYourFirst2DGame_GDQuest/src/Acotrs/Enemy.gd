@@ -1,4 +1,4 @@
-extends "res://src demo/Acotrs/Actor.gd"
+extends "res://src/Acotrs/Actor.gd"
 
 func _ready() -> void:
 	set_physics_process(false)
