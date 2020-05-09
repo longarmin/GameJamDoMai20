@@ -51,3 +51,4 @@ func change_layer():
 func collect_trash():
 	if !is_carrying_trash:
 		if Input.is_action_just_pressed("ui_accept"):
+			pass

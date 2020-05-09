@@ -5,11 +5,11 @@ func _ready() -> void:
 	_velocity.x = -speed.x
 	_velocity.y = 0.0
 
-func _on_StompDetector_body_entered(body: PhysicsBody2D) -> void:
-	if body.global_position.y > get_node("StompDetector").global_position.y:
-		return
-	$CollisionShape2D.disabled = true
-	queue_free()
+#func _on_StompDetector_body_entered(body: PhysicsBody2D) -> void:
+#	if body.global_position.y > get_node("StompDetector").global_position.y:
+#		return
+#	$CollisionShape2D.disabled = true
+#	queue_free()
 
 
 func _physics_process(delta: float) -> void:
