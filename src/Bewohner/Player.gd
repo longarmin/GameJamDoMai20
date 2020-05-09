@@ -1,11 +1,15 @@
 extends Bewohner
 
+export (PackedScene) var Muell
 
 # Declare member variables here. Examples:
 # var a: int = 2
 # var b: String = "text"
 
 var is_carrying_trash: bool = false
+var is_near_trash: bool = false
+
+signal collectTrash
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,6 +26,9 @@ func _physics_process(delta: float) -> void:
 	_velocity = calculate_move_velocity(_velocity, direction, speed)
 	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
 	change_layer()
+	drop_trash()
+	collect_trash()
+	$Label.text = str(is_near_trash)
 	
 func get_direction() -> Vector2:
 	return Vector2(
@@ -49,5 +56,22 @@ func change_layer():
 		set_collision_layer(1)
 
 func collect_trash():
-	if !is_carrying_trash:
+	if !is_carrying_trash && is_near_trash:
 		if Input.is_action_just_pressed("ui_accept"):
+			is_carrying_trash = !is_carrying_trash
+			emit_signal("collectTrash")
+
+func drop_trash():
+	if is_carrying_trash:
+		if Input.is_action_just_pressed("ui_accept"):
+			is_carrying_trash = !is_carrying_trash
+			var trash = Muell.instance()
+			add_child(trash)
+			trash.position = self.position
+			print(trash)
+
+func _on_Muell_body_entered(body: Node) -> void:
+	is_near_trash = !is_near_trash
+
+func _on_Muell_body_exited(body: Node) -> void:
+	is_near_trash = !is_near_trash
