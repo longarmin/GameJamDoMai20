@@ -54,7 +54,7 @@ func change_layer():
 	if Input.is_action_pressed("ui_up"):
 		set_collision_layer(9)
 	if Input.is_action_just_pressed("ui_down"):
-		set_collision_layer(17)
+		set_collision_layer(10)
 
 func drop_trash():
 	if is_carrying_trash:
@@ -63,10 +63,10 @@ func drop_trash():
 			carried_trash.position = self.position
 			carried_trash.show()
 			carried_trash = null
-			if collision_layer == 4:
-				set_collision_layer(20)
+			if collision_layer == 2:
+				set_collision_layer(10)
 			else:
-				set_collision_layer(17)
+				set_collision_layer(9)
 			emit_signal("dropTrash")
 
 
@@ -74,7 +74,7 @@ func _on_Muell_collectedTrash(trash) -> void:
 	is_carrying_trash = true
 	carried_trash = trash
 	print(carried_trash)
-	if collision_layer == 20:
-		set_collision_layer(4)
+	if collision_layer == 10:
+		set_collision_layer(2)
 	else:
 		set_collision_layer(1)
