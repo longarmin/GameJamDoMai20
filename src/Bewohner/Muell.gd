@@ -50,9 +50,5 @@ func _on_Timer_timeout() -> void:
 func startTimer() -> void:
 	$Timer.start()
 
-func _on_Muell_collectedTrash(trash) -> void:
-	is_collectible = false
-	$CollectTimer.start()
-
 func _on_CollectTimer_timeout() -> void:
 	is_collectible = true

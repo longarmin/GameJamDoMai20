@@ -2,11 +2,11 @@
 
 [ext_resource path="res://src/Bewohner/Muell.gd" type="Script" id=2]
 
-[sub_resource type="StreamTexture" id=2]
+[sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/trash.png-c635925975b700b2dcac9c274d768d2b.stex"
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 47.3748, 39.998 )
 
 [node name="Muell" type="Area2D"]
@@ -18,11 +18,11 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
-texture = SubResource( 2 )
+texture = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 0.377319 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Label" type="Label" parent="."]
 margin_right = 40.0
@@ -40,6 +40,5 @@ autostart = true
 [connection signal="area_entered" from="." to="." method="_on_Muell_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Muell_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Muell_body_exited"]
-[connection signal="collectedTrash" from="." to="." method="_on_Muell_collectedTrash"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="CollectTimer" to="." method="_on_CollectTimer_timeout"]

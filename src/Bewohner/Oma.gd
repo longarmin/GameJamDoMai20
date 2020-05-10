@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider.name != "TileMapL2" && collision.collider.name != "TileMap":
-		    print("Collided with: ", collision.collider.name)
+			print("Collided with: ", collision.collider.name)
 	
 
 func calculate_move_velocity(
