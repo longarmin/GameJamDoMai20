@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Bewohner",
 "language": "GDScript",
 "path": "res://src/Bewohner/Bewohner.gd"
+}, {
+"base": "",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://git_api.gdns"
 } ]
 _global_script_class_icons={
 "Actor": "",
-"Bewohner": ""
+"Bewohner": "",
+"GitAPI": ""
 }
 
 [application]
@@ -29,6 +35,10 @@ _global_script_class_icons={
 config/name="GameJamMai20"
 run/main_scene="res://src/Levels/Treppenhaus.tscn"
 config/icon="res://icon.png"
+
+[gdnative]
+
+singletons=[ "res://git_api.gdnlib" ]
 
 [layer_names]
 
