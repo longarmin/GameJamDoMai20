@@ -9,6 +9,7 @@ export (PackedScene) var Muell
 var is_carrying_trash: bool = false
 var is_near_trash: bool = false
 var carried_trash: Node
+var is_on_trash: = false
 
 signal collectTrash
 signal dropTrash
@@ -57,12 +58,13 @@ func change_layer():
 		set_collision_layer(10)
 
 func drop_trash():
-	if is_carrying_trash:
+	if is_carrying_trash && !is_on_trash:
 		if Input.is_action_just_pressed("ui_accept"):
 			is_carrying_trash = !is_carrying_trash
 			carried_trash.position = self.position
 			carried_trash.show()
 			carried_trash = null
+			speed.x += 30
 			if collision_layer == 2:
 				set_collision_layer(10)
 			else:
@@ -73,8 +75,9 @@ func drop_trash():
 func _on_Muell_collectedTrash(trash) -> void:
 	is_carrying_trash = true
 	carried_trash = trash
-	print(carried_trash)
+	speed.x -= 30
 	if collision_layer == 10:
 		set_collision_layer(2)
 	else:
 		set_collision_layer(1)
+
