@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/tileset.png" type="Texture" id=3]
 [ext_resource path="res://assets/tileset Layer 2.png" type="Texture" id=4]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/Acotrs/Oma.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 80, 0, 80, 80, 0, 80 )
@@ -203,6 +203,9 @@ tile_data = PoolIntArray( 0, 0, 0, 31, 0, 0, 65536, 0, 0, 65567, 0, 0, 131072, 0
 
 [node name="Player2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 618.529, 212.15 )
+collision_mask = 0
 
-[node name="Enemy" parent="." instance=ExtResource( 6 )]
-position = Vector2( 305.833, 263.537 )
+[node name="Oma" parent="." instance=ExtResource( 6 )]
+position = Vector2( 216.876, 123.929 )
+collision_mask = 0
+speed = Vector2( 300, 1000 )

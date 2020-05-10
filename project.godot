@@ -27,6 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GameJamMai20"
+run/main_scene="res://src/Levels/Treppenhaus.tscn"
 config/icon="res://icon.png"
 
 [layer_names]

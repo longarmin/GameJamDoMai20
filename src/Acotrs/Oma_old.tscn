@@ -23,10 +23,11 @@ position = Vector2( 0, -41 )
 shape = SubResource( 1 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+pause_mode = 2
 position = Vector2( 0.500002, -47 )
 scale = Vector2( 6.25, 4.7 )
-process_parent = true
-physics_process_parent = true
+pause_animations = false
+freeze_bodies = false
 
 [node name="Visibility" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -41 )

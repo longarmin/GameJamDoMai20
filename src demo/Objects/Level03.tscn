@@ -5,7 +5,8 @@
 [ext_resource path="res://src demo/Acotrs/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src demo/Objects/Coin.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src demo/Objects/Portal2D.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/Acotrs/Oma.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Acotrs/Oma_old.tscn" type="PackedScene" id=6]
+
 
 
 

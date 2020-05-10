@@ -1,7 +1,7 @@
 extends "res://src demo/Acotrs/Actor.gd"
 
 func _ready() -> void:
-	set_physics_process(false)
+	set_physics_process(true)
 	_velocity.x = -speed.x
 	_velocity.y = 0.0
 
