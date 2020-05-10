@@ -5,6 +5,7 @@ extends Area2D
 # var a: int = 2
 # var b: String = "text"
 signal collectedTrash
+
 var playerNear:bool = false
 var playerHasTrash:bool = false
 
@@ -21,13 +22,15 @@ func _physics_process(delta: float) -> void:
 #pass
 
 func _on_Muell_body_entered(body: Node) -> void:
-	playerNear = true
+	if body.name == "Player":
+		playerNear = true
+		
 
 func collect_trash():
 	if Input.is_action_just_pressed("ui_accept") && playerNear:
 		emit_signal("collectedTrash", self)
-		print("Signal")
 		self.hide()
 
 func _on_Muell_body_exited(body: Node) -> void:
-	playerNear = false
+	if body.name == "Player":
+		playerNear = false
