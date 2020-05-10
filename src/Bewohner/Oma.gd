@@ -21,14 +21,16 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:	
 	if is_on_wall():	
 		_velocity.x *= -1.0
+		if _velocity.x < 0:
+			$Sprite.flip_h = true
+		else:
+			$Sprite.flip_h = false
 	_velocity.y = move_and_slide(_velocity, FLOOR_NORMAL).y
 	_velocity.y += gravity * delta
 #	_velocity = calculate_move_velocity(_velocity, direction, speed)
 #	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		if collision.collider.name != "TileMapL2" && collision.collider.name != "TileMap":
-		    print("Collided with: ", collision.collider.name)
 	
 
 func calculate_move_velocity(
@@ -56,9 +58,9 @@ func change_direction():
 #	direction = Vector2(rand_range(-1,1), 0)
 	direction.x *= -1.0
 
-func _on_Timer_timeout() -> void:
-	change_direction()
-	change_layer()
+#func _on_Timer_timeout() -> void:
+#	change_direction()
+#	change_layer()
 	
 func _on_Wohnungstuer_DoorCollision() -> void:
 	var l = self.get_collision_layer()
