@@ -1,13 +1,15 @@
 [gd_scene load_steps=2 format=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 9.1691, 86.4958 )
+extents = Vector2( 9.1691, 72.8228 )
 
 [node name="Wohnungstuer" type="Node2D" groups=[
 "doors",
 ]]
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 0, -0.463295 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, 0.463295 )
 shape = SubResource( 1 )

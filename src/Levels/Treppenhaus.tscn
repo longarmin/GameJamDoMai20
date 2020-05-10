@@ -171,6 +171,7 @@ position = Vector2( 2442.57, 2072.98 )
 position = Vector2( 109.772, 2632.59 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 layer = -1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]

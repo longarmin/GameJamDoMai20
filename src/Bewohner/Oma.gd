@@ -25,6 +25,10 @@ func _physics_process(delta: float) -> void:
 	_velocity.y += gravity * delta
 #	_velocity = calculate_move_velocity(_velocity, direction, speed)
 #	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		if collision.collider.name != "TileMapL2":
+		    print("Collided with: ", collision.collider.name)
 	
 
 func calculate_move_velocity(
