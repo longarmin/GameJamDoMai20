@@ -1,7 +1,5 @@
 extends Bewohner
 
-export (PackedScene) var Muell
-
 # Declare member variables here. Examples:
 # var a: int = 2
 # var b: String = "text"
@@ -30,6 +28,7 @@ func _physics_process(delta: float) -> void:
 	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
 	change_layer()
 	drop_trash()
+
 	$Label.set_text(str(is_carrying_trash))
 	
 func get_direction() -> Vector2:
