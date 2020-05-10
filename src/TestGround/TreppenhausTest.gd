@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _on_Timer_timeout() -> void:
-	var trash = Muell.instance()
+	var trash:Area2D = Muell.instance()
 	trash.position = $Player.position
 	trash.connect("collectedTrash", $Player, "_on_Muell_collectedTrash")
 	add_child(trash)
