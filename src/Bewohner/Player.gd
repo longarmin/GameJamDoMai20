@@ -8,12 +8,14 @@ export (PackedScene) var Muell
 
 var is_carrying_trash: bool = false
 var is_near_trash: bool = false
+var carried_trash: Node
 
 signal collectTrash
+signal dropTrash
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,8 +29,8 @@ func _physics_process(delta: float) -> void:
 	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
 	change_layer()
 	drop_trash()
-	collect_trash()
-#	$Label.text = str(is_near_trash)
+
+	$Label.set_text(str(is_carrying_trash))
 	
 func get_direction() -> Vector2:
 	return Vector2(
@@ -51,27 +53,29 @@ func calculate_move_velocity(
 
 func change_layer():
 	if Input.is_action_pressed("ui_up"):
-		set_collision_layer(2)
+		set_collision_layer(9)
 	if Input.is_action_just_pressed("ui_down"):
-		set_collision_layer(1)
-
-func collect_trash():
-	if !is_carrying_trash && is_near_trash:
-		if Input.is_action_just_pressed("ui_accept"):
-			is_carrying_trash = !is_carrying_trash
-			emit_signal("collectTrash")
+		set_collision_layer(10)
 
 func drop_trash():
 	if is_carrying_trash:
 		if Input.is_action_just_pressed("ui_accept"):
 			is_carrying_trash = !is_carrying_trash
-			var trash = Muell.instance()
-			add_child(trash)
-			trash.position = self.position
-			print(trash)
+			carried_trash.position = self.position
+			carried_trash.show()
+			carried_trash = null
+			if collision_layer == 2:
+				set_collision_layer(10)
+			else:
+				set_collision_layer(9)
+			emit_signal("dropTrash")
 
-func _on_Muell_body_entered(body: Node) -> void:
-	is_near_trash = !is_near_trash
 
-func _on_Muell_body_exited(body: Node) -> void:
-	is_near_trash = !is_near_trash
+func _on_Muell_collectedTrash(trash) -> void:
+	is_carrying_trash = true
+	carried_trash = trash
+	print(carried_trash)
+	if collision_layer == 10:
+		set_collision_layer(2)
+	else:
+		set_collision_layer(1)

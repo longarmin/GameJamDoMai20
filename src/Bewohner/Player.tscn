@@ -1,11 +1,10 @@
 [gd_scene load_steps=5 format=2]
-
-[ext_resource path="res://src/Bewohner/Player.gd" type="Script" id=1]
-[ext_resource path="res://assets/player.png" type="Texture" id=2]
+[ext_resource path="res://src/Bewohner/Player.gd" type="Script" id=2]
+[ext_resource path="res://src/Bewohner/Muell.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ null ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -15,8 +14,10 @@ animations = [ {
 extents = Vector2( 47.8834, 48.4545 )
 
 [node name="Player" type="KinematicBody2D"]
-collision_mask = 4
-script = ExtResource( 1 )
+collision_layer = 9
+collision_mask = 8
+script = ExtResource( 2 )
+Muell = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
@@ -26,3 +27,10 @@ shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
