@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Bewohner/Muell.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/TestGround/TestLevel.gd" type="Script" id=4]
 
 [node name="TestLevel" type="Node2D"]
+script = ExtResource( 4 )
+Muell = ExtResource( 3 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -24,7 +27,8 @@ tile_data = PoolIntArray( -131074, 1, 0, -65538, 1, 0, -1, 1, 0, 0, 1, 0, 11, 1,
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 506.673, 422.606 )
 
-[node name="Muell" parent="." instance=ExtResource( 3 )]
-[connection signal="collectTrash" from="Player" to="Muell" method="_on_Player_collectTrash"]
-[connection signal="body_entered" from="Muell" to="Player" method="_on_Muell_body_entered"]
-[connection signal="body_exited" from="Muell" to="Player" method="_on_Muell_body_exited"]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+[connection signal="dropTrash" from="Player" to="." method="_on_Player_dropTrash"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
