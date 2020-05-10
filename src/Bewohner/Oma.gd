@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 #	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		if collision.collider.name != "TileMapL2":
+		if collision.collider.name != "TileMapL2" && collision.collider.name != "TileMap":
 		    print("Collided with: ", collision.collider.name)
 	
 
@@ -59,3 +59,12 @@ func change_direction():
 func _on_Timer_timeout() -> void:
 	change_direction()
 	change_layer()
+	
+func _on_Wohnungstuer_DoorCollision() -> void:
+	var l = self.get_collision_layer()
+	print("Door Collision! Layer: " + str(l))
+	if l == 1:
+		self.set_collision_layer(2)
+	else:
+		self.set_collision_layer(1)
+	print("New Layer: " + str(l))

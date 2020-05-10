@@ -1,17 +1,17 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/tileset.tres" type="TileSet" id=1]
-[ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/Bewohner/Muell.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/TestGround/TestLevel.gd" type="Script" id=4]
+[ext_resource path="res://src/TestGround/TestLevel.gd" type="Script" id=1]
+[ext_resource path="res://src/Bewohner/Muell.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/tileset.tres" type="TileSet" id=3]
+[ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=5]
 
 [node name="TestLevel" type="Node2D"]
-script = ExtResource( 4 )
-Muell = ExtResource( 3 )
+script = ExtResource( 1 )
+Muell = ExtResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 3 )
 cell_size = Vector2( 30, 30 )
 collision_layer = 0
 format = 1
@@ -19,14 +19,14 @@ tile_data = PoolIntArray( -131074, 1, 0, -65538, 1, 0, -1, 1, 0, 0, 1, 0, 11, 1,
 
 [node name="TileMap2" type="TileMap" parent="."]
 visible = false
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 3 )
 cell_size = Vector2( 30, 30 )
 collision_layer = 0
 collision_mask = 2
 format = 1
 tile_data = PoolIntArray( -131074, 1, 0, -65538, 1, 0, -1, 1, 0, 0, 1, 0, 11, 1, 0, 12, 1, 0, 65536, 1, 0, 65547, 1, 0, 65548, 1, 0, 131072, 1, 0, 131084, 1, 0, 196609, 1, 0, 196620, 1, 0, 262145, 1, 0, 262156, 1, 0, 327680, 1, 0, 327681, 1, 0, 327692, 1, 0, 393216, 1, 0, 393217, 3, 0, 393228, 1, 0, 458752, 1, 0, 458753, 3, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 524289, 3, 0, 589825, 3, 0, 655361, 3, 0, 655362, 3, 0, 655385, -1610612732, 0, 655392, 3, 0, 720898, 3, 0, 720902, 3, 0, 720922, -1610612732, 0, 720928, 3, 0, 786433, 3, 0, 786438, 3, 0, 786459, -1610612732, 0, 786465, 3, 0, 851969, 3, 0, 851974, 3, 0, 851996, 3, 0, 851997, 3, 0, 851998, 3, 0, 852001, 3, 0, 917505, 3, 0, 917510, 3, 0, 917537, 3, 0, 983041, 3, 0, 983046, 3, 0, 983073, 3, 0, 1048576, 3, 0, 1048582, 3, 0, 1048609, 3, 0, 1114112, 3, 0, 1114118, 3, 0, 1114145, 3, 0, 1179648, 3, 0, 1179654, 3, 0, 1179655, 3, 0, 1179656, 3, 0, 1179657, 3, 0, 1179658, 3, 0, 1179659, 3, 0, 1179660, 3, 0, 1179661, 3, 0, 1179662, 3, 0, 1179663, 3, 0, 1179664, 3, 0, 1179665, 3, 0, 1179666, 3, 0, 1179667, 3, 0, 1179668, 3, 0, 1179669, 3, 0, 1179670, 3, 0, 1179671, 3, 0, 1179672, 3, 0, 1179673, 3, 0, 1179674, 3, 0, 1179675, 3, 0, 1179681, 3, 0, 1245184, 3, 0, 1245188, 3, 0, 1245189, 3, 0, 1245202, 3, 0, 1245203, 3, 0, 1245204, 3, 0, 1245205, 3, 0, 1245206, 3, 0, 1245212, 3, 0, 1245213, 3, 0, 1245214, 3, 0, 1245215, 3, 0, 1245216, 3, 0, 1245217, 3, 0, 1310721, 3, 0, 1310722, 3, 0, 1310723, 3, 0 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 506.673, 422.606 )
 
 [node name="Timer" type="Timer" parent="."]
