@@ -6,7 +6,7 @@ extends Bewohner
 
 var is_carrying_trash: bool = false
 var is_near_trash: bool = false
-var carried_trash: Node
+var carried_trash: Array
 var is_on_trash: = false
 
 signal collectTrash
@@ -51,18 +51,24 @@ func calculate_move_velocity(
 	return out
 
 func change_layer():
-	if Input.is_action_pressed("ui_up"):
-		set_collision_layer(9)
 	if Input.is_action_just_pressed("ui_down"):
-		set_collision_layer(10)
+		if collision_layer == 10 && !is_carrying_trash:
+			set_collision_layer(9)
+		elif collision_layer == 10 && is_carrying_trash:
+			set_collision_layer(1)
+		elif collision_layer == 9 && !is_carrying_trash:
+			set_collision_layer(10)
+		else:
+			set_collision_layer(2)
 
 func drop_trash():
 	if is_carrying_trash && !is_on_trash:
 		if Input.is_action_just_pressed("ui_accept"):
-			is_carrying_trash = !is_carrying_trash
-			carried_trash.position = self.position
-			carried_trash.show()
-			carried_trash = null
+			var trash:Node = carried_trash.pop_back()
+			if carried_trash.size() ==  0:
+				is_carrying_trash = false
+			trash.position = self.position
+			trash.show()
 			speed.x += 30
 			if collision_layer == 2:
 				set_collision_layer(10)
@@ -73,10 +79,9 @@ func drop_trash():
 
 func _on_Muell_collectedTrash(trash) -> void:
 	is_carrying_trash = true
-	carried_trash = trash
+	carried_trash.push_back(trash)
 	speed.x -= 30
 	if collision_layer == 10:
 		set_collision_layer(2)
 	else:
 		set_collision_layer(1)
-

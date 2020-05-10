@@ -24,7 +24,6 @@ func _physics_process(delta: float) -> void:
 func _on_Muell_body_entered(body: Node) -> void:
 	if body.name == "Player":
 		playerNear = true
-		
 
 func collect_trash():
 	if Input.is_action_just_pressed("ui_accept") && playerNear:
