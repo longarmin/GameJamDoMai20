@@ -50,7 +50,6 @@ func change_layer():
 	
 func change_direction():
 #	direction = Vector2(rand_range(-1,1), 0)
-	print(direction)
 	direction.x *= -1.0
 
 func _on_Timer_timeout() -> void:
