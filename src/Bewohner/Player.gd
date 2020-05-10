@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	change_layer()
 	drop_trash()
 	collect_trash()
-	$Label.text = str(is_near_trash)
+#	$Label.text = str(is_near_trash)
 	
 func get_direction() -> Vector2:
 	return Vector2(
@@ -51,7 +51,7 @@ func calculate_move_velocity(
 
 func change_layer():
 	if Input.is_action_pressed("ui_up"):
-		set_collision_layer(4)
+		set_collision_layer(2)
 	if Input.is_action_just_pressed("ui_down"):
 		set_collision_layer(1)
 
