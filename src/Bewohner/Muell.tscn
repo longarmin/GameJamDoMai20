@@ -32,13 +32,9 @@ __meta__ = {
 }
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 autostart = true
-
-[node name="CollectTimer" type="Timer" parent="."]
 [connection signal="area_entered" from="." to="." method="_on_Muell_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Muell_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Muell_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="CollectTimer" to="." method="_on_CollectTimer_timeout"]

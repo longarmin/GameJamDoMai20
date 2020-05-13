@@ -4,12 +4,12 @@ extends Bewohner
 # var a: int = 2
 # var b: String = "text"
 
-var is_carrying_trash: bool = false
-var is_near_trash: bool = false
+var carrying_trash: bool = false
+var near_trash: Array
 var carried_trash: Array
 
-signal collectTrash
-signal dropTrash
+signal trash_collected
+signal trash_dropped
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,8 +27,9 @@ func _physics_process(delta: float) -> void:
 	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
 	change_layer()
 	drop_trash()
+	collect_trash()
 
-	$Label.set_text(str(is_carrying_trash))
+	$Label.set_text(str(carrying_trash))
 	
 func get_direction() -> Vector2:
 	return Vector2(
@@ -56,12 +57,21 @@ func change_layer():
 		elif collision_layer == 9:
 			set_collision_layer(10)
 
+func collect_trash():
+	if near_trash.size() > 0 && Input.is_action_just_pressed("action1"):
+		var trash = near_trash[0]
+		trash.hide()
+		carrying_trash = true
+		carried_trash.push_back(trash)
+		near_trash.erase(trash)
+		speed.x -= 30
+
 func drop_trash():
-	if is_carrying_trash:
+	if carrying_trash:
 		if Input.is_action_just_pressed("action2"):
 			var trash:Node = carried_trash.pop_back()
 			if carried_trash.size() ==  0:
-				is_carrying_trash = false
+				carrying_trash = false
 			trash.position = self.position
 			trash.show()
 			trash.startTimer()
@@ -72,8 +82,13 @@ func drop_trash():
 				set_collision_layer(9)
 			emit_signal("dropTrash")
 
-
 func _on_Muell_collectedTrash(trash) -> void:
-	is_carrying_trash = true
+	carrying_trash = true
 	carried_trash.push_back(trash)
 	speed.x -= 30
+
+func _on_Muell_player_entered(trash) -> void:
+	near_trash.push_back(trash)
+	
+func _on_Muell_player_exited(trash) -> void:
+	near_trash.erase(trash)
