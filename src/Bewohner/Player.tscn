@@ -1,7 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://assets/player.png" type="Texture" id=1]
+[ext_resource path="res://assets/player1.png" type="Texture" id=1]
 [ext_resource path="res://src/Bewohner/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/player2.png" type="Texture" id=3]
+[ext_resource path="res://assets/player3.png" type="Texture" id=4]
+[ext_resource path="res://assets/player6.png" type="Texture" id=5]
+[ext_resource path="res://assets/player4.png" type="Texture" id=6]
+[ext_resource path="res://assets/player5.png" type="Texture" id=7]
+[ext_resource path="res://assets/font_default.tres" type="DynamicFont" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -9,28 +15,62 @@ animations = [ {
 "loop": true,
 "name": "default",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "walkingTrash",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "walking",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "defaultTrash",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 47.8834, 48.4545 )
+extents = Vector2( 5.42038, 16.126 )
 
 [node name="Player" type="KinematicBody2D"]
+scale = Vector2( 3, 3 )
 collision_layer = 9
 collision_mask = 8
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -0.543009, -16.0186 )
 frames = SubResource( 1 )
+animation = "walkingTrash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.271484, -16.5616 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -41.211 )
 current = true
 
 [node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+visible = false
+margin_left = -20.1322
+margin_top = -49.6876
+margin_right = 19.8678
+margin_bottom = -35.6876
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollectTrash" type="Label" parent="."]
+margin_left = -45.8609
+margin_top = -61.3047
+margin_right = 46.1391
+margin_bottom = -36.3047
+custom_fonts/font = ExtResource( 8 )
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -2,9 +2,7 @@
 
 [ext_resource path="res://assets/montserrat_extrabold.otf" type="DynamicFontData" id=1]
 
-
 [resource]
-size = 24
+size = 8
 use_mipmaps = true
-use_filter = true
 font_data = ExtResource( 1 )

@@ -4,8 +4,8 @@
 [ext_resource path="res://assets/oma.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 13.5961
-height = 13.1153
+radius = 15.1256
+height = 10.1757
 
 [sub_resource type="AnimatedTexture" id=2]
 
@@ -27,6 +27,7 @@ tracks/0/keys = {
 }
 
 [node name="Oma" type="KinematicBody2D"]
+collision_mask = 0
 script = ExtResource( 1 )
 speed = Vector2( 100, 1000 )
 

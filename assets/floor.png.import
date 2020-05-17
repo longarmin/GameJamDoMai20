@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/trash.png-c635925975b700b2dcac9c274d768d2b.stex"
+path="res://.import/floor.png-38406586736af2fe805d7b886727ee47.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/trash.png"
-dest_files=[ "res://.import/trash.png-c635925975b700b2dcac9c274d768d2b.stex" ]
+source_file="res://assets/floor.png"
+dest_files=[ "res://.import/floor.png-38406586736af2fe805d7b886727ee47.stex" ]
 
 [params]
 
