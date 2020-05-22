@@ -3,9 +3,8 @@
 [ext_resource path="res://src/Bewohner/Oma.gd" type="Script" id=1]
 [ext_resource path="res://assets/oma.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 15.1256
-height = 10.1757
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 13.6283, 19.5603 )
 
 [sub_resource type="AnimatedTexture" id=2]
 
@@ -29,12 +28,11 @@ tracks/0/keys = {
 [node name="Oma" type="KinematicBody2D"]
 collision_mask = 0
 script = ExtResource( 1 )
-speed = Vector2( 100, 1000 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.18618, 3.98449 )
+position = Vector2( -1.15678, -4.10384 )
 scale = Vector2( 1.95, 1.69 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 one_way_collision_margin = 0.0
 
 [node name="Timer" type="Timer" parent="."]
@@ -42,7 +40,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -0.4375, 4.07253 )
+position = Vector2( 0.209564, 3.749 )
 texture = ExtResource( 2 )
 normal_map = SubResource( 2 )
 hframes = 2

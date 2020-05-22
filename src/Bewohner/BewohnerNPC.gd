@@ -2,7 +2,7 @@ extends Bewohner
 class_name BewohnerNPC
 
 
-var direction: = Vector2(-1,0)
+var direction:= Vector2(-1,0)
 
 # Declare member variables here. Examples:
 # var a: int = 2
@@ -21,16 +21,15 @@ func _ready() -> void:
 #	pass
 
 func _physics_process(delta: float) -> void:	
-	if is_on_wall():
-		_velocity.x *= -1.0
-		if _velocity.x < 0:
-			$Sprite.flip_h = true
-		else:
-			$Sprite.flip_h = false
-	_velocity.y = move_and_slide(_velocity, FLOOR_NORMAL).y
-	_velocity.y += gravity * delta
-#	_velocity = calculate_move_velocity(_velocity, direction, speed)
-#	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
+
+#	_velocity.y = move_and_slide(_velocity, FLOOR_NORMAL).y
+#	_velocity.y += gravity * delta
+	_velocity = calculate_move_velocity(_velocity, speed)
+	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
+	if direction.x < 0:
+		$Sprite.flip_h = true
+	else:
+		$Sprite.flip_h = false
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider.name != "TileMapL2" && collision.collider.name != "TileMap":
@@ -39,7 +38,6 @@ func _physics_process(delta: float) -> void:
 
 func calculate_move_velocity(
 		linear_velocity: Vector2,
-		direction: Vector2,
 		speed: Vector2
 	) -> Vector2:
 	var out: = linear_velocity
@@ -49,6 +47,7 @@ func calculate_move_velocity(
 		out.y = 0
 	if is_on_wall():	
 		change_direction()
+#		pass
 #	_velocity.y = move_and_slide(_velocity, FLOOR_NORMAL).y
 #	_velocity.y += gravity * delta
 	out.x = speed.x * direction.x
@@ -59,9 +58,10 @@ func change_layer():
 	pass
 	
 func change_direction():
-#	direction = Vector2(rand_range(-1,1), 0)
+#	direction = Vector2(rand_range(-1,1), 0)#
 	direction.x *= -1.0
 
+		
 #func _on_Timer_timeout() -> void:
 #	change_direction()
 #	change_layer()
