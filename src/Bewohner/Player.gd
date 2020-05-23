@@ -13,7 +13,7 @@ signal trash_dropped
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	speed = Vector2(300.0, 1000.0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

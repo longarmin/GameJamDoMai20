@@ -13,8 +13,8 @@ var direction:= Vector2(1,0)
 func _ready() -> void:
 	set_physics_process(true)
 	_velocity.x = speed.x
+	speed = Vector2(150.0, 1000.0)
 #	change_direction()
-	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
@@ -26,16 +26,18 @@ func _physics_process(delta: float) -> void:
 #	_velocity.y += gravity * delta
 	_velocity = calculate_move_velocity(_velocity, speed)
 	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
-	if direction.x < 0:
-		$Sprite.flip_h = true
-	else:
-		$Sprite.flip_h = false
+	sprite_flip_direction()
 #	for i in get_slide_count():
 #		var collision = get_slide_collision(i)
 #		if collision.collider.name != "TileMapL2" && collision.collider.name != "TileMap":
 #			print("Collided with: ", collision.collider.name)
 	
-
+func sprite_flip_direction():
+	if direction.x < 0:
+		$Sprite.flip_h = true
+	else:
+		$Sprite.flip_h = false
+	
 func calculate_move_velocity(
 		linear_velocity: Vector2,
 		speed: Vector2
@@ -47,14 +49,10 @@ func calculate_move_velocity(
 		out.y = 0
 	if is_on_wall():	
 		change_direction()
-#		pass
-#	_velocity.y = move_and_slide(_velocity, FLOOR_NORMAL).y
-#	_velocity.y += gravity * delta
 	out.x = speed.x * direction.x
 	return out
 
 func change_direction():
-#	direction = Vector2(rand_range(-1,1), 0)#
 	direction.x *= -1.0
 
 		
