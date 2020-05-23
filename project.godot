@@ -65,6 +65,8 @@ action2={
 2d_physics/layer_2="bewohner"
 2d_physics/layer_3="player"
 2d_physics/layer_4="muell"
+2d_physics/layer_10="oma_etage"
+2d_physics/layer_11="oma_stairs"
 
 [rendering]
 

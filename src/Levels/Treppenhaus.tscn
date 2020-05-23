@@ -209,7 +209,6 @@ collision_mask = 0
 
 [node name="Oma" parent="." instance=ExtResource( 8 )]
 position = Vector2( 216.876, 123.929 )
-speed = Vector2( 300, 1000 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0

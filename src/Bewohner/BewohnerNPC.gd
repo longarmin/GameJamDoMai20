@@ -2,7 +2,7 @@ extends Bewohner
 class_name BewohnerNPC
 
 
-var direction:= Vector2(-1,0)
+var direction:= Vector2(1,0)
 
 # Declare member variables here. Examples:
 # var a: int = 2
@@ -30,10 +30,10 @@ func _physics_process(delta: float) -> void:
 		$Sprite.flip_h = true
 	else:
 		$Sprite.flip_h = false
-	for i in get_slide_count():
-		var collision = get_slide_collision(i)
-		if collision.collider.name != "TileMapL2" && collision.collider.name != "TileMap":
-			print("Collided with: ", collision.collider.name)
+#	for i in get_slide_count():
+#		var collision = get_slide_collision(i)
+#		if collision.collider.name != "TileMapL2" && collision.collider.name != "TileMap":
+#			print("Collided with: ", collision.collider.name)
 	
 
 func calculate_move_velocity(
@@ -53,10 +53,6 @@ func calculate_move_velocity(
 	out.x = speed.x * direction.x
 	return out
 
-func change_layer():
-#	set_collision_layer(9) if collision_layer == 10 else set_collision_layer(10)
-	pass
-	
 func change_direction():
 #	direction = Vector2(rand_range(-1,1), 0)#
 	direction.x *= -1.0

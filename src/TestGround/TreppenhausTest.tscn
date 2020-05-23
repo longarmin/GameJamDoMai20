@@ -213,5 +213,4 @@ autostart = true
 
 [node name="Oma" parent="." instance=ExtResource( 8 )]
 position = Vector2( 367.715, 410.975 )
-speed = Vector2( 300, 1000 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

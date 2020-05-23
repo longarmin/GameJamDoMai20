@@ -5,7 +5,6 @@ extends Bewohner
 # var b: String = "text"
 
 var carrying_trash: bool = false
-var on_stairs: bool = false
 var near_trash: Array
 var carried_trash: Array
 
@@ -113,7 +112,6 @@ func _on_Muell_player_exited(trash) -> void:
 	if carrying_trash == false:
 		$CollectTrash.text = ""
 
-
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body == self:
 		on_stairs = true
@@ -129,4 +127,5 @@ func _on_Area2D2_body_entered(body: Node) -> void:
 func _on_Area2D2_body_exited(body: Node) -> void:
 	if body == self:
 		on_stairs = false
+
 
