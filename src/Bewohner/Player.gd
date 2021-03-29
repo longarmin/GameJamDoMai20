@@ -22,53 +22,51 @@ signal trash_dropped
 signal stairs_climbing
 signal stairs_climbed
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass;
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass
 
+
 func _physics_process(_delta: float) -> void:
-	var direction: = get_direction()
+	var direction := get_direction()
 	_velocity = calculate_move_velocity(_velocity, direction, speed)
 	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
 	change_floor()
 	drop_trash()
 	collect_trash()
 	playing_animation()
-	
-func get_direction() -> Vector2:
-	return Vector2(
-		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-		0
-	)
 
-func calculate_move_velocity(
-		linear_velocity: Vector2,
-		direction: Vector2,
-		speed: Vector2
-	) -> Vector2:
-	var out: = linear_velocity
+
+func get_direction() -> Vector2:
+	return Vector2(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"), 0)
+
+
+func calculate_move_velocity(linear_velocity: Vector2, direction: Vector2, speed: Vector2) -> Vector2:
+	var out := linear_velocity
 	out.x = speed.x * direction.x
-	if !is_on_floor():
+	if ! is_on_floor():
 		out.y += gravity * get_physics_process_delta_time()
 	else:
 		out.y = 0
 	return out
 
+
 func change_floor() -> void:
-	if (climbing_stairs):
+	if climbing_stairs:
 		return
-	if (on_door && Input.is_action_pressed("ui_up") && self.position.y > 150):
+	if on_door && Input.is_action_pressed("ui_up") && self.position.y > 150:
 		self.position.y -= 96
 		climbing_stairs = true
 		emit_signal("stairs_climbing")
 		timer_climbingStairs.start()
 		self.hide()
-	elif (on_door && Input.is_action_pressed("ui_down") &&  self.position.y < 250):
+	elif on_door && Input.is_action_pressed("ui_down") && self.position.y < 250:
 		self.position.y += 96
 		climbing_stairs = true
 		emit_signal("stairs_climbing")
@@ -88,17 +86,19 @@ func collect_trash():
 		dropTrashLabel.show()
 		emit_signal("trash_collected", carried_trash.size())
 
+
 func drop_trash():
 	if carrying_trash:
 		if Input.is_action_just_pressed("action2"):
-			var trash:Muell = carried_trash.pop_back()
-			if carried_trash.size() ==  0:
+			var trash: Muell = carried_trash.pop_back()
+			if carried_trash.size() == 0:
 				carrying_trash = false
 				dropTrashLabel.hide()
 			trash.position = self.position
 			trash.show()
 			speed.x += 30
 			emit_signal("trash_dropped", carried_trash.size())
+
 
 func playing_animation():
 	if _velocity.x > 0:
@@ -119,29 +119,35 @@ func playing_animation():
 		else:
 			animated_sprite.play("default")
 
+
 func _on_Muell_player_entered(trash: Muell) -> void:
 	near_trash.push_back(trash)
 	if carrying_trash == false:
 		collectTrashLabel.show()
-	
+
+
 func _on_Muell_player_exited(trash: Muell) -> void:
 	near_trash.erase(trash)
 	collectTrashLabel.hide()
 
+
 func _on_Alanin_body_entered(body):
 	if body.name == "Alanin":
-		alaninLabel.show();
+		alaninLabel.show()
+
 
 func _on_Alanin_body_exited(body):
 	if body.name == "Alanin":
-		alaninLabel.hide();
+		alaninLabel.hide()
+
 
 func _on_HitBox_area_entered(area: Area2D) -> void:
-	if (area is Stairwell):
+	if area is Stairwell:
 		on_door = true
 
+
 func _on_HitBox_area_exited(area: Area2D) -> void:
-	if (area is Stairwell && !climbing_stairs):
+	if area is Stairwell && ! climbing_stairs:
 		on_door = false
 
 

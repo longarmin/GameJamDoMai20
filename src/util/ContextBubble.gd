@@ -21,7 +21,6 @@ func _ready():
 
 func _on_ContextBubble_area_entered(area: Area2D) -> void:
 	if (area is Stairwell):
-		print(get_global_position()[1])
 		if (get_global_position()[1] > 150):
 			UpSprite.visible = true
 		else:

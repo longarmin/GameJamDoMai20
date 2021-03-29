@@ -5,13 +5,15 @@ export (PackedScene) var Muell
 # var a: int = 2
 # var b: String = "text"
 
-var yPositions = [82, 82+96, 82+2*96]
+var yPositions = [82, 82 + 96, 82 + 2 * 96]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 #	$Wohnungstuer.connect("DoorCollision", $Oma, "_on_Door_Collision")
 #	$Wohnungstuer2.connect("DoorCollision", $Oma, "_on_Door_Collision")
-	pass # Replace with function body.
+	pass  # Replace with function body.
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
@@ -19,7 +21,7 @@ func _ready() -> void:
 
 
 func _on_Timer_timeout() -> void:
-	var trash:Muell = Muell.instance()
+	var trash: Muell = Muell.instance()
 	trash.position.x = rand_range(25, 475)
 	trash.position.y = yPositions[randi() % 3]
 	var error_code = trash.connect("player_entered", $Player, "_on_Muell_player_entered")
