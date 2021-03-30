@@ -1,9 +1,15 @@
+class_name Oma
 extends BewohnerNPC
 
-var PlayerPositionX := 0.0
-# var PlayerID := 0
+# Script fuer Oma-NPC
+# Oma bewegt sich durchs Haus, spricht Bewohner an und überwacht deren Tätigkeit.
+# Omas Meinung von den Bewohner ändert sich durch Handlungen der Personen.
+
+# Definiere private Variablen
+var playerPositionX := 0.0
 var fBodyInViewRange := false
 
+# Definiere onready Variablen fuer Typunterstuetzungs
 onready var speechBubble: TextEdit = $SpeechBubble
 onready var sprite: Sprite = $Sprite
 
@@ -11,11 +17,12 @@ onready var sprite: Sprite = $Sprite
 func _physics_process(_delta: float) -> void:
 	pass
 
-
+# Methode dreht den Sprite von Oma um, wenn fBodyInViewRange wahr ist.
+# Zeigt außerdem Textbox an.
 func sprite_flip_direction():
 	if fBodyInViewRange:
 		speechBubble.visible = true
-		if (PlayerPositionX - self.position.x) < 0:
+		if (playerPositionX - self.position.x) < 0:
 			sprite.flip_h = true
 		else:
 			sprite.flip_h = false
@@ -26,7 +33,7 @@ func sprite_flip_direction():
 		else:
 			sprite.flip_h = false
 
-
+# Methode 
 func decide_Etagenwechsel() -> void:
 	var random = randf()
 	if random < 0.4 && self.position.y < 250:
@@ -38,7 +45,7 @@ func decide_Etagenwechsel() -> void:
 func _on_Character_Detector_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
 		speed.x -= 25
-		PlayerPositionX = body.position.x
+		playerPositionX = body.position.x
 		fBodyInViewRange = true
 
 

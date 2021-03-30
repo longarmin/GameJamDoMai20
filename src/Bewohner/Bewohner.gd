@@ -1,3 +1,5 @@
+# Basisklasse für den Spieler, Oma und die anderen Bewohner
+
 extends KinematicBody2D
 class_name Bewohner
 
@@ -15,3 +17,6 @@ var popularity := 0
 
 #func _physics_process(delta: float) -> void:
 #	_velocity.y += gravity * delta
+
+# Fehlt: Etagenwechsel
+# Fehlt: Bewegen

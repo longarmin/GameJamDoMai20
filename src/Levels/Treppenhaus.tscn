@@ -1,14 +1,14 @@
 [gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
-[ext_resource path="res://src/Bewohner/Muell.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Levels/Muell.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/party30.ogg" type="AudioStream" id=4]
 [ext_resource path="res://assets/speaker-Sheet.png" type="Texture" id=5]
 [ext_resource path="res://src/Levels/Stairwell.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/TreppenhausTest.tres" type="TileSet" id=9]
-[ext_resource path="res://src/UI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/Bewohner/Mieter.tscn" type="PackedScene" id=11]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -63,7 +63,7 @@ position = Vector2( 248, 256 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 68, 77.4798 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AnimatedSprite"]
@@ -73,7 +73,7 @@ max_distance = 300.0
 attenuation = 10.0
 
 [node name="Player" parent="." instance=ExtResource( 7 )]
-position = Vector2( 125.866, 176.263 )
+position = Vector2( 120.039, 176 )
 speed = Vector2( 150, 1000 )
 
 [node name="Oma" parent="." instance=ExtResource( 8 )]
@@ -88,6 +88,4 @@ autostart = true
 position = Vector2( 84, 69.7925 )
 
 [node name="UI" parent="." instance=ExtResource( 10 )]
-[connection signal="trash_collected" from="Player" to="UI" method="_on_Player_trash_collected"]
-[connection signal="trash_dropped" from="Player" to="UI" method="_on_Player_trash_dropped"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

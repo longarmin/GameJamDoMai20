@@ -8,7 +8,10 @@
 [ext_resource path="res://assets/player5.png" type="Texture" id=6]
 [ext_resource path="res://assets/player6.png" type="Texture" id=7]
 [ext_resource path="res://assets/DotGothic16-Regular.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://src/util/ContextBubble.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/UI/ContextBubble.tscn" type="PackedScene" id=9]
+
+
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

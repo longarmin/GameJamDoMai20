@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Levels/Muell.gd" type="Script" id=2]
+
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/trash.png-c635925975b700b2dcac9c274d768d2b.stex"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 6.61329, 7.30889 )
+
+[node name="Muell" type="Area2D"]
+gravity = 200.0
+collision_layer = 8
+collision_mask = 12
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 1 )
+
+[node name="MuellShape" type="CollisionShape2D" parent="."]
+position = Vector2( -0.445457, 0.60004 )
+shape = SubResource( 2 )
+[connection signal="area_entered" from="." to="." method="_on_Muell_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Muell_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Muell_body_exited"]

@@ -7,9 +7,25 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.306, 12.1778 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
@@ -17,43 +33,27 @@ region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": false,
 "name": "opening",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
-"loop": false,
-"name": "closing",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 5 ) ],
 "loop": false,
 "name": "0_default",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": false,
+"name": "closing",
+"speed": 10.0
 } ]
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=10]
 size = 8
 font_data = ExtResource( 3 )
 
@@ -68,7 +68,7 @@ scale = Vector2( 1, 2 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 5 )
+frames = SubResource( 9 )
 animation = "0_default"
 
 [node name="Label" type="Label" parent="."]
@@ -76,7 +76,7 @@ margin_left = -14.0
 margin_top = -30.0
 margin_right = 14.0
 margin_bottom = -17.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 10 )
 text = "Treppen"
 __meta__ = {
 "_edit_use_anchors_": false

@@ -19,15 +19,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/BewohnerNPC.gd"
 }, {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://git_api.gdns"
-}, {
 "base": "Area2D",
 "class": "Muell",
 "language": "GDScript",
-"path": "res://src/Bewohner/Muell.gd"
+"path": "res://src/Levels/Muell.gd"
 }, {
 "base": "Bewohner",
 "class": "Player",
@@ -42,7 +37,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Bewohner": "",
 "BewohnerNPC": "",
-"GitAPI": "",
 "Muell": "",
 "Player": "",
 "Stairwell": ""
@@ -73,7 +67,7 @@ window/stretch/aspect="keep"
 
 [gdnative]
 
-singletons=[ "res://git_api.gdnlib" ]
+singletons=[  ]
 
 [input]
 
