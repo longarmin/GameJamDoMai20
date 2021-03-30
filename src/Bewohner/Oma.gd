@@ -5,7 +5,7 @@ extends BewohnerNPC
 # Oma bewegt sich durchs Haus, spricht Bewohner an und überwacht deren Tätigkeit.
 # Omas Meinung von den Bewohner ändert sich durch Handlungen der Personen.
 
-# Definiere private Variablen
+# Definiere Variablen
 var playerPositionX := 0.0
 var fBodyInViewRange := false
 
@@ -17,7 +17,7 @@ onready var sprite: Sprite = $Sprite
 func _physics_process(_delta: float) -> void:
 	pass
 
-# Methode dreht den Sprite von Oma um, wenn fBodyInViewRange wahr ist.
+# Dreht den Sprite von Oma um, wenn fBodyInViewRange wahr ist.
 # Zeigt außerdem Textbox an.
 func sprite_flip_direction():
 	if fBodyInViewRange:
@@ -33,15 +33,19 @@ func sprite_flip_direction():
 		else:
 			sprite.flip_h = false
 
-# Methode 
+# Ändert zufällig die Etage oder bleibt
+# Teleportiert den Körper um 96 Pixel nach oben oder unten
 func decide_Etagenwechsel() -> void:
+	var distanceLevelsInPixels := 96
+	var lowLimit := 0.4
+	var highLimit := 0.6
 	var random = randf()
-	if random < 0.4 && self.position.y < 250:
-		self.position.y += 96
-	elif random > 0.6 && self.position.y > 150:
-		self.position.y -= 96
+	if random < lowLimit && self.position.y < 250:
+		self.position.y += distanceLevelsInPixels
+	elif random > highLimit && self.position.y > 150:
+		self.position.y -= distanceLevelsInPixels
 
-
+# Beim 
 func _on_Character_Detector_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
 		speed.x -= 25

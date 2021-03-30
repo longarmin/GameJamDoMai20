@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Levels/Muell.gd"
 }, {
+"base": "BewohnerNPC",
+"class": "Oma",
+"language": "GDScript",
+"path": "res://src/Bewohner/Oma.gd"
+}, {
 "base": "Bewohner",
 "class": "Player",
 "language": "GDScript",
@@ -38,6 +43,7 @@ _global_script_class_icons={
 "Bewohner": "",
 "BewohnerNPC": "",
 "Muell": "",
+"Oma": "",
 "Player": "",
 "Stairwell": ""
 }
