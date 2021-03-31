@@ -1,77 +1,106 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/Bewohner/Player.gd" type="Script" id=1]
-[ext_resource path="res://assets/player1.png" type="Texture" id=2]
-[ext_resource path="res://assets/player2.png" type="Texture" id=3]
-[ext_resource path="res://assets/player3.png" type="Texture" id=4]
-[ext_resource path="res://assets/player4.png" type="Texture" id=5]
-[ext_resource path="res://assets/player5.png" type="Texture" id=6]
-[ext_resource path="res://assets/player6.png" type="Texture" id=7]
 [ext_resource path="res://assets/DotGothic16-Regular.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://src/UI/ContextBubble.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/player.png" type="Texture" id=10]
 
-
-
-
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "defaultTrash",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "walkingTrash",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "walking",
-"speed": 5.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.42038, 15.9692 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 8
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 8
+font_data = ExtResource( 8 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 3.06608, 41.8635 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 8
 font_data = ExtResource( 8 )
 
-[sub_resource type="DynamicFont" id=6]
-size = 8
-font_data = ExtResource( 8 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 3.06608, 41.8635 )
-
-[sub_resource type="DynamicFont" id=7]
-size = 8
-font_data = ExtResource( 8 )
-
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=6]
 radius = 5.08612
 height = 22.812
+
+[sub_resource type="Animation" id=7]
+resource_name = "default"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "defaultTrash"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "walking"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 6, 7 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "walkingTrash"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 4, 5 ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
-speed = Vector2( 50, 1000 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -16 )
-frames = SubResource( 1 )
-animation = "walkingTrash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.262466, -15.8949 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -26.603 )
@@ -87,7 +116,7 @@ margin_left = -42.0
 margin_top = -48.25
 margin_right = 42.0
 margin_bottom = -34.25
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 2 )
 text = "Müll aufsammeln mit Y"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -99,7 +128,7 @@ margin_left = -37.25
 margin_top = -48.25
 margin_right = 37.75
 margin_bottom = -34.25
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 3 )
 text = "Müll ablegen mit X"
 autowrap = true
 __meta__ = {
@@ -113,7 +142,7 @@ collision_mask = 524288
 [node name="CollisionAlanin" type="CollisionShape2D" parent="Alanin"]
 position = Vector2( -0.471924, -16.3712 )
 rotation = 1.5708
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="AlaninLabel" type="Label" parent="."]
 visible = false
@@ -122,7 +151,7 @@ margin_top = -70.6174
 margin_right = 132.553
 margin_bottom = -39.6174
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 5 )
 text = "Hey Armin!
 Alles Gute zum Geburtstag!"
 align = 1
@@ -136,7 +165,7 @@ collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 0.176773, -16.1751 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )
 
 [node name="Area2D" parent="." instance=ExtResource( 9 )]
 position = Vector2( 0.481049, -5.27078 )
@@ -144,10 +173,23 @@ position = Vector2( 0.481049, -5.27078 )
 [node name="timer_climbingStairs" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -16 )
+texture = ExtResource( 10 )
+vframes = 4
+hframes = 2
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 7 )
+anims/defaultTrash = SubResource( 8 )
+anims/walking = SubResource( 9 )
+anims/walkingTrash = SubResource( 10 )
 [connection signal="stairs_climbed" from="." to="Area2D" method="_on_Player_stairs_climbed"]
 [connection signal="stairs_climbing" from="." to="Area2D" method="_on_Player_stairs_climbing"]
 [connection signal="body_entered" from="Alanin" to="." method="_on_Alanin_body_entered"]
 [connection signal="body_exited" from="Alanin" to="." method="_on_Alanin_body_exited"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_HitBox_area_exited"]
-[connection signal="timeout" from="timer_climbingStairs" to="." method="_on_timer_climbingStairs_timeout"]

@@ -68,17 +68,16 @@ playing = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AnimatedSprite"]
 stream = ExtResource( 4 )
-autoplay = true
 max_distance = 300.0
 attenuation = 10.0
 
 [node name="Player" parent="." instance=ExtResource( 7 )]
 position = Vector2( 120.039, 176 )
-speed = Vector2( 150, 1000 )
 
 [node name="Oma" parent="." instance=ExtResource( 8 )]
 position = Vector2( 427.825, 160 )
 collision_layer = 1024
+speed = 50
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
@@ -88,4 +87,6 @@ autostart = true
 position = Vector2( 84, 69.7925 )
 
 [node name="UI" parent="." instance=ExtResource( 10 )]
+[connection signal="trash_collected" from="Player" to="UI" method="_on_Player_trash_collected"]
+[connection signal="trash_dropped" from="Player" to="UI" method="_on_Player_trash_dropped"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

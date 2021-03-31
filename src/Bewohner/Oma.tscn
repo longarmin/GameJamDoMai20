@@ -37,7 +37,6 @@ scale = Vector2( 0.5, 0.5 )
 collision_layer = 32
 collision_mask = 17
 script = ExtResource( 1 )
-speed = Vector2( 50, 1000 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1.39274, 3.91909 )
@@ -88,6 +87,10 @@ position = Vector2( -0.67984, 32.5255 )
 shape = SubResource( 5 )
 
 [node name="timer_changeDirection" type="Timer" parent="."]
+one_shot = true
+
+[node name="timer_climbingStairs" type="Timer" parent="."]
+wait_time = 0.25
 one_shot = true
 [connection signal="body_entered" from="Character_Detector" to="." method="_on_Character_Detector_body_entered"]
 [connection signal="body_exited" from="Character_Detector" to="." method="_on_Character_Detector_body_exited"]
