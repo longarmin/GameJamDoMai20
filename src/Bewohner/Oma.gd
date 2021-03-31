@@ -5,7 +5,7 @@ extends BewohnerNPC
 # Oma bewegt sich durchs Haus, spricht Bewohner an und überwacht deren Tätigkeit.
 # Omas Meinung von den Bewohner ändert sich durch Handlungen der Personen.
 
-# Definiere private Variablen
+# Definiere Variablen
 var playerPositionX := 0.0
 var fBodyInViewRange := false
 
@@ -16,7 +16,7 @@ onready var speechBubble: TextEdit = $SpeechBubble
 func _physics_process(_delta: float) -> void:
 	pass
 
-# Methode dreht den Sprite von Oma um, wenn fBodyInViewRange wahr ist.
+# Dreht den Sprite von Oma um, wenn fBodyInViewRange wahr ist.
 # Zeigt außerdem Textbox an.
 func sprite_flip_direction():
 	if fBodyInViewRange:
@@ -33,6 +33,7 @@ func sprite_flip_direction():
 			sprite.flip_h = false
 
 
+# Beim 
 func _on_Character_Detector_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
 		speed -= 25
