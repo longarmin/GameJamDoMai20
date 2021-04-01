@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
 [ext_resource path="res://src/Levels/Muell.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/TreppenhausTest.tres" type="TileSet" id=9]
 [ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/Bewohner/Mieter.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/Levels/Wohnungstuer.tscn" type="PackedScene" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
@@ -61,6 +62,48 @@ position = Vector2( 248, 64 )
 [node name="Door3" parent="." instance=ExtResource( 6 )]
 position = Vector2( 248, 256 )
 
+[node name="Wohnungstuer" parent="." instance=ExtResource( 12 )]
+position = Vector2( 76.9262, 160.474 )
+
+[node name="Wohnungstuer2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 170.689, 160.474 )
+
+[node name="Wohnungstuer3" parent="." instance=ExtResource( 12 )]
+position = Vector2( 320.073, 161.004 )
+
+[node name="Wohnungstuer4" parent="." instance=ExtResource( 12 )]
+position = Vector2( 398.473, 160.474 )
+
+[node name="Wohnungstuer5" parent="." instance=ExtResource( 12 )]
+position = Vector2( 397.944, 64.5926 )
+
+[node name="Wohnungstuer6" parent="." instance=ExtResource( 12 )]
+position = Vector2( 320.603, 65.1223 )
+
+[node name="Wohnungstuer7" parent="." instance=ExtResource( 12 )]
+position = Vector2( 171.218, 64.5926 )
+
+[node name="Wohnungstuer8" parent="." instance=ExtResource( 12 )]
+position = Vector2( 75.337, 256.355 )
+
+[node name="Wohnungstuer9" parent="." instance=ExtResource( 12 )]
+position = Vector2( 166.451, 256.355 )
+
+[node name="Wohnungstuer10" parent="." instance=ExtResource( 12 )]
+position = Vector2( 319.543, 256.885 )
+
+[node name="Wohnungstuer11" parent="." instance=ExtResource( 12 )]
+position = Vector2( 399.533, 256.355 )
+
+[node name="Muellhalde" parent="." instance=ExtResource( 3 )]
+position = Vector2( 478.145, 84.1862 )
+
+[node name="Muellhalde2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 478.675, 183.246 )
+
+[node name="Muellhalde3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 478.675, 277.538 )
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 68, 77.4798 )
 frames = SubResource( 5 )
@@ -75,20 +118,23 @@ attenuation = 10.0
 position = Vector2( 120.039, 176 )
 
 [node name="Oma" parent="." instance=ExtResource( 8 )]
-position = Vector2( 427.825, 160 )
+position = Vector2( 447.955, 162.649 )
 collision_layer = 1024
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
 
 [node name="Alanin" parent="." instance=ExtResource( 11 )]
 position = Vector2( 84, 69.7925 )
 
 [node name="UI" parent="." instance=ExtResource( 10 )]
-
-[node name="Muellhalde" parent="." instance=ExtResource( 3 )]
-position = Vector2( 174.476, 178.88 )
+[connection signal="muell_created" from="Wohnungstuer" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer2" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer3" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer4" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer5" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer6" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer7" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer8" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer9" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer10" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnungstuer11" to="." method="_on_Wohnungstuer_muell_created"]
 [connection signal="trash_collected" from="Player" to="UI" method="_on_Player_trash_collected"]
 [connection signal="trash_dropped" from="Player" to="UI" method="_on_Player_trash_dropped"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

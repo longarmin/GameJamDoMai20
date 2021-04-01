@@ -72,12 +72,12 @@ func change_floor() -> void:
 	if on_stairs || !on_door:
 		return
 	var random = randf()
-	if random < 0.4 && self.position.y < 250:
+	if random < 0.3 && self.position.y < 250:
 		emit_signal("stairs_climbing")
 		timer_climbingStairs.start()
 		self.position.y += 96
 		self.hide()
-	elif random > 0.6 && self.position.y > 150:
+	elif random > 0.7 && self.position.y > 150:
 		emit_signal("stairs_climbing")
 		timer_climbingStairs.start()
 		self.position.y -= 96
@@ -100,4 +100,9 @@ func _on_timer_climbingStairs_timeout():
 	emit_signal("stairs_climbed")
 	self.show()
 		
-# Fehlt: Etagenwechsel
+func change_speed(decreasingAmount := NORMAL_SPEED / 2) -> float:
+	if speed < decreasingAmount:
+		return speed
+	else:
+		return decreasingAmount
+
