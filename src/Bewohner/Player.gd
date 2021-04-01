@@ -74,7 +74,7 @@ func collect_trash():
 		speed -= NORMAL_SPEED / 10
 		collectTrashLabel.hide()
 		dropTrashLabel.show()
-		emit_signal("trash_collected", carried_trash.size())
+		emit_signal("trash_collected", carried_trash.size(), self.position)
 
 
 func drop_trash():
@@ -87,7 +87,7 @@ func drop_trash():
 			trash.position = self.position
 			trash.show()
 			speed += NORMAL_SPEED / 10
-			emit_signal("trash_dropped", carried_trash.size())
+			emit_signal("trash_dropped", carried_trash.size(), self.position)
 
 
 func playing_animation():
