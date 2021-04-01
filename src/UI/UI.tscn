@@ -3,7 +3,6 @@
 [ext_resource path="res://src/UI/UI.gd" type="Script" id=1]
 [ext_resource path="res://assets/DotGothic16-Regular.ttf" type="DynamicFontData" id=2]
 
-
 [sub_resource type="DynamicFont" id=1]
 size = 8
 font_data = ExtResource( 2 )
@@ -12,6 +11,8 @@ font_data = ExtResource( 2 )
 script = ExtResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 42.0
+margin_bottom = 23.0
 custom_constants/margin_right = 5
 custom_constants/margin_top = 5
 custom_constants/margin_left = 5
@@ -23,10 +24,34 @@ __meta__ = {
 [node name="Label" type="Label" parent="MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 33.0
+margin_right = 37.0
 margin_bottom = 18.0
 custom_fonts/font = SubResource( 1 )
 text = "Müll: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+margin_left = 0.187288
+margin_top = 11.4246
+margin_right = 42.1873
+margin_bottom = 34.4246
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MarginContainer2"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 37.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 1 )
+text = "Karma: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -31,3 +31,7 @@ func _on_Timer_timeout() -> void:
 	if error_code != 0:
 		print("Error: ", error_code)
 	add_child(trash)
+
+
+func _on_Player_trash_dropped(extra_arg_0: Vector2) -> void:
+	pass # Replace with function body.
