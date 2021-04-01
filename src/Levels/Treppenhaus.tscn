@@ -63,6 +63,7 @@ position = Vector2( 248, 256 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 68, 77.4798 )
 frames = SubResource( 5 )
+frame = 3
 playing = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AnimatedSprite"]
@@ -74,7 +75,7 @@ attenuation = 10.0
 position = Vector2( 146.497, 85.5972 )
 
 [node name="Oma" parent="." instance=ExtResource( 8 )]
-position = Vector2( 427.825, 160 )
+position = Vector2( 200, 154.173 )
 collision_layer = 1024
 
 [node name="Timer" type="Timer" parent="."]
@@ -89,5 +90,4 @@ position = Vector2( 84, 69.7925 )
 [connection signal="trash_collected" from="Player" to="Oma" method="_on_Player_trash_collected"]
 [connection signal="trash_dropped" from="Player" to="UI" method="_on_Player_trash_dropped"]
 [connection signal="trash_dropped" from="Player" to="Oma" method="_on_Player_trash_dropped"]
-[connection signal="karmachange" from="Oma" to="UI" method="_on_Oma_karmachange"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

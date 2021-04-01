@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Bewohner/Oma.gd" type="Script" id=1]
 [ext_resource path="res://assets/oma.png" type="Texture" id=2]
@@ -25,12 +25,30 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "Oma_Stehend"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
 [sub_resource type="SegmentShape2D" id=4]
-a = Vector2( -0.262699, -102.295 )
-b = Vector2( -0.929425, 89.254 )
+a = Vector2( 0, -1200 )
+b = Vector2( 0, 1200 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 5.92984, 5.0255 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 34.6163, 13.5752 )
 
 [node name="Oma" type="KinematicBody2D"]
 scale = Vector2( 0.5, 0.5 )
@@ -49,12 +67,12 @@ position = Vector2( 0.209564, 3.749 )
 texture = ExtResource( 2 )
 normal_map = SubResource( 2 )
 hframes = 2
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 autoplay = "Oma_Laufend"
 playback_speed = 1.87
 anims/Oma_Laufend = SubResource( 3 )
+anims/Oma_Stehend = SubResource( 7 )
 
 [node name="Character_Detector" type="Area2D" parent="."]
 position = Vector2( 0.765228, 1.21585 )
@@ -64,7 +82,6 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector"]
-position = Vector2( 9.53674e-06, 2.43372 )
 shape = SubResource( 4 )
 
 [node name="SpeechBubble" type="TextEdit" parent="."]
@@ -92,6 +109,17 @@ one_shot = true
 [node name="timer_climbingStairs" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="Player_Detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Detector"]
+shape = SubResource( 6 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 [connection signal="body_entered" from="Character_Detector" to="." method="_on_Character_Detector_body_entered"]
 [connection signal="body_exited" from="Character_Detector" to="." method="_on_Character_Detector_body_exited"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
+[connection signal="body_entered" from="Player_Detector" to="." method="_on_Player_Detector_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
