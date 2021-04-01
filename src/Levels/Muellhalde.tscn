@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/Levels/Muellhalde.gd" type="Script" id=1]
+[ext_resource path="res://assets/muellhalde.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 17.5407, 4.82677 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "high"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "low"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "mid"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[node name="Muellhalde" type="Area2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 1 )
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2( -0.314987, -4.9423 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.152519, -16.185 )
+texture = ExtResource( 2 )
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+autoplay = "low"
+anims/high = SubResource( 2 )
+anims/low = SubResource( 3 )
+anims/mid = SubResource( 4 )
+
+[node name="fuellLabel" type="Label" parent="."]
+margin_left = -19.8438
+margin_top = -35.1203
+margin_right = 20.1563
+margin_bottom = -21.1203
+__meta__ = {
+"_edit_use_anchors_": false
+}

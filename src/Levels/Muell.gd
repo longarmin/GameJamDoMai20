@@ -1,5 +1,5 @@
-class_name Muell
 extends Area2D
+class_name Muell
 
 # Declare member variables here. Examples:
 # var a: int = 2

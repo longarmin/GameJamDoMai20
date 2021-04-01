@@ -4,7 +4,7 @@ extends KinematicBody2D
 class_name Bewohner
 
 const FLOOR_NORMAL := Vector2.UP
-const NORMAL_SPEED := 50
+const NORMAL_SPEED := 50.0
 const GRAVITY := 3000
 
 export var speed := NORMAL_SPEED
@@ -53,7 +53,7 @@ func calculate_direction(current_direction: Vector2) -> Vector2:
 	return new_direction
 	
 
-func calculate_move_velocity(linear_velocity: Vector2, current_direction: Vector2, current_speed: int) -> Vector2:
+func calculate_move_velocity(linear_velocity: Vector2, current_direction: Vector2, current_speed: float) -> Vector2:
 	var out := linear_velocity
 	out.x = current_speed * current_direction.x
 	if ! is_on_floor():

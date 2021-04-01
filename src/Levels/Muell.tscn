@@ -2,7 +2,6 @@
 
 [ext_resource path="res://src/Levels/Muell.gd" type="Script" id=2]
 
-
 [sub_resource type="StreamTexture" id=1]
 load_path = "res://.import/trash.png-c635925975b700b2dcac9c274d768d2b.stex"
 
