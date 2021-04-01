@@ -14,7 +14,7 @@ onready var speechBubble: TextEdit = $SpeechBubble
 
 
 func _physics_process(_delta: float) -> void:
-	pass
+	sprite_flip_direction()
 
 # Dreht den Sprite von Oma um, wenn fBodyInViewRange wahr ist.
 # Zeigt außerdem Textbox an.
