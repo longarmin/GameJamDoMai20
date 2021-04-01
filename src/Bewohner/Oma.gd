@@ -1,5 +1,6 @@
 class_name Oma
 extends BewohnerNPC
+signal karmachange(iKarma)
 
 # Script fuer Oma-NPC
 # Oma bewegt sich durchs Haus, spricht Bewohner an und überwacht deren Tätigkeit.
@@ -57,6 +58,7 @@ func _on_Player_trash_dropped(trashsize: int, pos_player:Vector2) -> void:
 		dKarma["Player"] -= 1
 		print("Position of event: " + str(pos_player))
 		print("Karma of Player: " + str(dKarma["Player"]))
+		emit_signal("karmachange", dKarma["Player"])
 	else:
 		print("Player war clever und hat den Muell ausserhalb Omas Sichtweite hingeschmissen")
 
@@ -67,6 +69,7 @@ func _on_Player_trash_collected(trashsize: int, pos_player:Vector2) -> void:
 		dKarma["Player"] += 1
 		print("Position of event:" + str(pos_player))
 		print("Karma of Player: " + str(dKarma["Player"]))
+		emit_signal("karmachange", dKarma["Player"])
 	else:
 		print("Player war nicht so klug und hat Muell ausserhalb Omas Sichtweite aufgehoben")
 
