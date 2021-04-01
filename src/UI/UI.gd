@@ -6,6 +6,7 @@ extends CanvasLayer
 # var b: String = "text"
 
 onready var label: Label = $MarginContainer/Label
+onready var karmalabel: Label = $MarginContainer2/Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,3 +25,6 @@ func _on_Player_trash_collected(trash_amount:int, pos_player:Vector2) -> void:
 func _on_Player_trash_dropped(trash_amount:int, pos_player:Vector2) -> void:
 	label.text = "Müll: " + str(trash_amount)
 
+
+func _on_Oma_karmachange(iKarma) -> void:
+	karmalabel.text = "Karma: " + str(iKarma)
