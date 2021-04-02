@@ -122,4 +122,5 @@ one_shot = true
 [connection signal="body_exited" from="Character_Detector" to="." method="_on_Character_Detector_body_exited"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="body_entered" from="Player_Detector" to="." method="_on_Player_Detector_body_entered"]
+[connection signal="body_exited" from="Player_Detector" to="." method="_on_Player_Detector_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

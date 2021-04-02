@@ -105,7 +105,7 @@ position = Vector2( 478.675, 277.538 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 68, 77.4798 )
 frames = SubResource( 5 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AnimatedSprite"]

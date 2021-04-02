@@ -3,8 +3,8 @@ extends BewohnerNPC
 signal karmachange(iKarma)
 
 # Script fuer Oma-NPC
-# Oma bewegt sich durchs Haus, spricht Bewohner an und �berwacht deren T�tigkeit.
-# Omas Meinung von den Bewohner �ndert sich durch Handlungen der Personen.
+# Oma bewegt sich durchs Haus, spricht Bewohner an und ueberwacht deren Taetigkeit.
+# Omas Meinung von den Bewohner aendert sich durch Handlungen der Personen.
 
 # Definiere Variablen
 var playerPositionX := 0.0
@@ -36,7 +36,7 @@ func calculate_direction(current_direction: Vector2) -> Vector2:
 
 
 # Dreht den Sprite von Oma um, wenn fBodyInViewRange wahr ist.
-# Zeigt au�erdem Textbox an.
+# Zeigt ausserdem Textbox an.
 """ func sprite_flip_direction():
 	if fBodyInViewRange:
 		speechBubble.visible = true
@@ -54,14 +54,12 @@ func calculate_direction(current_direction: Vector2) -> Vector2:
 
 func _on_Character_Detector_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
-		#speed = 0
 		playerPositionX = body.position.x
 		fBodyInViewRange = true
 
 
 func _on_Character_Detector_body_exited(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
-		#speed = NORMAL_SPEED
 		fBodyInViewRange = false
 
 
@@ -73,13 +71,12 @@ func calc_speed(pos_player: Vector2):
 	else:
 		direction.x = -1
 
-	# sprite_flip_direction()
-
 
 # Wenn Spieler Trash auf derselben Etage droppt, auf der die Oma ist,
 # dann sprintet Oma zu ihm. Dabei wird die Kollision mit dem Treppenhaus
 # ausgestellt. Erst wenn die Oma in Reichweite des Spielers kommt,
-# wird wieder umgestellt. Siehe _on_Player_Detector_body_entered
+# wird wieder umgestellt, damit sie nicht in eine andere Etage rennt.
+# Siehe _on_Player_Detector_body_entered
 func _on_Player_trash_dropped(_trashsize: int, pos_player: Vector2) -> void:
 	if fBodyInViewRange:
 		print("Oh mein Gott, Herr Meier hat Muell gedropt")
@@ -106,15 +103,25 @@ func _on_Player_trash_collected(_trashsize: int, pos_player: Vector2) -> void:
 
 
 func _on_Player_Detector_body_entered(body: Node) -> void:
-	if bRunningToPlayer:
-		if body.name == 'Player':
+	if body.name == 'Player':
+		if bRunningToPlayer:
 			speed = 0
 			animationPlayer.play("Oma_Stehend")
 			bRunningToPlayer = false
 			hitbox.set_collision_mask_bit(4, true)
 			timer.start(2)
+		else:
+			speechBubble.visible = true
+			speed -= self.change_speed()
 
+func _on_Player_Detector_body_exited(body):
+	if body.name == 'Player':
+		speechBubble.visible = false
+		speed += self.change_speed()
 
 func _on_Timer_timeout() -> void:
 	speed = NORMAL_SPEED
 	animationPlayer.play("Oma_Laufend")
+	speechBubble.visible = false
+
+

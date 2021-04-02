@@ -16,5 +16,5 @@ func _process(_delta):
 
 func _on_Timer_timeout():
 	if randf() > 0.5:
-		muellInFlat_amount += randf()
+		muellInFlat_amount += 0.25
 	
