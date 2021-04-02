@@ -90,10 +90,11 @@ func drop_trash():
 			var trash: Muell = carried_trash.pop_back()
 			if on_muellhalde:
 				if !muellhalde.store_muell(trash):
+					carried_trash.append(trash)
 					return
 			else: 
 				trash.position = self.position
-				trash.position.y -= 5
+				trash.position.y -= 6
 				trash.show()
 			if carried_trash.size() == 0:
 				carrying_trash = false

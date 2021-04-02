@@ -1,5 +1,4 @@
 extends Node2D
-export (PackedScene) var Muell
 
 # Declare member variables here. Examples:
 # var a: int = 2
