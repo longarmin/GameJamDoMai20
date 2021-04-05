@@ -28,3 +28,8 @@ func _on_Player_trash_dropped(trash_amount:int, pos_player:Vector2) -> void:
 
 func _on_Oma_karmachange(iKarma) -> void:
 	karmalabel.text = "Karma: " + str(iKarma)
+
+
+func _on_Oma_dialogue(sCharacter, sText) -> void:
+	$SpeechBubble.set_text("[color=red]" + sCharacter + ": [/color]" + sText)
+	

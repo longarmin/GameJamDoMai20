@@ -1,6 +1,7 @@
 class_name Oma
 extends BewohnerNPC
 signal karmachange(iKarma)
+signal dialogue(sCharacter, sText)
 
 # Script fuer Oma-NPC
 # Oma bewegt sich durchs Haus, spricht Bewohner an und überwacht deren Tätigkeit.
@@ -8,7 +9,7 @@ signal karmachange(iKarma)
 
 # Definiere Variablen
 var playerPositionX := 0.0
-var fBodyInViewRange := false
+var bBodyInViewRange := false
 var bRunningToPlayer := false
 var dKarma := {
 	"Player":0,
@@ -17,11 +18,11 @@ var dKarma := {
 }
 
 # Definiere onready Variablen fuer Typunterstuetzungs
-onready var speechBubble: TextEdit = $SpeechBubble
+#onready var speechBubble: Node2D = $SpeechBubble
 
-
+func _ready() -> void:
+	pass
 func _physics_process(_delta: float) -> void:
-	#sprite_flip_direction()
 	pass
 
 
@@ -30,36 +31,25 @@ func calculate_direction(current_direction: Vector2) -> Vector2:
 		return current_direction
 	else:
 		return .calculate_direction(current_direction)
-		
 
-# Dreht den Sprite von Oma um, wenn fBodyInViewRange wahr ist.
-# Zeigt außerdem Textbox an.
-""" func sprite_flip_direction():
-	if fBodyInViewRange:
-		speechBubble.visible = true
-		if (playerPositionX - self.position.x) < 0:
-			sprite.flip_h = true
-		else:
-			sprite.flip_h = false
+func change_floor() -> void:
+	if bRunningToPlayer:
+		return
 	else:
-		speechBubble.visible = false
-		if direction.x < 0:
-			sprite.flip_h = true
-		else:
-			sprite.flip_h = false """
+		.change_floor()
 
 
 func _on_Character_Detector_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
 		#speed = 0
 		playerPositionX = body.position.x
-		fBodyInViewRange = true
+		bBodyInViewRange = true
 
 
 func _on_Character_Detector_body_exited(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
 		#speed = NORMAL_SPEED
-		fBodyInViewRange = false
+		bBodyInViewRange = false
 
 
 func calc_speed(pos_player: Vector2):
@@ -75,7 +65,7 @@ func calc_speed(pos_player: Vector2):
 
 
 func _on_Player_trash_dropped(trashsize: int, pos_player:Vector2) -> void:
-	if fBodyInViewRange:
+	if bBodyInViewRange:
 
 		print("Oh mein Gott, Herr Meier hat Muell gedropt")
 		dKarma["Player"] -= 1
@@ -89,7 +79,7 @@ func _on_Player_trash_dropped(trashsize: int, pos_player:Vector2) -> void:
 
 
 func _on_Player_trash_collected(trashsize: int, pos_player:Vector2) -> void:
-	if fBodyInViewRange:
+	if bBodyInViewRange:
 		print("Wie schoen, Herr Meier kuemmert sich um unser Treppenhaus")
 		dKarma["Player"] += 1
 		print("Position of event:" + str(pos_player))
@@ -106,7 +96,9 @@ func _on_Player_Detector_body_entered(body: Node) -> void:
 			speed = 0
 			$Sprite/AnimationPlayer.play("Oma_Stehend")
 			bRunningToPlayer = false
-			$Timer.start(2)
+			emit_signal("dialogue", "Oma", "Herr Meier, so nicht! Sie können nicht einfach Ihren Müll\n im Treppenhaus deponieren, das merke ich mir.")
+			$Timer.start(5)
 
 func _on_Timer_timeout() -> void:
 	speed = NORMAL_SPEED
+	$Sprite/AnimationPlayer.play("Oma_Laufend")

@@ -25,7 +25,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 resource_name = "Oma_Stehend"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -40,14 +40,14 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="SegmentShape2D" id=4]
+[sub_resource type="SegmentShape2D" id=5]
 a = Vector2( 0, -1200 )
 b = Vector2( 0, 1200 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 5.92984, 5.0255 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 34.6163, 13.5752 )
 
 [node name="Oma" type="KinematicBody2D"]
@@ -72,7 +72,7 @@ hframes = 2
 autoplay = "Oma_Laufend"
 playback_speed = 1.87
 anims/Oma_Laufend = SubResource( 3 )
-anims/Oma_Stehend = SubResource( 7 )
+anims/Oma_Stehend = SubResource( 4 )
 
 [node name="Character_Detector" type="Area2D" parent="."]
 position = Vector2( 0.765228, 1.21585 )
@@ -82,18 +82,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector"]
-shape = SubResource( 4 )
-
-[node name="SpeechBubble" type="TextEdit" parent="."]
-visible = false
-margin_left = -55.5895
-margin_top = -74.6491
-margin_right = 68.4105
-margin_bottom = -51.6491
-text = "Hallo Herr Meier!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+shape = SubResource( 5 )
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0
@@ -101,7 +90,7 @@ collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( -0.67984, 32.5255 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="timer_changeDirection" type="Timer" parent="."]
 one_shot = true
@@ -113,7 +102,7 @@ one_shot = true
 [node name="Player_Detector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Detector"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
