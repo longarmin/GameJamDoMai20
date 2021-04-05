@@ -139,4 +139,5 @@ position = Vector2( 84, 69.7925 )
 [connection signal="trash_collected" from="Player" to="UI" method="_on_Player_trash_collected"]
 [connection signal="trash_dropped" from="Player" to="Oma" method="_on_Player_trash_dropped"]
 [connection signal="trash_dropped" from="Player" to="UI" method="_on_Player_trash_dropped"]
+[connection signal="dialogue" from="Oma" to="UI" method="_on_Oma_dialogue"]
 [connection signal="karmachange" from="Oma" to="UI" method="_on_Oma_karmachange"]
