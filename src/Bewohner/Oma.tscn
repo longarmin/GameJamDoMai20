@@ -42,7 +42,7 @@ tracks/0/keys = {
 
 [sub_resource type="SegmentShape2D" id=5]
 a = Vector2( 0, -1200 )
-b = Vector2( 0, 1200 )
+b = Vector2( 0.537427, 959.06 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 5.92984, 5.0255 )
@@ -75,6 +75,7 @@ anims/Oma_Laufend = SubResource( 3 )
 anims/Oma_Stehend = SubResource( 4 )
 
 [node name="Character_Detector" type="Area2D" parent="."]
+visible = false
 position = Vector2( 0.765228, 1.21585 )
 rotation = 1.5708
 input_pickable = false
@@ -82,6 +83,17 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector"]
+shape = SubResource( 5 )
+
+[node name="Character_Detector_NearField" type="Area2D" parent="."]
+position = Vector2( 0.765228, 1.21585 )
+rotation = 1.5708
+input_pickable = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="View_Radius" type="CollisionShape2D" parent="Character_Detector_NearField"]
+scale = Vector2( 1, 0.1 )
 shape = SubResource( 5 )
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -109,6 +121,8 @@ wait_time = 2.0
 one_shot = true
 [connection signal="body_entered" from="Character_Detector" to="." method="_on_Character_Detector_body_entered"]
 [connection signal="body_exited" from="Character_Detector" to="." method="_on_Character_Detector_body_exited"]
+[connection signal="body_entered" from="Character_Detector_NearField" to="." method="_on_Character_Detector_NearField_body_entered"]
+[connection signal="body_exited" from="Character_Detector_NearField" to="." method="_on_Character_Detector_NearField_body_exited"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="body_entered" from="Player_Detector" to="." method="_on_Player_Detector_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

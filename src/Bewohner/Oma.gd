@@ -9,8 +9,9 @@ signal dialogue(sCharacter, sText)
 
 # Definiere Variablen
 var playerPositionX := 0.0
-var bBodyInViewRange := false
+var bBodyInHearingRange := false
 var bRunningToPlayer := false
+var bBodyInViewRange := false
 var dKarma := {
 	"Player":0,
 	"Karl":0,
@@ -43,14 +44,22 @@ func _on_Character_Detector_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
 		#speed = 0
 		playerPositionX = body.position.x
-		bBodyInViewRange = true
+		bBodyInHearingRange = true
 
 
 func _on_Character_Detector_body_exited(body: PhysicsBody2D) -> void:
 	if body.name == 'Player':
 		#speed = NORMAL_SPEED
-		bBodyInViewRange = false
+		bBodyInHearingRange = false
 
+func _on_Character_Detector_NearField_body_entered(body: Node) -> void:
+	if body.name == 'Player':
+		bBodyInViewRange = true
+
+
+func _on_Character_Detector_NearField_body_exited(body: Node) -> void:
+	if body.name == 'Player':
+		bBodyInViewRange = false
 
 func calc_speed(pos_player: Vector2):
 	var rel_pos = (self.position.x - pos_player.x)
@@ -65,25 +74,25 @@ func calc_speed(pos_player: Vector2):
 
 
 func _on_Player_trash_dropped(trashsize: int, pos_player:Vector2) -> void:
-	if bBodyInViewRange:
+	if bBodyInHearingRange:
 
-		print("Oh mein Gott, Herr Meier hat Muell gedropt")
+		#print("Oh mein Gott, Herr Meier hat Muell gedropt")
 		dKarma["Player"] -= 1
-		print("Position of event: " + str(pos_player))
-		print("Karma of Player: " + str(dKarma["Player"]))
+		#print("Position of event: " + str(pos_player))
+		#print("Karma of Player: " + str(dKarma["Player"]))
 		emit_signal("karmachange", dKarma["Player"])
 		calc_speed(pos_player)
 		bRunningToPlayer = true
 	else:
-		print("Player war clever und hat den Muell ausserhalb Omas Sichtweite hingeschmissen")
+		print("Player war clever und hat den Muell ausserhalb Omas Hörbereich hingeschmissen")
 
 
 func _on_Player_trash_collected(trashsize: int, pos_player:Vector2) -> void:
 	if bBodyInViewRange:
-		print("Wie schoen, Herr Meier kuemmert sich um unser Treppenhaus")
+		#print("Wie schoen, Herr Meier kuemmert sich um unser Treppenhaus")
 		dKarma["Player"] += 1
-		print("Position of event:" + str(pos_player))
-		print("Karma of Player: " + str(dKarma["Player"]))
+		#print("Position of event:" + str(pos_player))
+		#print("Karma of Player: " + str(dKarma["Player"]))
 		emit_signal("karmachange", dKarma["Player"])
 	else:
 		print("Player war nicht so klug und hat Muell ausserhalb Omas Sichtweite aufgehoben")
@@ -102,3 +111,4 @@ func _on_Player_Detector_body_entered(body: Node) -> void:
 func _on_Timer_timeout() -> void:
 	speed = NORMAL_SPEED
 	$Sprite/AnimationPlayer.play("Oma_Laufend")
+
