@@ -73,12 +73,13 @@ func collect_trash():
 	elif near_trash.size() > 0:
 		trash = near_trash[0]
 		trash.hide()
+		trash.position.y = 0
 		near_trash.erase(trash)
 		collectTrashLabel.hide()
 	if trash:
 		carrying_trash = true
 		carried_trash.push_back(trash)
-		speed -= NORMAL_SPEED / 10
+		speed -= self.change_speed(NORMAL_SPEED / 4)
 		dropTrashLabel.show()
 		emit_signal("trash_collected", carried_trash.size(), self.position)
 
@@ -89,14 +90,16 @@ func drop_trash():
 			var trash: Muell = carried_trash.pop_back()
 			if on_muellhalde:
 				if !muellhalde.store_muell(trash):
+					carried_trash.append(trash)
 					return
 			else: 
 				trash.position = self.position
+				trash.position.y -= 6
 				trash.show()
 			if carried_trash.size() == 0:
 				carrying_trash = false
 				dropTrashLabel.hide()
-			speed += NORMAL_SPEED / 10
+			speed += self.change_speed(NORMAL_SPEED / 4)
 			emit_signal("trash_dropped", carried_trash.size(), self.position)
 
 
@@ -118,17 +121,6 @@ func playing_animation():
 			animationPlayer.play("default")
 
 
-func _on_Muell_player_entered(trash: Muell) -> void:
-	near_trash.push_back(trash)
-	if carrying_trash == false:
-		collectTrashLabel.show()
-
-
-func _on_Muell_player_exited(trash: Muell) -> void:
-	near_trash.erase(trash)
-	collectTrashLabel.hide()
-
-
 func _on_Alanin_body_entered(body):
 	if body.name == "Alanin":
 		alaninLabel.show()
@@ -143,9 +135,18 @@ func _on_HitBox_area_entered(area: Area2D):
 	if area.has_method("store_muell"):
 		on_muellhalde = true
 		muellhalde = area
+	elif area is Muell:
+		speed -= self.change_speed(NORMAL_SPEED / 4)
+		near_trash.push_back(area)
+		if carrying_trash == false:
+			collectTrashLabel.show()
 
 func _on_HitBox_area_exited(area: Area2D):
 	._on_HitBox_area_exited(area)
 	if area.has_method("store_muell"):
 		on_muellhalde = false
 		muellhalde = null
+	elif area is Muell:
+		speed += self.change_speed(NORMAL_SPEED / 4)
+		near_trash.erase(area)
+		collectTrashLabel.hide()

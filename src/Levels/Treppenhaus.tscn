@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
-[ext_resource path="res://src/Levels/Muell.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/TreppenhausTest.tres" type="TileSet" id=3]
 [ext_resource path="res://src/Levels/Stairwell.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/speaker-Sheet.png" type="Texture" id=5]
@@ -41,7 +40,6 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 300.125, 85.4798 ],
 "_edit_vertical_guides_": [ 4796.0, 512.277, 1841.79 ]
 }
-Muell = ExtResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
@@ -72,6 +70,7 @@ attenuation = 10.0
 
 [node name="Player" parent="." instance=ExtResource( 7 )]
 position = Vector2( 146.497, 85.5972 )
+speed = null
 
 [node name="Oma" parent="." instance=ExtResource( 8 )]
 position = Vector2( 200, 154.173 )

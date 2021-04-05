@@ -18,11 +18,11 @@ func _ready() -> void:
 #	pass
 
 
-func _on_Player_trash_collected(trash_amount:int, pos_player:Vector2) -> void:
+func _on_Player_trash_collected(trash_amount:int, _pos_player:Vector2) -> void:
 	label.text = "Müll: " + str(trash_amount)
 
 
-func _on_Player_trash_dropped(trash_amount:int, pos_player:Vector2) -> void:
+func _on_Player_trash_dropped(trash_amount:int, _pos_player:Vector2) -> void:
 	label.text = "Müll: " + str(trash_amount)
 
 

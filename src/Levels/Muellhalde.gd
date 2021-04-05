@@ -7,7 +7,6 @@ class_name Muellhalde
 var muellBeutel := []
 export var maximumMuellAmount := 5
 
-onready var fuellLabel: Label = $fuellLabel
 onready var animatonPlayer: AnimationPlayer = $Sprite/AnimationPlayer
 
 
@@ -37,9 +36,10 @@ func get_muellFuellstand() -> int:
 
 func update_fuellstand() -> void:
 	var fuellstand = get_muellFuellstand()
-	fuellLabel.text = String(fuellstand)
 	match fuellstand:
-		0, 1:
+		0:
+			animatonPlayer.play("none")
+		1:
 			animatonPlayer.play("low")
 		2, 3:
 			animatonPlayer.play("mid")

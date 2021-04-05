@@ -1,20 +1,62 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Levels/Wohnungstuer.gd" type="Script" id=1]
+[ext_resource path="res://assets/doorMuell.png" type="Texture" id=2]
+[ext_resource path="res://src/Levels/Muell.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 9.1691, 72.8228 )
+extents = Vector2( 15.7703, 21.2813 )
 
-[node name="Wohnungstuer" type="Node2D" groups=[
-"doors",
-]]
+[sub_resource type="Animation" id=2]
+resource_name = "low"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "none"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[node name="Wohnungstuer" type="Area2D"]
+collision_layer = 8
+collision_mask = 0
 script = ExtResource( 1 )
+maximumMuellAmount = 1
+Muell = ExtResource( 3 )
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2( 0, -0.463295 )
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, 0.463295 )
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2( -0.117996, 21.2372 )
 shape = SubResource( 1 )
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+autoplay = "none"
+anims/low = SubResource( 2 )
+anims/none = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
