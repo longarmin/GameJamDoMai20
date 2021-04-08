@@ -39,7 +39,9 @@ func _physics_process(_delta: float) -> void:
 	
 	
 func flip_sprite():
-	if direction.x < 0:
+	if direction.x == 0:
+		return
+	elif direction.x < 0:
 		sprite.flip_h = true
 	else:
 		sprite.flip_h = false

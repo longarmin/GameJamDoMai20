@@ -104,11 +104,11 @@ func _on_Player_Detector_body_entered(body: Node) -> void:
 		if body.name == 'Player':
 			speed = 0
 			$Sprite/AnimationPlayer.play("Oma_Stehend")
-			bRunningToPlayer = false
 			emit_signal("dialogue", "Oma", "Herr Meier, so nicht! Sie können nicht einfach Ihren Müll\n im Treppenhaus deponieren, das merke ich mir.")
 			$Timer.start(5)
 
 func _on_Timer_timeout() -> void:
 	speed = NORMAL_SPEED
+	bRunningToPlayer = false
 	$Sprite/AnimationPlayer.play("Oma_Laufend")
 

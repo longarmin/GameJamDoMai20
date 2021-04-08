@@ -4,13 +4,13 @@
 [ext_resource path="res://assets/oma.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 13.6283, 20.1036 )
+extents = Vector2( 11.566, 15.4658 )
 
 [sub_resource type="AnimatedTexture" id=2]
 
 [sub_resource type="Animation" id=3]
 resource_name = "Oma_Laufend"
-length = 0.7
+length = 0.6
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -19,14 +19,16 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1 ]
+"values": [ 6, 7, 8, 9, 10, 11 ]
 }
 
 [sub_resource type="Animation" id=4]
 resource_name = "Oma_Stehend"
+length = 0.5
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -34,10 +36,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 0, 1, 2 ]
 }
 
 [sub_resource type="SegmentShape2D" id=5]
@@ -51,31 +53,30 @@ extents = Vector2( 5.92984, 5.0255 )
 extents = Vector2( 34.6163, 13.5752 )
 
 [node name="Oma" type="KinematicBody2D"]
-scale = Vector2( 0.5, 0.5 )
 collision_layer = 32
 collision_mask = 17
 script = ExtResource( 1 )
+speed = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1.39274, 3.91909 )
-scale = Vector2( 1.95, 1.69 )
+position = Vector2( -0.056406, -16.5716 )
 shape = SubResource( 1 )
 one_way_collision_margin = 0.0
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0.209564, 3.749 )
+position = Vector2( 0, -16 )
 texture = ExtResource( 2 )
 normal_map = SubResource( 2 )
-hframes = 2
+vframes = 2
+hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 autoplay = "Oma_Laufend"
-playback_speed = 1.87
+playback_speed = 0.7
 anims/Oma_Laufend = SubResource( 3 )
 anims/Oma_Stehend = SubResource( 4 )
 
 [node name="Character_Detector" type="Area2D" parent="."]
-visible = false
 position = Vector2( 0.765228, 1.21585 )
 rotation = 1.5708
 input_pickable = false
@@ -83,6 +84,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector"]
+position = Vector2( -16, 0 )
 shape = SubResource( 5 )
 
 [node name="Character_Detector_NearField" type="Area2D" parent="."]
@@ -93,6 +95,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector_NearField"]
+position = Vector2( -16.6459, 0.000152588 )
 scale = Vector2( 1, 0.1 )
 shape = SubResource( 5 )
 
@@ -101,7 +104,7 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2( -0.67984, 32.5255 )
+position = Vector2( 0, -4 )
 shape = SubResource( 6 )
 
 [node name="timer_changeDirection" type="Timer" parent="."]
@@ -114,6 +117,7 @@ one_shot = true
 [node name="Player_Detector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Detector"]
+position = Vector2( -1.32433, -14.0379 )
 shape = SubResource( 7 )
 
 [node name="Timer" type="Timer" parent="."]
