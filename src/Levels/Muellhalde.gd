@@ -45,13 +45,12 @@ func update_fuellstand() -> void:
 			animatonPlayer.play("mid")
 		4, 5:
 			animatonPlayer.play("high")
+		_:
+			animatonPlayer.play("none")
+
 
 func is_full() -> bool:
 	if muellBeutel.size() < maximumMuellAmount:
 		return false
 	else:
 		return true
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

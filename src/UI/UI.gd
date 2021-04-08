@@ -1,16 +1,18 @@
 extends CanvasLayer
 
-
 # Declare member variables here. Examples:
 # var a: int = 2
 # var b: String = "text"
 
-onready var label: Label = $MarginContainer/Label
-onready var karmalabel: Label = $MarginContainer2/Label
+onready var trashBox: TrashBoxContainer = $GridContainer/TrashBoxContainer
+onready var karmaBox: KarmaBoxContainer = $GridContainer/KarmaBoxContainer
+onready var buttonBox: ButtonBoxContainer = $GridContainer/ButtonBoxContainer
+onready var speechBubble: SpeechBubble = $SpeechBubble
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass  # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,18 +20,43 @@ func _ready() -> void:
 #	pass
 
 
-func _on_Player_trash_collected(trash_amount:int, _pos_player:Vector2) -> void:
-	label.text = "Müll: " + str(trash_amount)
+func _on_Player_trash_collected(trash_amount: int, _pos_player: Vector2) -> void:
+	trashBox.update_trash(trash_amount)
+	buttonBox.update_trash_dropable(true)
 
 
-func _on_Player_trash_dropped(trash_amount:int, _pos_player:Vector2) -> void:
-	label.text = "Müll: " + str(trash_amount)
+func _on_Player_trash_dropped(trash_amount: int, _pos_player: Vector2) -> void:
+	trashBox.update_trash(trash_amount)
+	if trash_amount == 0:
+		buttonBox.update_trash_dropable(false)
 
 
 func _on_Oma_karmachange(iKarma) -> void:
-	karmalabel.text = "Karma: " + str(iKarma)
+	karmaBox.update_karma(iKarma)
 
 
 func _on_Oma_dialogue(sCharacter, sText) -> void:
-	$SpeechBubble.set_text("[color=red]" + sCharacter + ": [/color]" + sText)
-	
+	speechBubble.set_text("[color=red]" + sCharacter + ": [/color]" + sText)
+
+
+func _on_Player_trash_left(player: Player):
+	if player.carried_trash.size() > 0:
+		return
+	else:
+		buttonBox.update_trash_dropable(false)
+
+
+func _on_Player_trash_pickable():
+	buttonBox.update_trash_pickable(true)
+
+
+func _on_Player_trash_notPickable():
+	buttonBox.update_trash_pickable(false)
+
+
+func _on_Player_trash_dropable():
+	buttonBox.update_trash_dropable(true)
+
+
+func _on_Player_trash_notDropable():
+	buttonBox.update_trash_dropable(false)

@@ -10,14 +10,16 @@ var near_trash: Array
 var carried_trash: Array
 var on_muellhalde := false
 var muellhalde: Muellhalde
+export var max_trashAmount: int = 5
 
-onready var collectTrashLabel: Label = $CollectTrash
-onready var dropTrashLabel: Label = $DropTrash
-onready var alaninLabel: Label = $AlaninLabel
 onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 
 signal trash_collected
 signal trash_dropped
+signal trash_pickable
+signal trash_notPickable
+signal trash_dropable
+signal trash_notDropable
 
 
 # Called when the node enters the scene tree for the first time.
@@ -67,6 +69,8 @@ func change_floor() -> void:
 
 
 func collect_trash():
+	if carried_trash.size() >= max_trashAmount:
+		return
 	var trash: Muell
 	if on_muellhalde:
 		trash = muellhalde.retrieve_muell()
@@ -75,12 +79,10 @@ func collect_trash():
 		trash.hide()
 		trash.position.y = 0
 		near_trash.erase(trash)
-		collectTrashLabel.hide()
 	if trash:
 		carrying_trash = true
 		carried_trash.push_back(trash)
 		speed -= self.change_speed(NORMAL_SPEED / 4)
-		dropTrashLabel.show()
 		emit_signal("trash_collected", carried_trash.size(), self.position)
 
 
@@ -89,16 +91,15 @@ func drop_trash():
 		if Input.is_action_just_pressed("action2"):
 			var trash: Muell = carried_trash.pop_back()
 			if on_muellhalde:
-				if !muellhalde.store_muell(trash):
+				if ! muellhalde.store_muell(trash):
 					carried_trash.append(trash)
 					return
-			else: 
+			else:
 				trash.position = self.position
-				trash.position.y -= 6
+				trash.position.y -= 7
 				trash.show()
 			if carried_trash.size() == 0:
 				carrying_trash = false
-				dropTrashLabel.hide()
 			speed += self.change_speed(NORMAL_SPEED / 4)
 			emit_signal("trash_dropped", carried_trash.size(), self.position)
 
@@ -121,32 +122,31 @@ func playing_animation():
 			animationPlayer.play("default")
 
 
-func _on_Alanin_body_entered(body):
-	if body.name == "Alanin":
-		alaninLabel.show()
-
-
-func _on_Alanin_body_exited(body):
-	if body.name == "Alanin":
-		alaninLabel.hide()
-
 func _on_HitBox_area_entered(area: Area2D):
 	._on_HitBox_area_entered(area)
 	if area.has_method("store_muell"):
 		on_muellhalde = true
 		muellhalde = area
+		if muellhalde.get_muellFuellstand() != 0 && carried_trash.size() < max_trashAmount:
+			emit_signal("trash_pickable")
+		if muellhalde.is_full():
+			emit_signal("trash_notDropable")
 	elif area is Muell:
 		speed -= self.change_speed(NORMAL_SPEED / 4)
 		near_trash.push_back(area)
-		if carrying_trash == false:
-			collectTrashLabel.show()
+		if carried_trash.size() < max_trashAmount:
+			emit_signal("trash_pickable")
+
 
 func _on_HitBox_area_exited(area: Area2D):
 	._on_HitBox_area_exited(area)
 	if area.has_method("store_muell"):
 		on_muellhalde = false
 		muellhalde = null
+		emit_signal("trash_notPickable")
+		if carried_trash.size() > 0:
+			emit_signal("trash_dropable")
 	elif area is Muell:
 		speed += self.change_speed(NORMAL_SPEED / 4)
 		near_trash.erase(area)
-		collectTrashLabel.hide()
+		emit_signal("trash_notPickable")

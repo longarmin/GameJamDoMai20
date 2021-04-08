@@ -1,27 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Bewohner/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/charWithoutOutlines.png" type="Texture" id=2]
-[ext_resource path="res://assets/DotGothic16-Regular.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://src/UI/ContextBubble.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.42038, 15.9692 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 8
-font_data = ExtResource( 8 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 8
-font_data = ExtResource( 8 )
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 3.06608, 41.8635 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 8
-font_data = ExtResource( 8 )
 
 [sub_resource type="CapsuleShape2D" id=6]
 radius = 5.08612
@@ -116,55 +100,6 @@ limit_smoothed = true
 smoothing_enabled = true
 editor_draw_limits = true
 
-[node name="CollectTrash" type="Label" parent="."]
-visible = false
-margin_left = -42.0
-margin_top = -48.25
-margin_right = 42.0
-margin_bottom = -34.25
-custom_fonts/font = SubResource( 2 )
-text = "Müll aufsammeln mit Y"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DropTrash" type="Label" parent="."]
-visible = false
-margin_left = -37.25
-margin_top = -48.25
-margin_right = 37.75
-margin_bottom = -34.25
-custom_fonts/font = SubResource( 3 )
-text = "Müll ablegen mit X"
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Alanin" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 524288
-
-[node name="CollisionAlanin" type="CollisionShape2D" parent="Alanin"]
-position = Vector2( -0.471924, -16.3712 )
-rotation = 1.5708
-shape = SubResource( 4 )
-
-[node name="AlaninLabel" type="Label" parent="."]
-visible = false
-margin_left = -44.4472
-margin_top = -70.6174
-margin_right = 132.553
-margin_bottom = -39.6174
-rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = SubResource( 5 )
-text = "Hey Armin!
-Alles Gute zum Geburtstag!"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 24
@@ -195,7 +130,5 @@ anims/walking = SubResource( 9 )
 anims/walkingTrash = SubResource( 10 )
 [connection signal="stairs_climbed" from="." to="Area2D" method="_on_Player_stairs_climbed"]
 [connection signal="stairs_climbing" from="." to="Area2D" method="_on_Player_stairs_climbing"]
-[connection signal="body_entered" from="Alanin" to="." method="_on_Alanin_body_entered"]
-[connection signal="body_exited" from="Alanin" to="." method="_on_Alanin_body_exited"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_HitBox_area_exited"]

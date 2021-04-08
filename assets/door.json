@@ -1,26 +1,26 @@
 { "frames": {
    "door 0.aseprite": {
-    "frame": { "x": 0, "y": 0, "w": 40, "h": 32 },
+    "frame": { "x": 0, "y": 0, "w": 27, "h": 42 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 32 },
-    "sourceSize": { "w": 40, "h": 32 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 27, "h": 42 },
+    "sourceSize": { "w": 27, "h": 42 },
     "duration": 100
    },
    "door 1.aseprite": {
-    "frame": { "x": 40, "y": 0, "w": 40, "h": 32 },
+    "frame": { "x": 27, "y": 0, "w": 27, "h": 42 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 32 },
-    "sourceSize": { "w": 40, "h": 32 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 27, "h": 42 },
+    "sourceSize": { "w": 27, "h": 42 },
     "duration": 100
    },
    "door 2.aseprite": {
-    "frame": { "x": 80, "y": 0, "w": 40, "h": 32 },
+    "frame": { "x": 54, "y": 0, "w": 27, "h": 42 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 32 },
-    "sourceSize": { "w": 40, "h": 32 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 27, "h": 42 },
+    "sourceSize": { "w": 27, "h": 42 },
     "duration": 100
    }
  },
@@ -29,14 +29,15 @@
   "version": "1.2.25-dev",
   "image": "door.png",
   "format": "RGBA8888",
-  "size": { "w": 120, "h": 32 },
+  "size": { "w": 81, "h": 42 },
   "scale": "1",
   "frameTags": [
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
    { "name": "Layer 4", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" }
+   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
   ]

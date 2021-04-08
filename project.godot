@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/BewohnerNPC.gd"
 }, {
+"base": "HBoxContainer",
+"class": "ButtonBoxContainer",
+"language": "GDScript",
+"path": "res://src/UI/ButtonBoxContainer.gd"
+}, {
+"base": "TextureRect",
+"class": "KarmaBoxContainer",
+"language": "GDScript",
+"path": "res://src/UI/KarmaBoxContainer.gd"
+}, {
 "base": "Area2D",
 "class": "Muell",
 "language": "GDScript",
@@ -39,19 +49,33 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/Player.gd"
 }, {
+"base": "Control",
+"class": "SpeechBubble",
+"language": "GDScript",
+"path": "res://src/UI/SpeechBubble.gd"
+}, {
 "base": "Area2D",
 "class": "Stairwell",
 "language": "GDScript",
 "path": "res://src/Levels/Stairwell.gd"
+}, {
+"base": "HBoxContainer",
+"class": "TrashBoxContainer",
+"language": "GDScript",
+"path": "res://src/UI/TrashBoxContainer.gd"
 } ]
 _global_script_class_icons={
 "Bewohner": "",
 "BewohnerNPC": "",
+"ButtonBoxContainer": "",
+"KarmaBoxContainer": "",
 "Muell": "",
 "Muellhalde": "",
 "Oma": "",
 "Player": "",
-"Stairwell": ""
+"SpeechBubble": "",
+"Stairwell": "",
+"TrashBoxContainer": ""
 }
 
 [application]

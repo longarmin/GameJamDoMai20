@@ -1,39 +1,38 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/door.png" type="Texture" id=1]
 [ext_resource path="res://src/Levels/Stairwell.gd" type="Script" id=2]
-[ext_resource path="res://assets/DotGothic16-Regular.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.306, 12.1778 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 40, 32 )
+region = Rect2( 0, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 40, 0, 40, 32 )
+region = Rect2( 27, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 40, 32 )
+region = Rect2( 54, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 40, 32 )
+region = Rect2( 0, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 40, 0, 40, 32 )
+region = Rect2( 54, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 40, 32 )
+region = Rect2( 27, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 40, 32 )
+region = Rect2( 0, 0, 27, 42 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
@@ -42,20 +41,16 @@ animations = [ {
 "name": "opening",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
-"loop": false,
-"name": "closing",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 8 ) ],
+"frames": [ SubResource( 5 ) ],
 "loop": false,
 "name": "0_default",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": false,
+"name": "closing",
+"speed": 10.0
 } ]
-
-[sub_resource type="DynamicFont" id=10]
-size = 8
-font_data = ExtResource( 3 )
 
 [node name="Stairwell" type="Area2D"]
 collision_layer = 16
@@ -70,16 +65,5 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 9 )
 animation = "0_default"
-
-[node name="Label" type="Label" parent="."]
-margin_left = -20.6742
-margin_top = -28.832
-margin_right = 7.3258
-margin_bottom = -15.832
-custom_fonts/font = SubResource( 10 )
-text = "Treppen"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 [connection signal="body_entered" from="." to="." method="_on_Stairwell_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Stairwell_body_exited"]

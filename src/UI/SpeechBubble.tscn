@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/UI/SpeechBubble.gd" type="Script" id=1]
+[ext_resource path="res://assets/textbox.png" type="Texture" id=2]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/DotGothic16-Regular.ttf"
@@ -10,25 +11,37 @@ size = 4
 extra_spacing_space = 1
 font_data = SubResource( 1 )
 
-[node name="SpeechBubble" type="Node2D"]
+[node name="SpeechBubble" type="Control"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Anchor" type="Node2D" parent="."]
+[node name="Anchor" type="Control" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="ColorRect" type="ColorRect" parent="Anchor"]
-margin_left = -6.0
+[node name="NinePatchRect" type="NinePatchRect" parent="Anchor"]
 margin_right = 160.0
-margin_bottom = 32.0
-color = Color( 0.298039, 0.298039, 0.298039, 1 )
+margin_bottom = 18.0
+texture = ExtResource( 2 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Anchor"]
-margin_right = 128.0
-margin_bottom = 32.0
+margin_left = 4.0
+margin_top = 2.0
+margin_right = 132.0
+margin_bottom = 19.0
 custom_fonts/normal_font = SubResource( 2 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
 bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.957
