@@ -7,11 +7,11 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.42038, 15.9692 )
 
-[sub_resource type="CapsuleShape2D" id=6]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 5.08612
 height = 22.812
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "default"
 length = 0.5
 loop = true
@@ -28,7 +28,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=4]
 resource_name = "defaultTrash"
 length = 0.5
 loop = true
@@ -45,7 +45,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=5]
 resource_name = "walking"
 length = 0.6
 loop = true
@@ -62,7 +62,7 @@ tracks/0/keys = {
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=6]
 resource_name = "walkingTrash"
 length = 0.5
 loop = true
@@ -106,7 +106,7 @@ collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 0.176773, -16.1751 )
-shape = SubResource( 6 )
+shape = SubResource( 2 )
 
 [node name="Area2D" parent="." instance=ExtResource( 9 )]
 position = Vector2( 0.481049, -5.27078 )
@@ -124,10 +124,10 @@ frame = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"
-anims/default = SubResource( 7 )
-anims/defaultTrash = SubResource( 8 )
-anims/walking = SubResource( 9 )
-anims/walkingTrash = SubResource( 10 )
+anims/default = SubResource( 3 )
+anims/defaultTrash = SubResource( 4 )
+anims/walking = SubResource( 5 )
+anims/walkingTrash = SubResource( 6 )
 [connection signal="stairs_climbed" from="." to="Area2D" method="_on_Player_stairs_climbed"]
 [connection signal="stairs_climbing" from="." to="Area2D" method="_on_Player_stairs_climbing"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]

@@ -5,7 +5,7 @@ signal dialogue(sCharacter, sText)
 
 # Script fuer Oma-NPC
 # Oma bewegt sich durchs Haus, spricht Bewohner an und ueberwacht deren Taetigkeit.
-# Omas Meinung von den Bewohner aendert sich durch Handlungen der Personen.
+# Omas Meinung von den Bewohnern aendert sich durch Handlungen der Personen.
 
 # Definiere Variablen
 var playerPositionX := 0.0
@@ -83,10 +83,7 @@ func calc_speed(pos_player: Vector2):
 
 func _on_Player_trash_dropped(_trashsize: int, pos_player: Vector2) -> void:
 	if bBodyInHearingRange:
-		#print("Oh mein Gott, Herr Meier hat Muell gedropt")
 		dKarma["Player"] -= 1
-		#print("Position of event: " + str(pos_player))
-		#print("Karma of Player: " + str(dKarma["Player"]))
 		emit_signal("karmachange", dKarma["Player"])
 		calc_speed(pos_player)
 		bRunningToPlayer = true
@@ -114,7 +111,7 @@ func _on_Player_trash_collected(_trashsize: int, _pos_player: Vector2) -> void:
 		)
 		bTippPickup = true
 
-
+#Funktionsbeschreibung: Dieser Detektor bringt die Oma zum stehen um mit Player zu reden (schimpfen).
 func _on_Player_Detector_body_entered(body: Node) -> void:
 	if bRunningToPlayer:
 		if body.name == 'Player':
@@ -126,9 +123,10 @@ func _on_Player_Detector_body_entered(body: Node) -> void:
 				"Herr Meier, so nicht! Sie koennen nicht einfach Ihren Muell\nim Treppenhaus deponieren, das merke ich mir."
 			)
 			timer.start(5)
+			bRunningToPlayer = false
 
 
 func _on_Timer_timeout() -> void:
 	speed = NORMAL_SPEED
-	bRunningToPlayer = false
+	#bRunningToPlayer = false
 	animationPlayer.play("Oma_Laufend")
