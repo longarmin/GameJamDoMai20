@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://src/Bewohner/Player.gd" type="Script" id=1]
+[ext_resource path="res://src/Bewohner/Nachbar.gd" type="Script" id=1]
 [ext_resource path="res://src/UI/ContextBubble.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/charWithoutOutlines.png" type="Texture" id=3]
+[ext_resource path="res://assets/char.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.42038, 15.9692 )
@@ -79,26 +79,14 @@ tracks/0/keys = {
 "values": [ 18, 19, 20, 21, 22, 23 ]
 }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Nachbar" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
-speed = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -16 )
 shape = SubResource( 1 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -32 )
-current = true
-limit_left = 0
-limit_top = 0
-limit_right = 512
-limit_bottom = 300
-limit_smoothed = true
-smoothing_enabled = true
-editor_draw_limits = true
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0
@@ -118,9 +106,8 @@ one_shot = true
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -16 )
 texture = ExtResource( 3 )
-vframes = 4
+vframes = 3
 hframes = 6
-frame = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"

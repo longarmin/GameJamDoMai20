@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Levels/Wohnungstuer.gd" type="Script" id=1]
-[ext_resource path="res://assets/doorMuell.png" type="Texture" id=2]
-[ext_resource path="res://src/Levels/Muell.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Levels/Muell.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/doorMuell.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.7703, 21.2813 )
@@ -42,14 +42,14 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )
 maximumMuellAmount = 1
-Muell = ExtResource( 3 )
+Muell = ExtResource( 2 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -0.117996, 21.2372 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 hframes = 4
 frame = 3
 

@@ -1,19 +1,32 @@
 extends Muellhalde
 export (PackedScene) var Muell
+#export (PackedScene) var Nachbar
 
-var muellInFlat_amount := 0.0
+var fMuellInWohnung_Menge := 0.0
+var bNachbar_zuhause := true
+var bNachbar_gehtraus := false
+var sNachbar = preload("res://src/Bewohner/Nachbar.tscn")
 
 signal muell_created
+signal nachbar_geht_raus
 
 
 func _process(_delta):
-	if muellInFlat_amount > 1:
+	if bNachbar_zuhause:
+		if bNachbar_gehtraus:
+			#var sNachbar: Nachbar = Nachbar.instance()
+			emit_signal("nachbar_geht_raus", sNachbar)
+			bNachbar_zuhause = false
+	if fMuellInWohnung_Menge > 1:
 		var trash: Muell = Muell.instance()
 		if self.store_muell(trash):
-			muellInFlat_amount = 0
+			fMuellInWohnung_Menge = 0
 			emit_signal("muell_created", trash)
 
 
 func _on_Timer_timeout():
 	if randf() > 0.5:
-		muellInFlat_amount += 0.25
+		fMuellInWohnung_Menge += 0.25
+	if bNachbar_zuhause:
+		if randf() < .5:
+			bNachbar_gehtraus = true
