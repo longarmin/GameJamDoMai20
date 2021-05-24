@@ -1,6 +1,6 @@
 extends Muellhalde
 export (PackedScene) var Muell
-#export (PackedScene) var Nachbar
+#export (PackedScene) var Bewohner.Nachbar
 
 var fMuellInWohnung_Menge := 0.0
 var bNachbar_zuhause := true
@@ -14,8 +14,8 @@ signal nachbar_geht_raus
 func _process(_delta):
 	if bNachbar_zuhause:
 		if bNachbar_gehtraus:
-			#var sNachbar: Nachbar = Nachbar.instance()
-			emit_signal("nachbar_geht_raus", sNachbar)
+			var sNachbar2 = sNachbar.instance()
+			emit_signal("nachbar_geht_raus", sNachbar2)
 			bNachbar_zuhause = false
 	if fMuellInWohnung_Menge > 1:
 		var trash: Muell = Muell.instance()
