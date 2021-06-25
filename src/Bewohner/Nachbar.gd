@@ -1,4 +1,4 @@
-extends Bewohner
+extends BewohnerNPC
 class_name Nachbar
 
 
@@ -14,4 +14,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
-#	pass
+#	if self.speed == 0:
+#		$AnimationPlayer.play("default")
+#	elif self.speed != 0:
+#		$AnimationPlayer.play("walking")
+func _physics_process(_delta: float) -> void:
+	if self.speed == 0:
+		$AnimationPlayer.play("default")
+	elif self.speed != 0:
+		$AnimationPlayer.play("walking")
+
+
+#func _on_Area2D_area_entered(area: Area2D) -> void:
+#	if area.class_name == Muellhalde:
+#		area.store_muell(muell)

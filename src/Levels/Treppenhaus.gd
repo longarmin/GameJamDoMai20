@@ -1,18 +1,23 @@
 extends Node2D
+onready var dictNachbarn = {
+	"Wohnungstuer2":{
+		"Bewohner":"Karl",
+		"Status":"Zuhause"
+	},
+	"Wohnungstuer6":{
+		"Bewohner":"Rolgadina",
+		"Status":"Zuhause"
+	}
+}
 
+#spawning umgesetzt wie beschrieben in 
+#https://godotengine.org/qa/8025/how-to-add-a-child-in-a-specific-position:
 onready var sNachbar_resource = preload("res://src/Bewohner/Nachbar.tscn")
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#spawning umgesetzt wie beschrieben in 
-	#https://godotengine.org/qa/8025/how-to-add-a-child-in-a-specific-position:
+	print(String(dictNachbarn.get("Wohnungstuer2")))
 #	$Wohnungstuer.connect("DoorCollision", $Oma, "_on_Door_Collision")
 #	$Wohnungstuer2.connect("DoorCollision", $Oma, "_on_Door_Collision")
-	pass  # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,15 +32,24 @@ func _on_Wohnungstuer_muell_created(trash: Muell):
 func _on_Wohnungstuer_nachbar_geht_raus(sNachbar1) -> void:
 	add_child(sNachbar1)
 
-func _on_Wohnungstuer2_nachbar_geht_raus(sNachbar2) -> void:
+func _on_Wohnungstuer2_nachbar_geht_raus(sWohnung) -> void:
 	var Nachbar_test = sNachbar_resource.instance()
-	Nachbar_test.position = $Wohnungstuer2.position
+	Nachbar_test.position = get_node(sWohnung).position + Vector2(0,16)
+	dictNachbarn[sWohnung].zuhause = false
+	dictNachbarn[sWohnung].hatMuell = true
 	self.add_child(Nachbar_test)
-	print_debug(str($Wohnungstuer2.position))
-	print_debug(str(Nachbar_test.get_child(0)))
-	print_debug(str(Nachbar_test.get_child(0).position))
+#	print_debug(str(get_node(sWohnung).position))
+#	print_debug(str(Nachbar_test.get_child(0)))
+#	print_debug(str(Nachbar_test.get_child(0).position))
+	var file = File.new()
+	file.open("res://characters.dat", File.WRITE)
+	file.store_var(Nachbar_test.get_child(0), true)
+	file.close()
 	#sNachbar.get_child(0).position = $Wohnungstuer2.position
 	print_debug(str(Nachbar_test.get_child(0).position))
 	
 	
 	#$sNachbar2.position = $Wohnungstuer2.position
+
+
+

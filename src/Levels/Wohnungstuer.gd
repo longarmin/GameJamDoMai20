@@ -5,7 +5,7 @@ export (PackedScene) var Muell
 var fMuellInWohnung_Menge := 0.0
 var bNachbar_zuhause := true
 var bNachbar_gehtraus := false
-var sNachbar = preload("res://src/Bewohner/Nachbar.tscn")
+#var sNachbar = preload("res://src/Bewohner/Nachbar.tscn")
 
 signal muell_created
 signal nachbar_geht_raus
@@ -14,8 +14,8 @@ signal nachbar_geht_raus
 func _process(_delta):
 	if bNachbar_zuhause:
 		if bNachbar_gehtraus:
-			var sNachbar2 = sNachbar.instance()
-			emit_signal("nachbar_geht_raus", sNachbar2)
+			#var sNachbar2 = sNachbar.instance()
+			emit_signal("nachbar_geht_raus", "Wohnungstuer2")
 			bNachbar_zuhause = false
 	if fMuellInWohnung_Menge > 1:
 		var trash: Muell = Muell.instance()

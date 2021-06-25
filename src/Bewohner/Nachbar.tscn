@@ -2,7 +2,6 @@
 
 [ext_resource path="res://src/Bewohner/Nachbar.gd" type="Script" id=1]
 [ext_resource path="res://src/UI/ContextBubble.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/char.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.42038, 15.9692 )
@@ -10,6 +9,10 @@ extents = Vector2( 5.42038, 15.9692 )
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 5.08612
 height = 22.812
+
+[sub_resource type="StreamTexture" id=20]
+flags = 4
+load_path = "res://.import/neighbourWithoutOutlines.png-8cd45305b8bda16536d5c0e66de45c6b.stex"
 
 [sub_resource type="Animation" id=3]
 resource_name = "default"
@@ -105,8 +108,8 @@ one_shot = true
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -16 )
-texture = ExtResource( 3 )
-vframes = 3
+texture = SubResource( 20 )
+vframes = 4
 hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -119,3 +122,4 @@ anims/walkingTrash = SubResource( 6 )
 [connection signal="stairs_climbing" from="." to="Area2D" method="_on_Player_stairs_climbing"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_HitBox_area_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
