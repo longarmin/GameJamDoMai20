@@ -60,4 +60,9 @@ anims/none = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="create_bewohner" type="Timer" parent="."]
+wait_time = 7.152
+one_shot = true
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="create_bewohner" to="." method="_on_create_bewohner_timeout"]

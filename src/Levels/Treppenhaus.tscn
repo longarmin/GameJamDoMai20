@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
 [ext_resource path="res://assets/Rolemusic - Crush At Maracas Bar.ogg" type="AudioStream" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://assets/speaker.png" type="Texture" id=7]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/Bewohner/Mieter.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/player1.png" type="Texture" id=12]
 [ext_resource path="res://assets/speaker-Sheet.png" type="Texture" id=13]
@@ -63,52 +62,52 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="StreamTexture" id=20]
+[sub_resource type="StreamTexture" id=11]
 flags = 4
 load_path = "res://.import/neighbourWithoutOutlines.png-8cd45305b8bda16536d5c0e66de45c6b.stex"
 
-[sub_resource type="AtlasTexture" id=11]
-flags = 4
-atlas = SubResource( 20 )
-region = Rect2( 0, 0, 32, 34 )
-
 [sub_resource type="AtlasTexture" id=12]
 flags = 4
-atlas = SubResource( 20 )
-region = Rect2( 32, 0, 32, 34 )
+atlas = SubResource( 11 )
+region = Rect2( 0, 0, 32, 34 )
 
 [sub_resource type="AtlasTexture" id=13]
 flags = 4
-atlas = SubResource( 20 )
+atlas = SubResource( 11 )
+region = Rect2( 32, 0, 32, 34 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = SubResource( 11 )
 region = Rect2( 64, 0, 32, 34 )
 
-[sub_resource type="SpriteFrames" id=14]
+[sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 15 )
 region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 15 )
 region = Rect2( 32, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=17]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 15 )
 region = Rect2( 64, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 15 )
 region = Rect2( 96, 0, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=19]
+[sub_resource type="SpriteFrames" id=20]
 animations = [ {
-"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "default",
 "speed": 8.0
@@ -175,6 +174,7 @@ position = Vector2( 464, 286.312 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
@@ -183,9 +183,6 @@ position = Vector2( 221.481, 189.237 )
 [node name="Oma" parent="." instance=ExtResource( 9 )]
 position = Vector2( 320, 285.237 )
 collision_layer = 1024
-
-[node name="Alanin" parent="." instance=ExtResource( 10 )]
-position = Vector2( 48, 77.4798 )
 
 [node name="UI" parent="." instance=ExtResource( 11 )]
 
@@ -197,19 +194,20 @@ texture = ExtResource( 12 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
 position = Vector2( -406.612, 9.7298 )
 frames = SubResource( 10 )
+frame = 1
 playing = true
 
 [node name="Sprite3" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 415.629, 75.75 )
-frames = SubResource( 14 )
-frame = 2
+frames = SubResource( 15 )
+frame = 1
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
-frames = SubResource( 19 )
-frame = 2
+frames = SubResource( 20 )
+frame = 3
 playing = true
 [connection signal="muell_created" from="Wohnungstuer2" to="." method="_on_Wohnungstuer_muell_created"]
 [connection signal="nachbar_geht_raus" from="Wohnungstuer2" to="." method="_on_Wohnungstuer2_nachbar_geht_raus"]

@@ -33,23 +33,18 @@ func _on_Wohnungstuer_nachbar_geht_raus(sNachbar1) -> void:
 	add_child(sNachbar1)
 
 func _on_Wohnungstuer2_nachbar_geht_raus(sWohnung) -> void:
-	var Nachbar_test = sNachbar_resource.instance()
-	Nachbar_test.position = get_node(sWohnung).position + Vector2(0,16)
+	$Wohnungstuer2.force_create_muell()
+	var Nachbar_W2 = sNachbar_resource.instance()
+	Nachbar_W2.position = get_node(sWohnung).position + Vector2(0,16)
+	Nachbar_W2.collect_trash()
 	dictNachbarn[sWohnung].zuhause = false
 	dictNachbarn[sWohnung].hatMuell = true
-	self.add_child(Nachbar_test)
-#	print_debug(str(get_node(sWohnung).position))
-#	print_debug(str(Nachbar_test.get_child(0)))
-#	print_debug(str(Nachbar_test.get_child(0).position))
+	self.add_child(Nachbar_W2)
 	var file = File.new()
 	file.open("res://characters.dat", File.WRITE)
-	file.store_var(Nachbar_test.get_child(0), true)
+	file.store_var(Nachbar_W2.get_child(0), true)
 	file.close()
-	#sNachbar.get_child(0).position = $Wohnungstuer2.position
-	print_debug(str(Nachbar_test.get_child(0).position))
-	
-	
-	#$sNachbar2.position = $Wohnungstuer2.position
+	print_debug(str(Nachbar_W2.get_child(0).position))
 
 
 
