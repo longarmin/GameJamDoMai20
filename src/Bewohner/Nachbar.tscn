@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Bewohner/Nachbar.gd" type="Script" id=1]
 [ext_resource path="res://src/UI/ContextBubble.tscn" type="PackedScene" id=2]
@@ -10,8 +10,6 @@ extents = Vector2( 5.42038, 15.9692 )
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 5.08612
 height = 22.812
-
-[sub_resource type="AnimatedTexture" id=7]
 
 [sub_resource type="Animation" id=3]
 resource_name = "default"
@@ -108,7 +106,6 @@ one_shot = true
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -16 )
 texture = ExtResource( 3 )
-normal_map = SubResource( 7 )
 vframes = 4
 hframes = 6
 
