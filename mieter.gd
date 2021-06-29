@@ -52,13 +52,16 @@ func _on_HitBox_area_entered(area: Area2D):
 		muellhalde = area
 		if muellhalde.get_muellFuellstand() != 0 && carried_trash.size() < max_trashAmount:
 			emit_signal("trash_pickable")
+			print("trash_pickable")
 		if muellhalde.is_full():
 			emit_signal("trash_notDropable")
+			print("trash_notDropable")
 	elif area is Muell:
 		speed -= self.change_speed(NORMAL_SPEED / 4)
 		near_trash.push_back(area)
 		if carried_trash.size() < max_trashAmount:
 			emit_signal("trash_pickable")
+			print("trash_pickable")
 
 
 func _on_HitBox_area_exited(area: Area2D):
@@ -67,9 +70,12 @@ func _on_HitBox_area_exited(area: Area2D):
 		on_muellhalde = false
 		muellhalde = null
 		emit_signal("trash_notPickable")
+		print("trash_notPickable")
 		if carried_trash.size() > 0:
 			emit_signal("trash_dropable")
+			print("trash_dropable")
 	elif area is Muell:
 		speed += self.change_speed(NORMAL_SPEED / 4)
 		near_trash.erase(area)
 		emit_signal("trash_notPickable")
+		print("trash_notPickable")

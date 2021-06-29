@@ -36,7 +36,7 @@ func _on_Wohnungstuer2_nachbar_geht_raus(sWohnung) -> void:
 	$Wohnungstuer2.force_create_muell()
 	var Nachbar_W2 = sNachbar_resource.instance()
 	Nachbar_W2.position = get_node(sWohnung).position + Vector2(0,16)
-	Nachbar_W2.collect_trash()
+#	Nachbar_W2.collect_trash()
 	dictNachbarn[sWohnung].zuhause = false
 	dictNachbarn[sWohnung].hatMuell = true
 	self.add_child(Nachbar_W2)

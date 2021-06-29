@@ -165,7 +165,7 @@
  "meta": {
   "app": "http://www.aseprite.org/",
   "version": "1.2.25-dev",
-  "image": "neighbourWithoutOutlines.png",
+  "image": "neighbourWithoutOutlines2.png",
   "format": "RGBA8888",
   "size": { "w": 192, "h": 128 },
   "scale": "1",
