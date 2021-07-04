@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
 [ext_resource path="res://assets/Rolemusic - Crush At Maracas Bar.ogg" type="AudioStream" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/speaker.png" type="Texture" id=7]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/Levels/Outdoor.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/player1.png" type="Texture" id=12]
 [ext_resource path="res://assets/speaker-Sheet.png" type="Texture" id=13]
@@ -63,21 +64,17 @@ animations = [ {
 } ]
 
 [sub_resource type="StreamTexture" id=11]
-flags = 4
 load_path = "res://.import/neighbourWithoutOutlines.png-8cd45305b8bda16536d5c0e66de45c6b.stex"
 
 [sub_resource type="AtlasTexture" id=12]
-flags = 4
 atlas = SubResource( 11 )
 region = Rect2( 0, 0, 32, 34 )
 
 [sub_resource type="AtlasTexture" id=13]
-flags = 4
 atlas = SubResource( 11 )
 region = Rect2( 32, 0, 32, 34 )
 
 [sub_resource type="AtlasTexture" id=14]
-flags = 4
 atlas = SubResource( 11 )
 region = Rect2( 64, 0, 32, 34 )
 
@@ -199,6 +196,7 @@ playing = true
 visible = false
 position = Vector2( 415.629, 75.75 )
 frames = SubResource( 15 )
+frame = 1
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
@@ -206,6 +204,9 @@ position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 20 )
 frame = 2
 playing = true
+
+[node name="Outdoor" parent="." instance=ExtResource( 10 )]
+position = Vector2( 421.21, 258.87 )
 [connection signal="muell_created" from="Wohnungstuer2" to="." method="_on_Wohnungstuer_muell_created"]
 [connection signal="nachbar_geht_raus" from="Wohnungstuer2" to="." method="_on_Wohnungstuer2_nachbar_geht_raus"]
 [connection signal="muell_created" from="Wohnungstuer3" to="." method="_on_Wohnungstuer_muell_created"]

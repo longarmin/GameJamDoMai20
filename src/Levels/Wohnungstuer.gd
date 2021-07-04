@@ -33,7 +33,7 @@ func force_create_muell():
 			emit_signal("muell_created", trash)
 
 func _on_Timer_timeout():
-	if randf() > 0.5:
+	if randf() > 0.0:
 		fMuellInWohnung_Menge += 0.25
 	if bNachbar_zuhause:
 		if randf() < .5:

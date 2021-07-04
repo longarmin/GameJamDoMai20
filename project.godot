@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Bewohner",
 "class": "Mieter",
 "language": "GDScript",
-"path": "res://mieter.gd"
+"path": "res://src/Bewohner/mieter.gd"
 }, {
 "base": "Area2D",
 "class": "Muell",

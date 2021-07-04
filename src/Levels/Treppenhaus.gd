@@ -35,6 +35,8 @@ func _on_Wohnungstuer_nachbar_geht_raus(sNachbar1) -> void:
 func _on_Wohnungstuer2_nachbar_geht_raus(sWohnung) -> void:
 	$Wohnungstuer2.force_create_muell()
 	var Nachbar_W2 = sNachbar_resource.instance()
+	#besser wäre ein Konstruktor - wie geht das in gdscript?:
+	Nachbar_W2.wohnung = sWohnung
 	Nachbar_W2.position = get_node(sWohnung).position + Vector2(0,16)
 	dictNachbarn[sWohnung].zuhause = false
 	dictNachbarn[sWohnung].hatMuell = true

@@ -29,10 +29,8 @@ func retrieve_muell() -> Muell:
 	update_fuellstand()
 	return muell
 
-
 func get_muellFuellstand() -> int:
 	return muellBeutel.size()
-
 
 func update_fuellstand() -> void:
 	var fuellstand = get_muellFuellstand()
