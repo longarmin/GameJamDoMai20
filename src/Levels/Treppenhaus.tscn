@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
 [ext_resource path="res://assets/Rolemusic - Crush At Maracas Bar.ogg" type="AudioStream" id=2]
@@ -9,25 +9,28 @@
 [ext_resource path="res://assets/speaker.png" type="Texture" id=7]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/Levels/Outdoor.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/player1.png" type="Texture" id=12]
 [ext_resource path="res://assets/speaker-Sheet.png" type="Texture" id=13]
 [ext_resource path="res://assets/alanin.png" type="Texture" id=15]
 
 [sub_resource type="AtlasTexture" id=1]
+flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=2]
+flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 18, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=3]
+flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 36, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=4]
+flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 54, 0, 18, 18 )
 
@@ -40,18 +43,22 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=6]
+flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
+flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=8]
+flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=9]
+flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 48, 0, 16, 16 )
 
@@ -64,17 +71,21 @@ animations = [ {
 } ]
 
 [sub_resource type="StreamTexture" id=11]
+flags = 4
 load_path = "res://.import/neighbourWithoutOutlines.png-8cd45305b8bda16536d5c0e66de45c6b.stex"
 
 [sub_resource type="AtlasTexture" id=12]
+flags = 4
 atlas = SubResource( 11 )
 region = Rect2( 0, 0, 32, 34 )
 
 [sub_resource type="AtlasTexture" id=13]
+flags = 4
 atlas = SubResource( 11 )
 region = Rect2( 32, 0, 32, 34 )
 
 [sub_resource type="AtlasTexture" id=14]
+flags = 4
 atlas = SubResource( 11 )
 region = Rect2( 64, 0, 32, 34 )
 
@@ -87,18 +98,22 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=16]
+flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=17]
+flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=18]
+flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=19]
+flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 96, 0, 32, 32 )
 
@@ -171,6 +186,7 @@ position = Vector2( 464, 286.312 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
+frame = 3
 playing = true
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
@@ -190,23 +206,20 @@ texture = ExtResource( 12 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
 position = Vector2( -406.612, 9.7298 )
 frames = SubResource( 10 )
+frame = 3
 playing = true
 
 [node name="Sprite3" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 415.629, 75.75 )
 frames = SubResource( 15 )
-frame = 1
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 20 )
-frame = 2
+frame = 1
 playing = true
-
-[node name="Outdoor" parent="." instance=ExtResource( 10 )]
-position = Vector2( 421.21, 258.87 )
 [connection signal="muell_created" from="Wohnungstuer2" to="." method="_on_Wohnungstuer_muell_created"]
 [connection signal="nachbar_geht_raus" from="Wohnungstuer2" to="." method="_on_Wohnungstuer2_nachbar_geht_raus"]
 [connection signal="muell_created" from="Wohnungstuer3" to="." method="_on_Wohnungstuer_muell_created"]
