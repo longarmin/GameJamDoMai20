@@ -6,12 +6,19 @@ class_name Nachbar
 const TIME_FACTOR := 20
 const HALDE := 1
 const DANEBEN := 2
+const WOHNUNG := 3
+const STAIRWELLDOOR_POSX := 272
 
+var nbname: String = ""
 var drop_time: float = 0.0
 var drop_location: int = 0
 var allow_drop_on_halde: bool = false
 var go_home: bool = false
 var wohnung := ""
+var target := HALDE
+var home_name = ""
+var target_name = ""
+var target_position : Vector2 = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,6 +28,36 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !carrying_trash && !go_home:
 		collect_trash()
+
+func calculate_direction(current_direction: Vector2) -> Vector2:
+	var dir : float
+	#t=target
+	var t = target_position
+	#i=instance
+	var i = self.position
+	if (i.y == t.y):
+		dir = sign(t.x - i.x)
+	else:
+		dir = sign(STAIRWELLDOOR_POSX - i.x)
+	dir = dir*abs(current_direction.x)
+	return Vector2(dir, current_direction.y)
+	
+func change_floor() -> void:
+	var stairdir = self.target_position.y - self.position.y
+	if on_stairs || ! on_door:
+		return
+	if  stairdir < 0 && self.position.y < 250:
+		emit_signal("stairs_descending")
+		timer_climbingStairs.start()
+		self.position.y += 96
+		self.hide()
+	elif stairdir > 0 && self.position.y > 150:
+		emit_signal("stairs_ascending")
+		timer_climbingStairs.start()
+		self.position.y -= 96
+		self.hide()
+	elif stairdir == 0:
+		pass
 	
 func collect_trash():
 	if carried_trash.size() >= max_trashAmount:
@@ -71,7 +108,13 @@ func drop_trash():
 			go_home = true
 		speed += self.change_speed(NORMAL_SPEED / 4)
 		emit_signal("trash_dropped", carried_trash.size(), self.position)
-
+		
+#weil Godot anscheinend (noch) keinen guten Konstruktor fuer scenes hat:
+func instanciate(pos:=Vector2(0,0), home_name:="", target_name:=""):
+	self.position = pos
+	self.home_name = home_name
+	self.target_name = target_name
+	
 func set_drop_event():
 	drop_time=randf()*TIME_FACTOR
 	var temp = randf()
@@ -97,6 +140,10 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 	elif area is Muellhalde:
 		if allow_drop_on_halde:
 			drop_trash()
-	elif str(area.name) == str(wohnung):
-		#funktioniert noch nicht (Nachbar muss in Wohnung2 verschwinden):
-		self.queue_free()
+	#Hier bloß kein elif, da Wohnungstuer auch von der Klasse Muellhalde ist
+	if go_home:
+		if str(area.name) == str(wohnung):
+			print("Nachbar2 geht zurück in Wohnung")
+			#funktioniert noch nicht (Nachbar muss in Wohnung2 verschwinden):
+			self.queue_free()
+
