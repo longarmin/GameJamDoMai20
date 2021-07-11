@@ -19,7 +19,7 @@ func _ready() -> void:
 func _process(_delta):
 	if bNachbar_zuhause:
 		if bNachbar_gehtraus:
-			emit_signal("nachbar_geht_raus", "Wohnungstuer2")
+			emit_signal("nachbar_geht_raus", "Wohnung2")
 			bNachbar_zuhause = false
 	if fMuellInWohnung_Menge > 1:
 		var trash: Muell = Muell.instance()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://src/Levels/Wohnungstuer.gd" type="Script" id=1]
+[ext_resource path="res://src/Levels/Wohnung.gd" type="Script" id=1]
 [ext_resource path="res://src/Levels/Muell.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/doorMuell.png" type="Texture" id=3]
 
@@ -37,7 +37,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[node name="Wohnungstuer" type="Area2D"]
+[node name="Wohnung" type="Area2D"]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )

@@ -8,7 +8,9 @@ const HALDE := 1
 const DANEBEN := 2
 const WOHNUNG := 3
 const STAIRWELLDOOR_POSX := 272
-const MAX_Y_DELTA_ON_SAME_LEVEL := 10
+const MAX_Y_DELTA_ON_SAME_LEVEL := 30
+
+signal nb_goes_home(nbname)
 
 var nbname: String = ""
 var drop_time: float = 0.0
@@ -24,7 +26,7 @@ var target_position : Vector2 = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	set_drop_event()
+	#set_drop_event()
 	print(String(wohnung))
 	
 func _process(delta: float) -> void:
@@ -59,7 +61,7 @@ func change_floor() -> void:
 		timer_climbingStairs.start()
 		self.position.y -= 96
 		self.hide()
-	elif DeltaY <= MAX_Y_DELTA_ON_SAME_LEVEL:
+	elif abs(DeltaY) <= MAX_Y_DELTA_ON_SAME_LEVEL:
 		pass
 	
 func collect_trash():
@@ -134,11 +136,13 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 	#Check, ob Nachbar wieder in seine Wohnung zurueck soll:
 	if area.name == self.target_name:
 		self.target_name = self.home_name
+		self.target_position = self.home_position
+		self.go_home = true
 		
-	#Hier bloß kein elif, da Wohnungstuer auch von der Klasse Muellhalde ist
-	if go_home:
-		if str(area.name) == str(wohnung):
-			print("Nachbar " + self.nbname + " geht zurück in Wohnung")
+	#Hier bloß kein elif, da Wohnung auch von der Klasse Muellhalde ist
+	if self.go_home:
+		if str(area.name) == str(self.home_name):
 			#funktioniert noch nicht (Nachbar muss in Wohnung2 verschwinden):
-			self.queue_free()
+			emit_signal("nb_goes_home", self.nbname)
+			
 

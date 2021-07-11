@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/Rolemusic - Crush At Maracas Bar.ogg" type="AudioStream" id=2]
 [ext_resource path="res://assets/TreppenhausTest.tres" type="TileSet" id=3]
 [ext_resource path="res://src/Levels/Stairwell.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/Levels/Wohnungstuer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Levels/Wohnung.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Levels/Muellhalde.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/speaker.png" type="Texture" id=7]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=8]
@@ -14,22 +14,18 @@
 [ext_resource path="res://assets/alanin.png" type="Texture" id=15]
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 18, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 36, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 54, 0, 18, 18 )
 
@@ -42,22 +38,18 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=6]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=8]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=9]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 48, 0, 16, 16 )
 
@@ -97,22 +89,18 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=16]
-flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=17]
-flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=18]
-flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=19]
-flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 96, 0, 32, 32 )
 
@@ -152,25 +140,25 @@ position = Vector2( 272, 67 )
 [node name="Door3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 272, 259 )
 
-[node name="Wohnungstuer2" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 166, 168 )
 
-[node name="Wohnungstuer3" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 368, 168 )
 
-[node name="Wohnungstuer6" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung6" parent="." instance=ExtResource( 5 )]
 position = Vector2( 368, 72 )
 
-[node name="Wohnungstuer7" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung7" parent="." instance=ExtResource( 5 )]
 position = Vector2( 165.764, 72 )
 
-[node name="Wohnungstuer8" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung8" parent="." instance=ExtResource( 5 )]
 position = Vector2( 71.5388, 264 )
 
-[node name="Wohnungstuer9" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung9" parent="." instance=ExtResource( 5 )]
 position = Vector2( 165.882, 264 )
 
-[node name="Wohnungstuer10" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung10" parent="." instance=ExtResource( 5 )]
 position = Vector2( 368, 264 )
 
 [node name="Muellhalde" parent="." instance=ExtResource( 6 )]
@@ -185,7 +173,6 @@ position = Vector2( 464, 286.312 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
-frame = 3
 playing = true
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
@@ -204,7 +191,6 @@ position = Vector2( 435.612, 75.75 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
 position = Vector2( -406.612, 9.7298 )
 frames = SubResource( 10 )
-frame = 3
 playing = true
 
 [node name="Sprite3" type="AnimatedSprite" parent="."]
@@ -216,16 +202,16 @@ playing = true
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 20 )
-frame = 1
+frame = 2
 playing = true
-[connection signal="muell_created" from="Wohnungstuer2" to="." method="_on_Wohnungstuer_muell_created"]
-[connection signal="nachbar_geht_raus" from="Wohnungstuer2" to="." method="_on_Wohnungstuer2_nachbar_geht_raus"]
-[connection signal="muell_created" from="Wohnungstuer3" to="." method="_on_Wohnungstuer_muell_created"]
-[connection signal="muell_created" from="Wohnungstuer6" to="." method="_on_Wohnungstuer_muell_created"]
-[connection signal="muell_created" from="Wohnungstuer7" to="." method="_on_Wohnungstuer_muell_created"]
-[connection signal="muell_created" from="Wohnungstuer8" to="." method="_on_Wohnungstuer_muell_created"]
-[connection signal="muell_created" from="Wohnungstuer9" to="." method="_on_Wohnungstuer_muell_created"]
-[connection signal="muell_created" from="Wohnungstuer10" to="." method="_on_Wohnungstuer_muell_created"]
+[connection signal="muell_created" from="Wohnung2" to="." method="_on_Wohnung_muell_created"]
+[connection signal="nachbar_geht_raus" from="Wohnung2" to="." method="_on_Wohnung2_nachbar_geht_raus"]
+[connection signal="muell_created" from="Wohnung3" to="." method="_on_Wohnung_muell_created"]
+[connection signal="muell_created" from="Wohnung6" to="." method="_on_Wohnung_muell_created"]
+[connection signal="muell_created" from="Wohnung7" to="." method="_on_Wohnung_muell_created"]
+[connection signal="muell_created" from="Wohnung8" to="." method="_on_Wohnung_muell_created"]
+[connection signal="muell_created" from="Wohnung9" to="." method="_on_Wohnung_muell_created"]
+[connection signal="muell_created" from="Wohnung10" to="." method="_on_Wohnung_muell_created"]
 [connection signal="trash_collected" from="Player" to="Oma" method="_on_Player_trash_collected"]
 [connection signal="trash_collected" from="Player" to="UI" method="_on_Player_trash_collected"]
 [connection signal="trash_dropable" from="Player" to="UI" method="_on_Player_trash_dropable"]

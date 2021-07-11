@@ -14,8 +14,9 @@ var bRunningToPlayer := false
 var bBodyInViewRange := false
 var dKarma := {
 	"Player": 0,
-	"Karl": 0,
-	"Rolgadina": 0,
+	"Franz": 0,
+	"Gertrude": 0,
+	"Lisa": 0
 }
 var bTippDrop := false
 var bTippPickup := false
