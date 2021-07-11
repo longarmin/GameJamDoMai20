@@ -33,7 +33,6 @@ onready var dictNavTable = {
 #https://godotengine.org/qa/8025/how-to-add-a-child-in-a-specific-position:
 onready var sNachbar_resource = preload("res://src/Bewohner/Nachbar.tscn")
 onready var sNachbar_instances = {}
-onready var sNachbar_children = {}
 
 func _ready() -> void:
 	for name in dictNavTable:
@@ -46,29 +45,33 @@ func _process(delta: float) -> void:
 	check_for_spawning()
 
 func check_for_spawning():
-	var erase = []
 	for name in sNachbar_instances:
 		if sNachbar_instances[name].target_name != sNachbar_instances[name].home_name:
-			print(str(name) + " adding as a child ...")
-			sNachbar_children[name] = sNachbar_instances[name]
-			self.add_child(sNachbar_children[name])
-			sNachbar_children[name].target_position=get_node(sNachbar_children[name].target_name).position
-			sNachbar_children[name].home_position=get_node(sNachbar_children[name].home_name).position
-			sNachbar_children[name].nbname = name 
-			get_node(sNachbar_children[name].name).connect("nb_goes_home", self, "_on_Nachbar_nb_goes_home")
-			erase.append(name)
-			print("... success!")
-	for name in erase:
-		sNachbar_instances.erase(name)
-	erase.clear()
+			if (!sNachbar_instances[name].child_exists):
+				_on_Wohnung_nachbar_geht_raus(sNachbar_instances[name], name)
+#				print(str(name) + " adding as a child ...")
+#				self.add_child(sNachbar_instances[name])
+#				sNachbar_instances[name].target_position=get_node(sNachbar_instances[name].target_name).position
+#				sNachbar_instances[name].home_position=get_node(sNachbar_instances[name].home_name).position
+#				sNachbar_instances[name].nbname = name 
+#				get_node(sNachbar_instances[name].name).connect("nb_goes_home", self, "_on_Nachbar_nb_goes_home")
+#				sNachbar_instances[name].child_exists = true
+#				print("... success!")
 
 func _on_Wohnung_muell_created(trash: Muell):
 	add_child(trash)	
 
 #to be deleted:
-func _on_Wohnung_nachbar_geht_raus(sNachbar1) -> void:
+func _on_Wohnung_nachbar_geht_raus(sNachbar, nbname) -> void:
 	#	add_child(sNachbar1)
-	pass
+	print(str(nbname) + " adding as a child ...")
+	self.add_child(sNachbar)
+	sNachbar.target_position=get_node(sNachbar.target_name).position
+	sNachbar.home_position=get_node(sNachbar.home_name).position
+	sNachbar.nbname = str(nbname) 
+	get_node(sNachbar.name).connect("nb_goes_home", self, "_on_Nachbar_nb_goes_home")
+	sNachbar.child_exists = true
+	print("... success!")
 
 #to be deleted:
 func _on_Wohnung2_nachbar_geht_raus(sWohnung) -> void:
@@ -89,9 +92,5 @@ func _on_Wohnung2_nachbar_geht_raus(sWohnung) -> void:
 
 func _on_Nachbar_nb_goes_home(nbname) -> void:
 	print("Nachbar " + str(nbname) + " geht zurück in Wohnung")
-	self.sNachbar_instances[nbname] = sNachbar_children[nbname]
-	sNachbar_children[nbname].hide()
-
-
-func _on_Nachbar_nb_goes_home2(nbname) -> void:
-	pass # Replace with function body.
+	sNachbar_instances[nbname].hide()
+	sNachbar_instances[nbname].child_exists = false

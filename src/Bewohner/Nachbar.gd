@@ -12,15 +12,16 @@ const MAX_Y_DELTA_ON_SAME_LEVEL := 30
 
 signal nb_goes_home(nbname)
 
-var nbname: String = ""
+var allow_drop_on_halde: bool = false
+var child_exists: bool = false
 var drop_time: float = 0.0
 var drop_location: int = 0
-var allow_drop_on_halde: bool = false
 var go_home: bool = false
-var wohnung := ""
-var target := HALDE
 var home_name = ""
 var home_position : Vector2 = Vector2(0,0)
+var nbname: String = ""
+var wohnung := ""
+var target := HALDE
 var target_name = ""
 var target_position : Vector2 = Vector2(0,0)
 
