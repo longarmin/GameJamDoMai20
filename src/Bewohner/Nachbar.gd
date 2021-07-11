@@ -8,6 +8,7 @@ const HALDE := 1
 const DANEBEN := 2
 const WOHNUNG := 3
 const STAIRWELLDOOR_POSX := 272
+const MAX_Y_DELTA_ON_SAME_LEVEL := 10
 
 var nbname: String = ""
 var drop_time: float = 0.0
@@ -17,6 +18,7 @@ var go_home: bool = false
 var wohnung := ""
 var target := HALDE
 var home_name = ""
+var home_position : Vector2 = Vector2(0,0)
 var target_name = ""
 var target_position : Vector2 = Vector2(0,0)
 
@@ -35,7 +37,8 @@ func calculate_direction(current_direction: Vector2) -> Vector2:
 	var t = target_position
 	#i=instance
 	var i = self.position
-	if (i.y == t.y):
+	var abs_delta_y = abs(t.y - i.y)
+	if (abs_delta_y <= MAX_Y_DELTA_ON_SAME_LEVEL):
 		dir = sign(t.x - i.x)
 	else:
 		dir = sign(STAIRWELLDOOR_POSX - i.x)
@@ -43,20 +46,20 @@ func calculate_direction(current_direction: Vector2) -> Vector2:
 	return Vector2(dir, current_direction.y)
 	
 func change_floor() -> void:
-	var stairdir = self.target_position.y - self.position.y
+	var DeltaY = self.target_position.y - self.position.y
 	if on_stairs || ! on_door:
 		return
-	if  stairdir < 0 && self.position.y < 250:
+	if  DeltaY > MAX_Y_DELTA_ON_SAME_LEVEL && self.position.y < 250:
 		emit_signal("stairs_descending")
 		timer_climbingStairs.start()
 		self.position.y += 96
 		self.hide()
-	elif stairdir > 0 && self.position.y > 150:
+	elif DeltaY < -MAX_Y_DELTA_ON_SAME_LEVEL && self.position.y > 150:
 		emit_signal("stairs_ascending")
 		timer_climbingStairs.start()
 		self.position.y -= 96
 		self.hide()
-	elif stairdir == 0:
+	elif DeltaY <= MAX_Y_DELTA_ON_SAME_LEVEL:
 		pass
 	
 func collect_trash():
@@ -75,19 +78,6 @@ func collect_trash():
 		carried_trash.push_back(trash)
 		speed -= self.change_speed(NORMAL_SPEED / 4)
 		emit_signal("trash_collected", carried_trash.size(), self.position)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	if self.speed == 0:
-#		$AnimationPlayer.play("default")
-#	elif self.speed != 0:
-#		$AnimationPlayer.play("walking")
-#func _physics_process(_delta: float) -> void:
-#	if self.speed == 0:
-#		$AnimationPlayer.play("default")
-#	elif self.speed != 0:
-#		$AnimationPlayer.play("walking")
-#
 
 #func _on_Area2D_area_entered(area: Area2D) -> void:
 #	if area.class_name == Muellhalde:
@@ -140,10 +130,15 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 	elif area is Muellhalde:
 		if allow_drop_on_halde:
 			drop_trash()
+
+	#Check, ob Nachbar wieder in seine Wohnung zurueck soll:
+	if area.name == self.target_name:
+		self.target_name = self.home_name
+		
 	#Hier bloß kein elif, da Wohnungstuer auch von der Klasse Muellhalde ist
 	if go_home:
 		if str(area.name) == str(wohnung):
-			print("Nachbar2 geht zurück in Wohnung")
+			print("Nachbar " + self.nbname + " geht zurück in Wohnung")
 			#funktioniert noch nicht (Nachbar muss in Wohnung2 verschwinden):
 			self.queue_free()
 
