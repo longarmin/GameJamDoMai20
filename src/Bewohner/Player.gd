@@ -80,6 +80,7 @@ func collect_trash():
 		trash.hide()
 		carrying_trash = true
 		carried_trash.push_back(trash)
+		print(trash)
 		near_trash.erase(trash)
 		speed.x -= 30
 		collectTrashLabel.hide()
@@ -90,7 +91,8 @@ func collect_trash():
 func drop_trash():
 	if carrying_trash:
 		if Input.is_action_just_pressed("action2"):
-			var trash: Muell = carried_trash.pop_back()
+			var trash = carried_trash.pop_front()
+			print(trash)
 			if carried_trash.size() == 0:
 				carrying_trash = false
 				dropTrashLabel.hide()
