@@ -9,6 +9,7 @@ const DANEBEN := 2
 const WOHNUNG := 3
 const STAIRWELLDOOR_POSX := 272
 const MAX_Y_DELTA_ON_SAME_LEVEL := 30
+const STANDARD_TIME_IDLE := 5
 
 signal nb_goes_home(nbname)
 
@@ -24,16 +25,32 @@ var wohnung := ""
 var target := HALDE
 var target_name = ""
 var target_position : Vector2 = Vector2(0,0)
+var queue_neighbour_events := []
 
+class neighbour_event:
+	var target_name: String = ""
+	var target_position: Vector2 = Vector2(0, 0)
+	var countdown_val: float = 0.0
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#set_drop_event()
+	$EvtCountdownTimer.wait_time = STANDARD_TIME_IDLE
+	$EvtCountdownTimer.start()
 	print(String(wohnung))
 	
 func _process(delta: float) -> void:
+	
 	if !carrying_trash && !go_home:
 		collect_trash()
 
+func push_neighbour_event(target_name:String, target_position:Vector2, countdown_val:float):
+	var temp = neighbour_event.new()
+	temp.target_name = target_name
+	temp.target_position = target_position
+	temp.countdown_val = countdown_val
+	self.queue_neighbour_events.push_back(temp)
+	
 func calculate_direction(current_direction: Vector2) -> Vector2:
 	var dir : float
 	#t=target
@@ -126,7 +143,6 @@ func _on_DropTrashTimer_timeout() -> void:
 
 func _on_HitBox_area_entered(area: Area2D) -> void:
 	._on_HitBox_area_entered(area)
-	print(area.name)
 	if area is Stairwell:
 		on_door = true
 		change_floor()
@@ -143,7 +159,18 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 	#Hier bloß kein elif, da Wohnung auch von der Klasse Muellhalde ist
 	if self.go_home:
 		if str(area.name) == str(self.home_name):
-			#funktioniert noch nicht (Nachbar muss in Wohnung2 verschwinden):
 			emit_signal("nb_goes_home", self.nbname)
-			
-
+	
+func _on_EvtCountdownTimer_timeout() -> void:
+	var temp = self.queue_neighbour_events.pop_front()
+	if temp != null:
+		self.go_home = false
+		self.target_name = temp.target_name
+		$EvtCountdownTimer.wait_time = temp.countdown_val
+		$EvtCountdownTimer.start()
+	else:
+		self.target_name = self.home_name
+		self.go_home = true
+		$EvtCountdownTimer.wait_time = STANDARD_TIME_IDLE
+		$EvtCountdownTimer.start()
+		
