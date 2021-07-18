@@ -13,20 +13,18 @@ class neighbour:
 		self.target_name=target_name
 		
 onready var dictNavTable = {
-	"Gertrude":neighbour.new($Wohnung3.position,"Wohnung3","Muellhalde3"),
-	"Franz":neighbour.new($Wohnung6.position,"Wohnung6","Wohnung6"),
-	"Lisa":neighbour.new($Wohnung7.position,"Wohnung7","Wohnung7")
+	"Gertrude":neighbour.new($Wohnung.position+Vector2(0, 10),"Wohnung","Muellhalde2"),
+	"Franz":neighbour.new($Wohnung2.position+Vector2(0, 10),"Wohnung2","Muellhalde"),
+	"Lisa":neighbour.new($Wohnung3.position+Vector2(0, 10),"Wohnung3","Wohnung3")
 }
 onready var NeighbourEvents = [
 	{"name":"Gertrude", "countdown_val":12, "target":"Muellhalde2"},
 	{"name":"Franz", "countdown_val":24, "target":"Muellhalde"},
-	{"name":"Lisa", "countdown_val":36, "target":"Muellhalde3"},	
+	{"name":"Lisa", "countdown_val":36, "target":"Muellhalde2"},	
 	{"name":"Lisa", "countdown_val":10, "target":"Muellhalde2"},	
 	{"name":"Lisa", "countdown_val":15, "target":"Muellhalde"},	
 ]
 
-#spawning umgesetzt wie beschrieben in 
-#https://godotengine.org/qa/8025/how-to-add-a-child-in-a-specific-position:
 onready var sNachbar_resource = preload("res://src/Bewohner/Nachbar.tscn")
 onready var sNachbar_instances = {}
 
@@ -39,8 +37,6 @@ func _ready() -> void:
 		print(str(i["target"]) + str(i["countdown_val"]) + str(i["name"]) + str(get_node(i["target"]).position))
 		sNachbar_instances[i["name"]].push_neighbour_event(i["target"], get_node(i["target"]).position, i["countdown_val"])
 		
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	check_for_spawning()
 
@@ -50,10 +46,6 @@ func check_for_spawning():
 			if (!sNachbar_instances[name].child_exists):
 				_on_Wohnung_nachbar_geht_raus(sNachbar_instances[name], name)
 
-func _on_Wohnung_muell_created(trash: Muell):
-	add_child(trash)	
-
-#to be deleted:
 func _on_Wohnung_nachbar_geht_raus(sNachbar, nbname) -> void:
 	#	add_child(sNachbar1)
 	print(str(nbname) + " adding as a child ...")
@@ -65,22 +57,4 @@ func _on_Wohnung_nachbar_geht_raus(sNachbar, nbname) -> void:
 	get_node(sNachbar.name).connect("nb_goes_home", self, "_on_Nachbar_nb_goes_home")
 	sNachbar.child_exists = true
 	print("... success!")
-
-#to be deleted:
-func _on_Wohnung2_nachbar_geht_raus(sWohnung) -> void:
-	#	$Wohnung2.force_create_muell()
-	#	var Nachbar_W2 = sNachbar_resource.instance()
-	#	#besser wäre ein Konstruktor - wie geht das in gdscript?:
-	#	Nachbar_W2.wohnung = sWohnung
-	#	Nachbar_W2.position = get_node(sWohnung).position + Vector2(0,16)
-	#	dictNachbarn[sWohnung].zuhause = false
-	#	dictNachbarn[sWohnung].hatMuell = true
-	#	self.add_child(Nachbar_W2)
-	#	var file = File.new()
-	#	file.open("res://characters.dat", File.WRITE)
-	#	file.store_var(Nachbar_W2.get_child(0), true)
-	#	file.close()
-	#	print_debug(str(Nachbar_W2.get_child(0).position))
-	pass
-
 

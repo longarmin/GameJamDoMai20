@@ -26,6 +26,7 @@ var target := HALDE
 var target_name = ""
 var target_position : Vector2 = Vector2(0,0)
 var queue_neighbour_events := []
+var counter : int = 0
 
 class neighbour_event:
 	var target_name: String = ""
@@ -37,10 +38,12 @@ func _ready() -> void:
 	#set_drop_event()
 	$EvtCountdownTimer.wait_time = STANDARD_TIME_IDLE
 	$EvtCountdownTimer.start()
-	print(String(wohnung))
 	
 func _process(delta: float) -> void:
-	
+	counter = counter + 1
+	if counter > 30:
+		print("time_left: " + str($EvtCountdownTimer.time_left))
+		counter = 0
 	if !carrying_trash && !go_home:
 		collect_trash()
 
@@ -158,6 +161,7 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 		
 	#Hier bloß kein elif, da Wohnung auch von der Klasse Muellhalde ist
 	if self.go_home:
+		print("area.name=" + str(area.name) + " self.home_name=" + str(self.home_name))
 		if str(area.name) == str(self.home_name):
 			emit_signal("nb_goes_home", self.nbname)
 	
@@ -174,3 +178,11 @@ func _on_EvtCountdownTimer_timeout() -> void:
 		$EvtCountdownTimer.wait_time = STANDARD_TIME_IDLE
 		$EvtCountdownTimer.start()
 		
+
+		
+
+
+func _on_Nachbar_nb_goes_home(nbname) -> void:
+	print("Nachbar " + str(nbname) + " geht zurück in Wohnung")
+	self.child_exists = false
+	self.hide()
