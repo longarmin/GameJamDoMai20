@@ -70,7 +70,7 @@ func _on_HitBox_area_exited(area: Area2D):
 		on_muellhalde = false
 		muellhalde = null
 		emit_signal("trash_notPickable")
-		print("trash_notPickable")
+		print("trash_notPickable1")
 		if carried_trash.size() > 0:
 			emit_signal("trash_dropable")
 			print("trash_dropable")
@@ -78,4 +78,4 @@ func _on_HitBox_area_exited(area: Area2D):
 		speed += self.change_speed(NORMAL_SPEED / 4)
 		near_trash.erase(area)
 		emit_signal("trash_notPickable")
-		print("trash_notPickable")
+		print("trash_notPickable2")

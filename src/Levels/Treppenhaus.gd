@@ -35,10 +35,14 @@ func _ready() -> void:
 		sNachbar_instances[name] = sNachbar_resource.instance()
 		#weil Godot anscheinend (noch) keinen guten Konstruktor fuer scenes hat:
 		sNachbar_instances[name].instanciate(dictNavTable[name].pos, dictNavTable[name].home_name, dictNavTable[name].target_name)
+		self.add_child(sNachbar_instances[name])
+		sNachbar_instances[name].hide()
 	for i in NeighbourEvents:
-		print(str(i["target"]) + str(i["countdown_val"]) + str(i["name"]) + str(get_node(i["target"]).position))
-		sNachbar_instances[i["name"]].push_neighbour_event(i["target"], get_node(i["target"]).position, i["countdown_val"])
-		
+		if i["name"] in sNachbar_instances:
+#			print(str(i["target"]) + str(i["countdown_val"]) + str(i["name"]) + str(get_node(i["target"]).position))
+			sNachbar_instances[i["name"]].push_neighbour_event(i["target"], get_node(i["target"]).position, i["countdown_val"])
+		else:
+			pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -56,8 +60,8 @@ func _on_Wohnung_muell_created(trash: Muell):
 #to be deleted:
 func _on_Wohnung_nachbar_geht_raus(sNachbar, nbname) -> void:
 	#	add_child(sNachbar1)
-	print(str(nbname) + " adding as a child ...")
-	self.add_child(sNachbar)
+	print(str(nbname) + " showing up ...")
+#	self.add_child(sNachbar)
 	sNachbar.show()
 	sNachbar.target_position=get_node(sNachbar.target_name).position
 	sNachbar.home_position=get_node(sNachbar.home_name).position
@@ -65,22 +69,3 @@ func _on_Wohnung_nachbar_geht_raus(sNachbar, nbname) -> void:
 	get_node(sNachbar.name).connect("nb_goes_home", self, "_on_Nachbar_nb_goes_home")
 	sNachbar.child_exists = true
 	print("... success!")
-
-#to be deleted:
-func _on_Wohnung2_nachbar_geht_raus(sWohnung) -> void:
-	#	$Wohnung2.force_create_muell()
-	#	var Nachbar_W2 = sNachbar_resource.instance()
-	#	#besser wäre ein Konstruktor - wie geht das in gdscript?:
-	#	Nachbar_W2.wohnung = sWohnung
-	#	Nachbar_W2.position = get_node(sWohnung).position + Vector2(0,16)
-	#	dictNachbarn[sWohnung].zuhause = false
-	#	dictNachbarn[sWohnung].hatMuell = true
-	#	self.add_child(Nachbar_W2)
-	#	var file = File.new()
-	#	file.open("res://characters.dat", File.WRITE)
-	#	file.store_var(Nachbar_W2.get_child(0), true)
-	#	file.close()
-	#	print_debug(str(Nachbar_W2.get_child(0).position))
-	pass
-
-

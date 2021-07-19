@@ -79,8 +79,6 @@ func calc_speed(pos_player: Vector2):
 	else:
 		direction.x = -1
 
-	# sprite_flip_direction()
-
 
 func _on_Player_trash_dropped(_trashsize: int, pos_player: Vector2) -> void:
 	if bBodyInHearingRange:

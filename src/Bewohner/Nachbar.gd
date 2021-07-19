@@ -13,7 +13,7 @@ const STANDARD_TIME_IDLE := 5
 
 signal nb_goes_home(nbname)
 
-var allow_drop_on_halde: bool = false
+var allow_drop_on_halde: bool = true
 var child_exists: bool = false
 var drop_time: float = 0.0
 var drop_location: int = 0
@@ -32,17 +32,17 @@ class neighbour_event:
 	var target_name: String = ""
 	var target_position: Vector2 = Vector2(0, 0)
 	var countdown_val: float = 0.0
-	
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
-	#set_drop_event()
+	self.set_velo(Vector2(0, self._velocity.y))
 	$EvtCountdownTimer.wait_time = STANDARD_TIME_IDLE
 	$EvtCountdownTimer.start()
 	
 func _process(delta: float) -> void:
 	counter = counter + 1
 	if counter > 30:
-		print("time_left: " + str($EvtCountdownTimer.time_left))
+		print(str(nbname) + ": time_left: " + str($EvtCountdownTimer.time_left) +
+		" Velo: " + str(self._velocity))
 		counter = 0
 	if !carrying_trash && !go_home:
 		collect_trash()
@@ -55,16 +55,18 @@ func push_neighbour_event(target_name:String, target_position:Vector2, countdown
 	self.queue_neighbour_events.push_back(temp)
 	
 func calculate_direction(current_direction: Vector2) -> Vector2:
-	var dir : float
+	var dir : float = current_direction.x
 	#t=target
 	var t = target_position
 	#i=instance
 	var i = self.position
 	var abs_delta_y = abs(t.y - i.y)
 	if (abs_delta_y <= MAX_Y_DELTA_ON_SAME_LEVEL):
-		dir = sign(t.x - i.x)
+		if (t.x != i.x):
+			dir = sign(t.x - i.x)
 	else:
-		dir = sign(STAIRWELLDOOR_POSX - i.x)
+		if(STAIRWELLDOOR_POSX != i.x):
+			dir = sign(STAIRWELLDOOR_POSX - i.x)
 	dir = dir*abs(current_direction.x)
 	return Vector2(dir, current_direction.y)
 	
@@ -102,9 +104,11 @@ func collect_trash():
 		speed -= self.change_speed(NORMAL_SPEED / 4)
 		emit_signal("trash_collected", carried_trash.size(), self.position)
 
-#func _on_Area2D_area_entered(area: Area2D) -> void:
-#	if area.class_name == Muellhalde:
+func _on_Area2D_area_entered(area: Area2D) -> void:
+	if area.name == "Muellhalde":
 #		area.store_muell(muell)
+		self.drop_trash()
+		
 func drop_trash():
 	if carrying_trash:
 		var trash: Muell = carried_trash.pop_back()
@@ -128,21 +132,21 @@ func instanciate(pos:=Vector2(0,0), home_name:="", target_name:=""):
 	self.home_name = home_name
 	self.target_name = target_name
 	
-func set_drop_event():
-	drop_time=randf()*TIME_FACTOR
-	var temp = randf()
-	if temp > 0.2:
-		drop_location=HALDE
-	else:
-		drop_location=DANEBEN
-	$DropTrashTimer.wait_time = drop_time
-	$DropTrashTimer.start()
-
-func _on_DropTrashTimer_timeout() -> void:
-	if drop_location == DANEBEN:
-		drop_trash()
-	elif drop_location == HALDE:
-		allow_drop_on_halde = true
+#func set_drop_event():
+#	drop_time=randf()*TIME_FACTOR
+#	var temp = randf()
+#	if temp > 0.2:
+#		drop_location=HALDE
+#	else:
+#		drop_location=DANEBEN
+#	$DropTrashTimer.wait_time = drop_time
+#	$DropTrashTimer.start()
+#
+#func _on_DropTrashTimer_timeout() -> void:
+#	if drop_location == DANEBEN:
+#		drop_trash()
+#	elif drop_location == HALDE:
+#		allow_drop_on_halde = true
 
 func _on_HitBox_area_entered(area: Area2D) -> void:
 	._on_HitBox_area_entered(area)
@@ -155,6 +159,7 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 
 	#Check, ob Nachbar wieder in seine Wohnung zurueck soll:
 	if area.name == self.target_name:
+		#neues Ziel setzen: Wohnung des Nachbarn
 		self.target_name = self.home_name
 		self.target_position = self.home_position
 		self.go_home = true
@@ -168,7 +173,7 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 func _on_EvtCountdownTimer_timeout() -> void:
 	var temp = self.queue_neighbour_events.pop_front()
 	if temp != null:
-		self.go_home = false
+		#self.go_home = false
 		self.target_name = temp.target_name
 		$EvtCountdownTimer.wait_time = temp.countdown_val
 		$EvtCountdownTimer.start()
@@ -177,12 +182,18 @@ func _on_EvtCountdownTimer_timeout() -> void:
 		self.go_home = true
 		$EvtCountdownTimer.wait_time = STANDARD_TIME_IDLE
 		$EvtCountdownTimer.start()
-		
-
-		
-
 
 func _on_Nachbar_nb_goes_home(nbname) -> void:
 	print("Nachbar " + str(nbname) + " geht zurück in Wohnung")
 	self.child_exists = false
 	self.hide()
+	
+func show():
+	.show()
+	self.set_velo(Vector2(NORMAL_SPEED, self._velocity.y))
+	
+func hide():
+	if (self.nbname == "Lisa"):
+		print("Lisa hiding ...")
+	.hide()
+	self.set_velo(Vector2(0, self._velocity.y))

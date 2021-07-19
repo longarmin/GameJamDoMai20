@@ -21,6 +21,3 @@ func update_trash(value: int):
 		else:
 			get_child(i).texture = trash_empty
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

@@ -119,7 +119,6 @@ anims/walkingTrash = SubResource( 6 )
 [node name="EvtCountdownTimer" type="Timer" parent="."]
 
 [node name="DropTrashTimer" type="Timer" parent="."]
-[connection signal="nb_goes_home" from="." to="." method="_on_Nachbar_nb_goes_home"]
 [connection signal="stairs_climbed" from="." to="Area2D" method="_on_Player_stairs_climbed"]
 [connection signal="stairs_climbing" from="." to="Area2D" method="_on_Player_stairs_climbing"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]

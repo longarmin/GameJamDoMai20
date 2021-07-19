@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/doorMuell.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15.7703, 21.2813 )
+extents = Vector2( 6.75175, 21.2813 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "low"

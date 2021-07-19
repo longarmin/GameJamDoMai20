@@ -5,6 +5,7 @@ class_name Muellhalde
 # var a = 2
 # var b = "text"
 var muellBeutel := []
+var object_type : String = "Muelldeponie"
 export var maximumMuellAmount := 5
 
 onready var animatonPlayer: AnimationPlayer = $Sprite/AnimationPlayer

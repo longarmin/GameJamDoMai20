@@ -15,6 +15,7 @@ func _ready() -> void:
 	#verlässt, NACHDEM Müll vor die Tür gestellt wurde, damit er
 	#ihn aufsammelt
 	$create_bewohner.start()
+	self.object_type = "Wohnung"
 
 func _process(_delta):
 	if bNachbar_zuhause:
