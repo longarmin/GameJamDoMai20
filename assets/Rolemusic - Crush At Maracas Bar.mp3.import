@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Rolemusic - Crush At Maracas Bar.mp3-4ea172e72b15b7a39c93bf230e334305.mp3str"
+
+[deps]
+
+source_file="res://assets/Rolemusic - Crush At Maracas Bar.mp3"
+dest_files=[ "res://.import/Rolemusic - Crush At Maracas Bar.mp3-4ea172e72b15b7a39c93bf230e334305.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
