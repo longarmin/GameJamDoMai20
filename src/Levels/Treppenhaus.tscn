@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
 [ext_resource path="res://assets/Rolemusic - Crush At Maracas Bar.ogg" type="AudioStream" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/speaker.png" type="Texture" id=7]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/Bewohner/NPC.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/speaker-Sheet.png" type="Texture" id=13]
 [ext_resource path="res://assets/alanin.png" type="Texture" id=15]
@@ -169,7 +170,7 @@ position = Vector2( 464, 286.312 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
@@ -188,7 +189,7 @@ position = Vector2( 435.612, 75.75 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
 position = Vector2( -406.612, 9.7298 )
 frames = SubResource( 10 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Sprite3" type="AnimatedSprite" parent="."]
@@ -201,9 +202,14 @@ playing = true
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 20 )
+frame = 1
 playing = true
+
+[node name="NPC" parent="." instance=ExtResource( 10 )]
+position = Vector2( 42, 168 )
+speed = 300.0
+
 [connection signal="muell_created" from="Wohnung2" to="." method="_on_Wohnung_muell_created"]
-[connection signal="nachbar_geht_raus" from="Wohnung2" to="." method="_on_Wohnung2_nachbar_geht_raus"]
 [connection signal="muell_created" from="Wohnung3" to="." method="_on_Wohnung_muell_created"]
 [connection signal="muell_created" from="Wohnung6" to="." method="_on_Wohnung_muell_created"]
 [connection signal="muell_created" from="Wohnung7" to="." method="_on_Wohnung_muell_created"]

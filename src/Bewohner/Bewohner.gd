@@ -32,7 +32,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	var velocity = self._velocity
+	var velocity := self._velocity
 	direction = self.calculate_direction(direction)
 	velocity = calculate_move_velocity(velocity, direction, speed)
 	velocity = move_and_slide(velocity, FLOOR_NORMAL)
@@ -51,12 +51,12 @@ func flip_sprite():
 
 func calculate_direction(current_direction: Vector2) -> Vector2:
 	var new_direction := current_direction
-	if(new_direction.x == 0):
+	if new_direction.x == 0:
 		print("new_direction.x = 0")
 	var rando = randf()
 	if rando < 0.001 || is_on_wall():
 		new_direction = self.change_direction(current_direction)
-	if(abs(new_direction.x) < 1):
+	if abs(new_direction.x) < 1:
 		print("new_direction.x = 0")
 	return new_direction
 
@@ -116,8 +116,9 @@ func change_speed(decreasingAmount := NORMAL_SPEED / 2) -> float:
 		return speed
 	else:
 		return decreasingAmount
-		
-func set_velo(velo : Vector2) -> void:
+
+
+func set_velo(velo: Vector2) -> void:
 	self._velocity.y = velo.y
 	if velo.x != self._velocity.x:
 		self._velocity.x = velo.x

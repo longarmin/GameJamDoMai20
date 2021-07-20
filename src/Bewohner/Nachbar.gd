@@ -1,7 +1,6 @@
 extends Mieter
 class_name Nachbar
 
-
 # Declare member variables here. 
 const TIME_FACTOR := 20
 const HALDE := 1
@@ -12,6 +11,8 @@ const MAX_Y_DELTA_ON_SAME_LEVEL := 30
 const STANDARD_TIME_IDLE := 5
 
 signal nb_goes_home(nbname)
+signal stairs_ascending
+signal stairs_descending
 
 var allow_drop_on_halde: bool = true
 var child_exists: bool = false
@@ -19,62 +20,75 @@ var drop_time: float = 0.0
 var drop_location: int = 0
 var go_home: bool = false
 var home_name = ""
-var home_position : Vector2 = Vector2(0,0)
+var home_position: Vector2 = Vector2(0, 0)
 var nbname: String = ""
 var wohnung := ""
 var target := HALDE
 var target_name = ""
-var target_position : Vector2 = Vector2(0,0)
+var target_position: Vector2 = Vector2(0, 0)
 var queue_neighbour_events := []
-var counter : int = 0
+var counter: int = 0
+
 
 class neighbour_event:
 	var target_name: String = ""
 	var target_position: Vector2 = Vector2(0, 0)
 	var countdown_val: float = 0.0
 
+
 func _ready() -> void:
 	self.set_velo(Vector2(0, self._velocity.y))
 	$EvtCountdownTimer.wait_time = STANDARD_TIME_IDLE
 	$EvtCountdownTimer.start()
-	
+
+
 func _process(delta: float) -> void:
 	counter = counter + 1
 	if counter > 30:
-		print(str(nbname) + ": time_left: " + str($EvtCountdownTimer.time_left) +
-		" Velo: " + str(self._velocity))
+		""" print(
+			(
+				str(nbname)
+				+ ": time_left: "
+				+ str($EvtCountdownTimer.time_left)
+				+ " Velo: "
+				+ str(self._velocity)
+			)
+		) """
 		counter = 0
-	if !carrying_trash && !go_home:
+	if ! carrying_trash && ! go_home:
 		collect_trash()
 
-func push_neighbour_event(target_name:String, target_position:Vector2, countdown_val:float):
+
+func push_neighbour_event(target_name: String, target_position: Vector2, countdown_val: float):
 	var temp = neighbour_event.new()
 	temp.target_name = target_name
 	temp.target_position = target_position
 	temp.countdown_val = countdown_val
 	self.queue_neighbour_events.push_back(temp)
-	
+
+
 func calculate_direction(current_direction: Vector2) -> Vector2:
-	var dir : float = current_direction.x
+	var dir: float = current_direction.x
 	#t=target
 	var t = target_position
 	#i=instance
 	var i = self.position
 	var abs_delta_y = abs(t.y - i.y)
-	if (abs_delta_y <= MAX_Y_DELTA_ON_SAME_LEVEL):
-		if (t.x != i.x):
+	if abs_delta_y <= MAX_Y_DELTA_ON_SAME_LEVEL:
+		if t.x != i.x:
 			dir = sign(t.x - i.x)
 	else:
-		if(STAIRWELLDOOR_POSX != i.x):
+		if STAIRWELLDOOR_POSX != i.x:
 			dir = sign(STAIRWELLDOOR_POSX - i.x)
-	dir = dir*abs(current_direction.x)
+	dir = dir * abs(current_direction.x)
 	return Vector2(dir, current_direction.y)
-	
+
+
 func change_floor() -> void:
 	var DeltaY = self.target_position.y - self.position.y
 	if on_stairs || ! on_door:
 		return
-	if  DeltaY > MAX_Y_DELTA_ON_SAME_LEVEL && self.position.y < 250:
+	if DeltaY > MAX_Y_DELTA_ON_SAME_LEVEL && self.position.y < 250:
 		emit_signal("stairs_descending")
 		timer_climbingStairs.start()
 		self.position.y += 96
@@ -86,7 +100,8 @@ func change_floor() -> void:
 		self.hide()
 	elif abs(DeltaY) <= MAX_Y_DELTA_ON_SAME_LEVEL:
 		pass
-	
+
+
 func collect_trash():
 	if carried_trash.size() >= max_trashAmount:
 		return
@@ -104,11 +119,13 @@ func collect_trash():
 		speed -= self.change_speed(NORMAL_SPEED / 4)
 		emit_signal("trash_collected", carried_trash.size(), self.position)
 
+
 func _on_Area2D_area_entered(area: Area2D) -> void:
 	if area.name == "Muellhalde":
 #		area.store_muell(muell)
 		self.drop_trash()
-		
+
+
 func drop_trash():
 	if carrying_trash:
 		var trash: Muell = carried_trash.pop_back()
@@ -125,13 +142,15 @@ func drop_trash():
 			go_home = true
 		speed += self.change_speed(NORMAL_SPEED / 4)
 		emit_signal("trash_dropped", carried_trash.size(), self.position)
-		
+
+
 #weil Godot anscheinend (noch) keinen guten Konstruktor fuer scenes hat:
-func instanciate(pos:=Vector2(0,0), home_name:="", target_name:=""):
+func instanciate(pos := Vector2(0, 0), home_name := "", target_name := ""):
 	self.position = pos
 	self.home_name = home_name
 	self.target_name = target_name
-	
+
+
 #func set_drop_event():
 #	drop_time=randf()*TIME_FACTOR
 #	var temp = randf()
@@ -148,6 +167,7 @@ func instanciate(pos:=Vector2(0,0), home_name:="", target_name:=""):
 #	elif drop_location == HALDE:
 #		allow_drop_on_halde = true
 
+
 func _on_HitBox_area_entered(area: Area2D) -> void:
 	._on_HitBox_area_entered(area)
 	if area is Stairwell:
@@ -163,13 +183,14 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 		self.target_name = self.home_name
 		self.target_position = self.home_position
 		self.go_home = true
-		
-	#Hier bloß kein elif, da Wohnung auch von der Klasse Muellhalde ist
+
+	#Hier blo� kein elif, da Wohnung auch von der Klasse Muellhalde ist
 	if self.go_home:
-		print("area.name=" + str(area.name) + " self.home_name=" + str(self.home_name))
+		# print("area.name=" + str(area.name) + " self.home_name=" + str(self.home_name))
 		if str(area.name) == str(self.home_name):
 			emit_signal("nb_goes_home", self.nbname)
-	
+
+
 func _on_EvtCountdownTimer_timeout() -> void:
 	var temp = self.queue_neighbour_events.pop_front()
 	if temp != null:
@@ -183,17 +204,18 @@ func _on_EvtCountdownTimer_timeout() -> void:
 		$EvtCountdownTimer.wait_time = STANDARD_TIME_IDLE
 		$EvtCountdownTimer.start()
 
+
 func _on_Nachbar_nb_goes_home(nbname) -> void:
-	print("Nachbar " + str(nbname) + " geht zurück in Wohnung")
+	# print("Nachbar " + str(nbname) + " geht zur�ck in Wohnung")
 	self.child_exists = false
 	self.hide()
-	
+
+
 func show():
 	.show()
 	self.set_velo(Vector2(NORMAL_SPEED, self._velocity.y))
-	
+
+
 func hide():
-	if (self.nbname == "Lisa"):
-		print("Lisa hiding ...")
 	.hide()
 	self.set_velo(Vector2(0, self._velocity.y))
