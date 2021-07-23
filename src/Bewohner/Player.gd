@@ -18,7 +18,7 @@ func _ready() -> void:
 #	pass
 
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("action1"):
 		collect_trash()
 	if event.is_action_pressed("action2"):
@@ -29,7 +29,7 @@ func _input(event):
 		change_floor()
 
 
-func calculate_direction(_direction) -> Vector2:
+func calculate_direction(_direction: Vector2) -> Vector2:
 	return Vector2(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"), 0)
 
 
@@ -50,7 +50,7 @@ func change_floor() -> void:
 		self.hide()
 
 
-func collect_trash():
+func collect_trash() -> void:
 	if carried_trash.size() >= max_trashAmount:
 		return
 	var trash: Muell
@@ -68,7 +68,7 @@ func collect_trash():
 		emit_signal("trash_collected", carried_trash.size(), self.position)
 
 
-func drop_trash():
+func drop_trash() -> void:
 	if carrying_trash:
 		if Input.is_action_just_pressed("action2"):
 			var trash: Muell = carried_trash.pop_back()

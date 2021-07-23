@@ -4,6 +4,8 @@ class_name StateMachine
 export var inital_state := NodePath()
 var current_state: State
 
+signal transitioned_to_state(new_state)
+
 
 func _ready():
 	current_state = get_node(inital_state)
@@ -25,6 +27,7 @@ func transition_to(target_state_name: String):
 		current_state.exit()
 		next_state.enter()
 		current_state = next_state
+		emit_signal("transitioned_to_state", current_state)
 		return
 	else:
 		return
@@ -46,6 +49,5 @@ func _on_Timer_timeout():
 	var message = Message.new()
 	message.status = 1
 	message.content = "Timer aus"
-	print(current_state)
 	message.emitter = "StateMachine"
 	respond_to(message)

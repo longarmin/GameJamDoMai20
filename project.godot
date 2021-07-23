@@ -19,12 +19,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/BewohnerNPC.gd"
 }, {
+"base": "State",
+"class": "BewohnerState",
+"language": "GDScript",
+"path": "res://src/Bewohner/BewohnerState.gd"
+}, {
 "base": "HBoxContainer",
 "class": "ButtonBoxContainer",
 "language": "GDScript",
 "path": "res://src/UI/ButtonBoxContainer.gd"
 }, {
-"base": "State",
+"base": "BewohnerState",
 "class": "Idle",
 "language": "GDScript",
 "path": "res://src/Bewohner/Idle.gd"
@@ -42,7 +47,7 @@ _global_script_classes=[ {
 "base": "Bewohner",
 "class": "Mieter",
 "language": "GDScript",
-"path": "res://src/Bewohner/mieter.gd"
+"path": "res://src/Bewohner/Mieter.gd"
 }, {
 "base": "Area2D",
 "class": "Muell",
@@ -53,6 +58,11 @@ _global_script_classes=[ {
 "class": "Muellhalde",
 "language": "GDScript",
 "path": "res://src/Levels/Muellhalde.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "NPC",
+"language": "GDScript",
+"path": "res://src/Bewohner/NPC.gd"
 }, {
 "base": "Mieter",
 "class": "Nachbar",
@@ -69,7 +79,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/Player.gd"
 }, {
-"base": "State",
+"base": "BewohnerState",
 "class": "Running",
 "language": "GDScript",
 "path": "res://src/Bewohner/Running.gd"
@@ -102,6 +112,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Bewohner": "",
 "BewohnerNPC": "",
+"BewohnerState": "",
 "ButtonBoxContainer": "",
 "Idle": "",
 "KarmaBoxContainer": "",
@@ -109,6 +120,7 @@ _global_script_class_icons={
 "Mieter": "",
 "Muell": "",
 "Muellhalde": "",
+"NPC": "",
 "Nachbar": "",
 "Oma": "",
 "Player": "",

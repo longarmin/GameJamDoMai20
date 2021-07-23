@@ -1,9 +1,14 @@
-extends State
+extends BewohnerState
 class_name Idle
 
 
-func update(delta: float) -> void:
-	pass
+func update(_delta: float) -> void:
+	if bewohner.calculate_direction(bewohner.direction).x != 0:
+		var message = Message.new()
+		message.status = 1
+		message.content = "Geschwindigkeit ungleich 0"
+		message.emitter = "IdleState"
+		get_machine().respond_to(message)
 
 
 func handle_input(event) -> void:
@@ -11,12 +16,14 @@ func handle_input(event) -> void:
 
 
 func respond_to(message: Message) -> String:
-	return "Running"
+	if message.status == 1:
+		return "Running"
+	return ""
 
 
 func enter():
-	print("Bin idle")
+	pass
 
 
 func exit():
-	print("Bin nicht mehr idle")
+	pass
