@@ -15,7 +15,11 @@ func enter() -> void:
 		)
 		bewohner.animationPlayer.play("dropping")
 	else:
-		pass
+		var message = Message.new()
+		message.status = 1
+		message.content = "Keinen Trash"
+		message.emitter = "DroppingState"
+		get_machine().respond_to(message)
 
 
 func exit() -> void:

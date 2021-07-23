@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "State",
 "class": "BewohnerState",
 "language": "GDScript",
-"path": "res://src/Bewohner/BewohnerState.gd"
+"path": "res://src/Bewohner/States/BewohnerState.gd"
 }, {
 "base": "HBoxContainer",
 "class": "ButtonBoxContainer",

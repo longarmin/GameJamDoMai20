@@ -8,6 +8,7 @@ signal transitioned_to_state(new_state)
 
 
 func _ready():
+	yield(owner, "ready")
 	current_state = get_node(inital_state)
 	current_state.enter()
 
@@ -25,8 +26,8 @@ func transition_to(target_state_name: String):
 
 	if next_state != null:
 		current_state.exit()
-		next_state.enter()
 		current_state = next_state
+		current_state.enter()
 		emit_signal("transitioned_to_state", current_state)
 		return
 	else:
