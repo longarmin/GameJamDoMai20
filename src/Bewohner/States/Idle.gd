@@ -12,17 +12,24 @@ func update(_delta: float) -> void:
 
 
 func handle_input(event) -> void:
-	pass
+	if Input.is_action_pressed("action1"):
+		var message = Message.new()
+		message.status = 2
+		message.content = "Actionbutton gedrueckt"
+		message.emitter = "IdleState"
+		get_machine().respond_to(message)
 
 
 func respond_to(message: Message) -> String:
 	if message.status == 1:
 		return "Running"
+	elif message.status == 2:
+		return "Dropping"
 	return ""
 
 
 func enter():
-	pass
+	bewohner.animationPlayer.play("idle")
 
 
 func exit():

@@ -30,9 +30,14 @@ _global_script_classes=[ {
 "path": "res://src/UI/ButtonBoxContainer.gd"
 }, {
 "base": "BewohnerState",
+"class": "Dropping",
+"language": "GDScript",
+"path": "res://src/Bewohner/States/Dropping.gd"
+}, {
+"base": "BewohnerState",
 "class": "Idle",
 "language": "GDScript",
-"path": "res://src/Bewohner/Idle.gd"
+"path": "res://src/Bewohner/States/Idle.gd"
 }, {
 "base": "TextureRect",
 "class": "KarmaBoxContainer",
@@ -82,7 +87,7 @@ _global_script_classes=[ {
 "base": "BewohnerState",
 "class": "Running",
 "language": "GDScript",
-"path": "res://src/Bewohner/Running.gd"
+"path": "res://src/Bewohner/States/Running.gd"
 }, {
 "base": "Control",
 "class": "SpeechBubble",
@@ -97,12 +102,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
-"path": "res://src/Bewohner/State.gd"
+"path": "res://src/Bewohner/States/State.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://src/Bewohner/StateMachine.gd"
+"path": "res://src/Bewohner/States/StateMachine.gd"
 }, {
 "base": "HBoxContainer",
 "class": "TrashBoxContainer",
@@ -114,6 +119,7 @@ _global_script_class_icons={
 "BewohnerNPC": "",
 "BewohnerState": "",
 "ButtonBoxContainer": "",
+"Dropping": "",
 "Idle": "",
 "KarmaBoxContainer": "",
 "Message": "",

@@ -77,6 +77,6 @@ func _on_Wohnung_nachbar_geht_raus(sNachbar, nbname) -> void:
 	sNachbar.target_position = get_node(sNachbar.target_name).position
 	sNachbar.home_position = get_node(sNachbar.home_name).position
 	sNachbar.nbname = str(nbname)
-	get_node(sNachbar.name).connect("nb_goes_home", sNachbar, "_on_Nachbar_nb_goes_home")
+	sNachbar.connect("nb_goes_home", sNachbar, "_on_Nachbar_nb_goes_home", [nbname])
 	sNachbar.child_exists = true
 	print("... success!")

@@ -67,8 +67,8 @@ one_way_collision_margin = 0.0
 position = Vector2( 0, -16 )
 texture = ExtResource( 2 )
 normal_map = SubResource( 2 )
-vframes = 2
 hframes = 6
+vframes = 2
 frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
@@ -124,6 +124,7 @@ shape = SubResource( 7 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
 [connection signal="body_entered" from="Character_Detector" to="." method="_on_Character_Detector_body_entered"]
 [connection signal="body_exited" from="Character_Detector" to="." method="_on_Character_Detector_body_exited"]
 [connection signal="body_entered" from="Character_Detector_NearField" to="." method="_on_Character_Detector_NearField_body_entered"]

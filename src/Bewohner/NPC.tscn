@@ -1,12 +1,44 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Bewohner/NPC.gd" type="Script" id=1]
-[ext_resource path="res://src/Bewohner/StateMachine.gd" type="Script" id=2]
-[ext_resource path="res://src/Bewohner/Running.gd" type="Script" id=3]
-[ext_resource path="res://src/Bewohner/Idle.gd" type="Script" id=4]
-[ext_resource path="res://assets/alanin-Sheet.png" type="Texture" id=5]
+[ext_resource path="res://src/Bewohner/States/Dropping.gd" type="Script" id=2]
+[ext_resource path="res://src/Bewohner/States/Running.gd" type="Script" id=3]
+[ext_resource path="res://src/Bewohner/States/Idle.gd" type="Script" id=4]
+[ext_resource path="res://assets/alanin.png" type="Texture" id=5]
+[ext_resource path="res://src/Bewohner/States/StateMachine.gd" type="Script" id=6]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 16 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "dropping"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
 
 [node name="NPC" type="KinematicBody2D"]
 collision_layer = 4
@@ -17,22 +49,17 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 2 )
+script = ExtResource( 6 )
 inital_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
 
+[node name="Dropping" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )
+
 [node name="Running" type="Node" parent="StateMachine"]
 script = ExtResource( 3 )
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
-
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 5 )
-hframes = 6
 
 [node name="Label" type="Label" parent="."]
 margin_left = -40.0
@@ -44,5 +71,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/dropping = SubResource( 2 )
+anims/idle = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 5 )
+hframes = 4
+
 [connection signal="transitioned_to_state" from="StateMachine" to="." method="_on_StateMachine_transitioned_to_state"]
-[connection signal="timeout" from="Timer" to="StateMachine" method="_on_Timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]

@@ -118,8 +118,8 @@ one_shot = true
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -16 )
 texture = ExtResource( 3 )
-vframes = 4
 hframes = 6
+vframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"
@@ -127,6 +127,7 @@ anims/default = SubResource( 3 )
 anims/defaultTrash = SubResource( 4 )
 anims/walking = SubResource( 5 )
 anims/walkingTrash = SubResource( 6 )
+
 [connection signal="stairs_climbed" from="." to="Area2D" method="_on_Player_stairs_climbed"]
 [connection signal="stairs_climbing" from="." to="Area2D" method="_on_Player_stairs_climbing"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]

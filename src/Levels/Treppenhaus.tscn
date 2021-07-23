@@ -170,7 +170,7 @@ position = Vector2( 464, 286.312 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
@@ -189,18 +189,20 @@ position = Vector2( 435.612, 75.75 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
 position = Vector2( -406.612, 9.7298 )
 frames = SubResource( 10 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Sprite3" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 415.629, 75.75 )
 frames = SubResource( 15 )
+frame = 1
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 20 )
+frame = 3
 playing = true
 
 [node name="NPC" parent="." instance=ExtResource( 10 )]

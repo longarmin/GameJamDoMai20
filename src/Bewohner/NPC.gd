@@ -9,8 +9,11 @@ export var speed := NORMAL_SPEED
 var _velocity := Vector2.ZERO
 var direction := Vector2(1, 0)
 
+var carrying_trash = true
+
 # DEBUGGING
 onready var label: Label = $Label
+onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 
 
 func calculate_direction(_direction: Vector2) -> Vector2:

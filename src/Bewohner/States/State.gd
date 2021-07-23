@@ -24,3 +24,5 @@ func enter():
 
 func exit():
 	pass
+
+	# Create Message function
