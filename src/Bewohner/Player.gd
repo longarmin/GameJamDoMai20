@@ -6,8 +6,6 @@ class_name Player
 # var b: String = "text"
 
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -53,9 +51,9 @@ func change_floor() -> void:
 func collect_trash() -> void:
 	if carried_trash.size() >= max_trashAmount:
 		return
-	var trash: Muell
-	if on_muellhalde:
-		trash = muellhalde.retrieve_muell()
+	var trash: Trash
+	if on_dump:
+		trash = dump.retrieve_trash()
 	elif near_trash.size() > 0:
 		trash = near_trash[0]
 		trash.hide()
@@ -71,9 +69,9 @@ func collect_trash() -> void:
 func drop_trash() -> void:
 	if carrying_trash:
 		if Input.is_action_just_pressed("action2"):
-			var trash: Muell = carried_trash.pop_back()
-			if on_muellhalde:
-				if ! muellhalde.store_muell(trash):
+			var trash: Trash = carried_trash.pop_back()
+			if on_dump:
+				if ! dump.store_trash(trash):
 					carried_trash.append(trash)
 					return
 			else:
@@ -84,5 +82,3 @@ func drop_trash() -> void:
 				carrying_trash = false
 			speed += self.change_speed(NORMAL_SPEED / 4)
 			emit_signal("trash_dropped", carried_trash.size(), self.position)
-
-

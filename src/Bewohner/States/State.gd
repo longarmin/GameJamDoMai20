@@ -1,20 +1,22 @@
 extends Node
 class_name State
 
-
-func get_machine() -> Node:
-	return get_parent()
+var state_machine = null
 
 
-func update(delta: float) -> void:
+func update(_delta: float) -> void:
 	pass
 
 
-func handle_input(event) -> void:
+func update_physics(_delta: float) -> void:
 	pass
 
 
-func respond_to(message) -> String:
+func handle_input(_event) -> void:
+	pass
+
+
+func respond_to(_message) -> String:
 	return ""
 
 

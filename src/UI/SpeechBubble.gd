@@ -30,10 +30,13 @@ func set_text(text, wait_time = 3):
 	#text_bg.margin_right = text_size.x + margin_offset
 
 	# Animation
+# warning-ignore:return_value_discarded
 	tween.remove_all()
+# warning-ignore:return_value_discarded
 	tween.interpolate_property(text_node, "percent_visible", 0, 1, duration)
 	#tween.interpolate_property(text_bg, "margin_right", 0, text_size.x + margin_offset, duration)
 	#tween.interpolate_property($Anchor, "position", Vector2.ZERO, Vector2(-text_size.x/2, 0), duration)
+# warning-ignore:return_value_discarded
 	tween.start()
 
 

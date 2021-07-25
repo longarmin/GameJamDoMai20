@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/muellIcon1.png-19ca619f36402f546a723a1508e914ed.stex"
+path="res://.import/trashIcon1.png-3ca7ff9a1b1321fd27501be09a87d9f2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/muellIcon1.png"
-dest_files=[ "res://.import/muellIcon1.png-19ca619f36402f546a723a1508e914ed.stex" ]
+source_file="res://assets/trashIcon1.png"
+dest_files=[ "res://.import/trashIcon1.png-3ca7ff9a1b1321fd27501be09a87d9f2.stex" ]
 
 [params]
 

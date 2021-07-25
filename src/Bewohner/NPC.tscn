@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Bewohner/NPC.gd" type="Script" id=1]
 [ext_resource path="res://src/Bewohner/States/Dropping.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/Bewohner/States/Idle.gd" type="Script" id=4]
 [ext_resource path="res://assets/alanin.png" type="Texture" id=5]
 [ext_resource path="res://src/Bewohner/States/StateMachine.gd" type="Script" id=6]
+[ext_resource path="res://src/Levels/Trash.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 16 )
@@ -40,10 +41,15 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 16 )
+
 [node name="NPC" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
+Trash = ExtResource( 7 )
+fSpeed = 150.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -80,5 +86,14 @@ anims/idle = SubResource( 3 )
 texture = ExtResource( 5 )
 hframes = 4
 
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 24
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 4 )
+
 [connection signal="transitioned_to_state" from="StateMachine" to="." method="_on_StateMachine_transitioned_to_state"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]

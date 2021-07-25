@@ -1,19 +1,31 @@
 extends KinematicBody2D
 class_name NPC
+export (PackedScene) onready var Trash
 
 const FLOOR_NORMAL := Vector2.UP
 const NORMAL_SPEED := 50.0
 const GRAVITY := 3000
 
-export var speed := NORMAL_SPEED
-var _velocity := Vector2.ZERO
-var direction := Vector2(1, 0)
+export var fSpeed := NORMAL_SPEED
+var vNPCVelocity := Vector2.ZERO
+var vNPCDirection := Vector2(1, 0)
+var bIsOnDump := false
+var bIsOnDoor := false
+var dump: Dump
+var aTrashBags: Array
 
-var carrying_trash = true
+onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+
+signal trash_created(trash)
 
 # DEBUGGING
 onready var label: Label = $Label
-onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+
+func _ready():
+	var trash: Trash = Trash.instance()
+	yield(owner, "ready")
+	emit_signal("trash_created", trash)
+	aTrashBags = [trash]
 
 
 func calculate_direction(_direction: Vector2) -> Vector2:
@@ -32,5 +44,30 @@ func calculate_move_velocity(
 	return out
 
 
-func _on_StateMachine_transitioned_to_state(new_state):
+func _on_StateMachine_transitioned_to_state(new_state: State) -> void:
 	label.text = "State: " + new_state.get_name()
+
+
+func change_speed(fAmount := NORMAL_SPEED / 4) -> float:
+	if fSpeed < fAmount:
+		return 0.0
+	else:
+		return fAmount
+
+
+func _on_Hitbox_area_exited(area: Area2D) -> void:
+	match area.name:
+		"Dump":
+			bIsOnDump = false
+			dump = area
+		"Stairwell":
+			bIsOnDoor = false
+
+
+func _on_Hitbox_area_entered(area: Area2D) -> void:
+	match area.name:
+		"Dump":
+			bIsOnDump = true
+			dump = area
+		"Stairwell":
+			bIsOnDoor = true

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Levels/Wohnung.gd" type="Script" id=1]
-[ext_resource path="res://src/Levels/Muell.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/doorMuell.png" type="Texture" id=3]
+[ext_resource path="res://src/Levels/Trash.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/doorTrash.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6.75175, 21.2813 )
@@ -41,8 +41,7 @@ tracks/0/keys = {
 collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )
-maximumMuellAmount = 1
-Muell = ExtResource( 2 )
+Trash = ExtResource( 2 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -0.117996, 21.2372 )
@@ -64,5 +63,6 @@ autostart = true
 [node name="create_bewohner" type="Timer" parent="."]
 wait_time = 7.152
 one_shot = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="create_bewohner" to="." method="_on_create_bewohner_timeout"]

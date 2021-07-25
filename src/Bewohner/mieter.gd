@@ -7,8 +7,8 @@ class_name Mieter
 var carrying_trash: bool = false
 var near_trash: Array
 var carried_trash: Array
-var on_muellhalde := false
-var muellhalde: Muellhalde
+var on_dump := false
+var dump: Dump
 export var max_trashAmount: int = 5
 
 onready var animationPlayer: AnimationPlayer = $AnimationPlayer
@@ -30,7 +30,7 @@ func _physics_process(_delta: float) -> void:
 	playing_animation()
 
 
-func playing_animation():
+func playing_animation() -> void:
 	if _velocity.x > 0:
 		if carrying_trash:
 			animationPlayer.play("walkingTrash")
@@ -48,18 +48,18 @@ func playing_animation():
 			animationPlayer.play("default")
 
 
-func _on_HitBox_area_entered(area: Area2D):
+func _on_HitBox_area_entered(area: Area2D) -> void:
 	._on_HitBox_area_entered(area)
-	if area.has_method("store_muell"):
-		on_muellhalde = true
-		muellhalde = area
-		if muellhalde.get_muellFuellstand() != 0 && carried_trash.size() < max_trashAmount:
+	if area.has_method("store_trash"):
+		on_dump = true
+		dump = area
+		if dump.get_trashFuellstand() != 0 && carried_trash.size() < max_trashAmount:
 			emit_signal("trash_pickable")
 			# print("trash_pickable")
-		if muellhalde.is_full():
+		if dump.is_full():
 			emit_signal("trash_notDropable")
 			# print("trash_notDropable")
-	elif area is Muell:
+	elif area is Trash:
 		speed -= self.change_speed(NORMAL_SPEED / 4)
 		near_trash.push_back(area)
 		if carried_trash.size() < max_trashAmount:
@@ -67,17 +67,17 @@ func _on_HitBox_area_entered(area: Area2D):
 			# print("trash_pickable")
 
 
-func _on_HitBox_area_exited(area: Area2D):
+func _on_HitBox_area_exited(area: Area2D) -> void:
 	._on_HitBox_area_exited(area)
-	if area.has_method("store_muell"):
-		on_muellhalde = false
-		muellhalde = null
+	if area.has_method("store_trash"):
+		on_dump = false
+		dump = null
 		emit_signal("trash_notPickable")
 		# print("trash_notPickable1")
 		if carried_trash.size() > 0:
 			emit_signal("trash_dropable")
 			# print("trash_dropable")
-	elif area is Muell:
+	elif area is Trash:
 		speed += self.change_speed(NORMAL_SPEED / 4)
 		near_trash.erase(area)
 		emit_signal("trash_notPickable")

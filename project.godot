@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/States/Dropping.gd"
 }, {
+"base": "Area2D",
+"class": "Dump",
+"language": "GDScript",
+"path": "res://src/Levels/Dump.gd"
+}, {
 "base": "BewohnerState",
 "class": "Idle",
 "language": "GDScript",
@@ -54,16 +59,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/Mieter.gd"
 }, {
-"base": "Area2D",
-"class": "Muell",
-"language": "GDScript",
-"path": "res://src/Levels/Muell.gd"
-}, {
-"base": "Area2D",
-"class": "Muellhalde",
-"language": "GDScript",
-"path": "res://src/Levels/Muellhalde.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "NPC",
 "language": "GDScript",
@@ -78,6 +73,11 @@ _global_script_classes=[ {
 "class": "Oma",
 "language": "GDScript",
 "path": "res://src/Bewohner/Oma.gd"
+}, {
+"base": "BewohnerState",
+"class": "Picking",
+"language": "GDScript",
+"path": "res://src/Bewohner/States/Picking.gd"
 }, {
 "base": "Mieter",
 "class": "Player",
@@ -109,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/States/StateMachine.gd"
 }, {
+"base": "Area2D",
+"class": "Trash",
+"language": "GDScript",
+"path": "res://src/Levels/Trash.gd"
+}, {
 "base": "HBoxContainer",
 "class": "TrashBoxContainer",
 "language": "GDScript",
@@ -120,21 +125,22 @@ _global_script_class_icons={
 "BewohnerState": "",
 "ButtonBoxContainer": "",
 "Dropping": "",
+"Dump": "",
 "Idle": "",
 "KarmaBoxContainer": "",
 "Message": "",
 "Mieter": "",
-"Muell": "",
-"Muellhalde": "",
 "NPC": "",
 "Nachbar": "",
 "Oma": "",
+"Picking": "",
 "Player": "",
 "Running": "",
 "SpeechBubble": "",
 "Stairwell": "",
 "State": "",
 "StateMachine": "",
+"Trash": "",
 "TrashBoxContainer": ""
 }
 

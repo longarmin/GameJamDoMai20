@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/doorMuell.png-abb44ef86c0efbe604681711d25adc7c.stex"
+path="res://.import/doorTrash.png-7201d5fdc1c74027c80daafd86720e54.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/doorMuell.png"
-dest_files=[ "res://.import/doorMuell.png-abb44ef86c0efbe604681711d25adc7c.stex" ]
+source_file="res://assets/doorTrash.png"
+dest_files=[ "res://.import/doorTrash.png-7201d5fdc1c74027c80daafd86720e54.stex" ]
 
 [params]
 

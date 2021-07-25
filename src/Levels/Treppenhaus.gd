@@ -15,16 +15,16 @@ class neighbour:
 
 
 onready var dictNavTable = {
-	"Gertrude": neighbour.new($Wohnung3.position, "Wohnung3", "Muellhalde3"),
+	"Gertrude": neighbour.new($Wohnung3.position, "Wohnung3", "Dump3"),
 	"Franz": neighbour.new($Wohnung6.position, "Wohnung6", "Wohnung6"),
 	"Lisa": neighbour.new($Wohnung7.position, "Wohnung7", "Wohnung7")
 }
 onready var NeighbourEvents = [
-	{"name": "Gertrude", "countdown_val": 12, "target": "Muellhalde2"},
-	{"name": "Franz", "countdown_val": 24, "target": "Muellhalde"},
-	{"name": "Lisa", "countdown_val": 36, "target": "Muellhalde3"},
-	{"name": "Lisa", "countdown_val": 10, "target": "Muellhalde2"},
-	{"name": "Lisa", "countdown_val": 15, "target": "Muellhalde"},
+	{"name": "Gertrude", "countdown_val": 12, "target": "Dump2"},
+	{"name": "Franz", "countdown_val": 24, "target": "Dump"},
+	{"name": "Lisa", "countdown_val": 36, "target": "Dump3"},
+	{"name": "Lisa", "countdown_val": 10, "target": "Dump2"},
+	{"name": "Lisa", "countdown_val": 15, "target": "Dump"},
 ]
 
 #spawning umgesetzt wie beschrieben in 
@@ -64,7 +64,7 @@ func check_for_spawning():
 				_on_Wohnung_nachbar_geht_raus(sNachbar_instances[name], name)
 
 
-func _on_Wohnung_muell_created(trash: Muell):
+func _on_trash_created(trash: Trash):
 	add_child(trash)
 
 

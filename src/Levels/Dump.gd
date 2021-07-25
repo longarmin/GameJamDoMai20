@@ -1,12 +1,12 @@
 extends Area2D
-class_name Muellhalde
+class_name Dump
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var muellBeutel := []
-var object_type : String = "Muelldeponie"
-export var maximumMuellAmount := 5
+var aTrashBags := []
+var object_type : String = "Dump"
+export var maximumTrashAmount := 5
 
 onready var animatonPlayer: AnimationPlayer = $Sprite/AnimationPlayer
 
@@ -16,25 +16,25 @@ func _ready():
 	update_fuellstand()
 
 
-func store_muell(muell: Muell) -> bool:
+func store_trash(trash: Trash) -> bool:
 	if !is_full():
-		muellBeutel.append(muell)
+		aTrashBags.append(trash)
 		update_fuellstand()
 		return true
 	else:
 		return false
 
 
-func retrieve_muell() -> Muell:
-	var muell = muellBeutel.pop_back()
+func retrieve_trash() -> Trash:
+	var trash = aTrashBags.pop_back()
 	update_fuellstand()
-	return muell
+	return trash
 
-func get_muellFuellstand() -> int:
-	return muellBeutel.size()
+func get_trashFuellstand() -> int:
+	return aTrashBags.size()
 
 func update_fuellstand() -> void:
-	var fuellstand = get_muellFuellstand()
+	var fuellstand = get_trashFuellstand()
 	match fuellstand:
 		0:
 			animatonPlayer.play("none")
@@ -49,7 +49,7 @@ func update_fuellstand() -> void:
 
 
 func is_full() -> bool:
-	if muellBeutel.size() < maximumMuellAmount:
+	if aTrashBags.size() < maximumTrashAmount:
 		return false
 	else:
 		return true

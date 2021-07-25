@@ -9,7 +9,11 @@ signal transitioned_to_state(new_state)
 
 func _ready():
 	yield(owner, "ready")
+	for child in get_children():
+		child.state_machine = self
+		print(child.name)
 	current_state = get_node(inital_state)
+	emit_signal("transitioned_to_state", current_state)
 	current_state.enter()
 
 
@@ -18,7 +22,7 @@ func _unhandled_input(event):
 
 
 func _physics_process(delta: float) -> void:
-	current_state.update(delta)
+	current_state.update_physics(delta)
 
 
 func transition_to(target_state_name: String):

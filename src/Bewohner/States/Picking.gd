@@ -1,5 +1,5 @@
 extends BewohnerState
-class_name Dropping
+class_name Picking
 
 
 func respond_to(message: Message) -> String:
@@ -9,7 +9,7 @@ func respond_to(message: Message) -> String:
 
 
 func enter() -> void:
-	if bewohner.aTrashBags.size() > 0:
+	if bewohner.aTrashBags.size():
 		bewohner.animationPlayer.play("dropping")
 	else:
 		var message = Message.new()
@@ -20,8 +20,6 @@ func enter() -> void:
 
 
 func exit() -> void:
-	if bewohner.aTrashBags.size() == 0:
-		return
 	var trash: Trash = bewohner.aTrashBags.pop_back()
 	if bewohner.bIsOnDump:
 		if ! bewohner.dump.store_trash(trash):
@@ -33,6 +31,7 @@ func exit() -> void:
 		trash.show()
 	bewohner.fSpeed += bewohner.change_speed(bewohner.NORMAL_SPEED / 4)
 	emit_signal("trash_dropped", bewohner.aTrashBags.size(), bewohner.position)
+	pass
 
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:

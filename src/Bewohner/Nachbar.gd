@@ -29,6 +29,8 @@ var target_position: Vector2 = Vector2(0, 0)
 var queue_neighbour_events := []
 var counter: int = 0
 
+onready var evtCountdownTimer: Timer = $EvtCountdownTimer
+
 
 class neighbour_event:
 	var target_name: String = ""
@@ -38,11 +40,11 @@ class neighbour_event:
 
 func _ready() -> void:
 	self.set_velo(Vector2(0, self._velocity.y))
-	$EvtCountdownTimer.wait_time = STANDARD_TIME_IDLE
-	$EvtCountdownTimer.start()
+	evtCountdownTimer.wait_time = STANDARD_TIME_IDLE
+	evtCountdownTimer.start()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	counter = counter + 1
 	if counter > 30:
 		""" print(
@@ -59,7 +61,7 @@ func _process(delta: float) -> void:
 		collect_trash()
 
 
-func push_neighbour_event(target_name: String, target_position: Vector2, countdown_val: float):
+func push_neighbour_event(target_name: String, target_position: Vector2, countdown_val: float) -> void:
 	var temp = neighbour_event.new()
 	temp.target_name = target_name
 	temp.target_position = target_position
@@ -105,9 +107,9 @@ func change_floor() -> void:
 func collect_trash():
 	if carried_trash.size() >= max_trashAmount:
 		return
-	var trash: Muell
-	if on_muellhalde:
-		trash = muellhalde.retrieve_muell()
+	var trash: Trash
+	if on_dump:
+		trash = dump.retrieve_trash()
 	elif near_trash.size() > 0:
 		trash = near_trash[0]
 		trash.hide()
@@ -121,16 +123,16 @@ func collect_trash():
 
 
 func _on_Area2D_area_entered(area: Area2D) -> void:
-	if area.name == "Muellhalde":
-#		area.store_muell(muell)
+	if area.name == "Dump":
+#		area.store_trash(trash)
 		self.drop_trash()
 
 
 func drop_trash():
 	if carrying_trash:
-		var trash: Muell = carried_trash.pop_back()
-		if on_muellhalde:
-			if ! muellhalde.store_muell(trash):
+		var trash: Trash = carried_trash.pop_back()
+		if on_dump:
+			if ! dump.store_trash(trash):
 				carried_trash.append(trash)
 				return
 		else:
@@ -173,7 +175,7 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 	if area is Stairwell:
 		on_door = true
 		change_floor()
-	elif area is Muellhalde:
+	elif area is Dump:
 		if allow_drop_on_halde:
 			drop_trash()
 
@@ -184,7 +186,7 @@ func _on_HitBox_area_entered(area: Area2D) -> void:
 		self.target_position = self.home_position
 		self.go_home = true
 
-	#Hier blo� kein elif, da Wohnung auch von der Klasse Muellhalde ist
+	#Hier blo� kein elif, da Wohnung auch von der Klasse Dump ist
 	if self.go_home:
 		# print("area.name=" + str(area.name) + " self.home_name=" + str(self.home_name))
 		if str(area.name) == str(self.home_name):
