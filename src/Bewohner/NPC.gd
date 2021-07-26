@@ -7,11 +7,15 @@ const NORMAL_SPEED := 50.0
 const GRAVITY := 3000
 
 export var fSpeed := NORMAL_SPEED
+export var iMaxTrashAmount := 5
 var vNPCVelocity := Vector2.ZERO
 var vNPCDirection := Vector2(1, 0)
 var bIsOnDump := false
 var bIsOnDoor := false
+var bIsOnTrash := false
+var door: Stairwell
 var dump: Dump
+var trashes: Array
 var aTrashBags: Array
 
 onready var animationPlayer: AnimationPlayer = $AnimationPlayer
@@ -56,18 +60,25 @@ func change_speed(fAmount := NORMAL_SPEED / 4) -> float:
 
 
 func _on_Hitbox_area_exited(area: Area2D) -> void:
-	match area.name:
-		"Dump":
-			bIsOnDump = false
-			dump = area
-		"Stairwell":
-			bIsOnDoor = false
+	if area.has_method("store_trash"):
+		bIsOnDump = false
+		dump = null
+	if area.has_method("pick_up"):
+		bIsOnTrash = false
+		trashes.erase(area)
+	if area.has_method("use_stairwell"):
+		bIsOnDoor = false
+		door = null
+
 
 
 func _on_Hitbox_area_entered(area: Area2D) -> void:
-	match area.name:
-		"Dump":
-			bIsOnDump = true
-			dump = area
-		"Stairwell":
-			bIsOnDoor = true
+	if area.has_method("store_trash"):
+		bIsOnDump = true
+		dump = area
+	if area.has_method("pick_up"):
+		bIsOnTrash = true
+		trashes.push_front(area)
+	if area.has_method("use_stairwell"):
+		bIsOnDoor = true
+		door = area

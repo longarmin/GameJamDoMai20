@@ -1,17 +1,24 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/Bewohner/NPC.gd" type="Script" id=1]
 [ext_resource path="res://src/Bewohner/States/Dropping.gd" type="Script" id=2]
 [ext_resource path="res://src/Bewohner/States/Running.gd" type="Script" id=3]
 [ext_resource path="res://src/Bewohner/States/Idle.gd" type="Script" id=4]
-[ext_resource path="res://assets/alanin.png" type="Texture" id=5]
+[ext_resource path="res://assets/charWithoutOutlines.png" type="Texture" id=5]
 [ext_resource path="res://src/Bewohner/States/StateMachine.gd" type="Script" id=6]
 [ext_resource path="res://src/Levels/Trash.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Bewohner/States/Picking.gd" type="Script" id=8]
+[ext_resource path="res://src/Bewohner/States/ExitingDoor.gd" type="Script" id=9]
+[ext_resource path="res://src/Bewohner/States/ChangingFloor.gd" type="Script" id=10]
+[ext_resource path="res://src/Bewohner/States/EnteringDoor.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 16 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8, 16 )
+
+[sub_resource type="Animation" id=10]
 resource_name = "dropping"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -20,14 +27,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0, 1, 2 ]
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 6, 7 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "idle"
+[sub_resource type="Animation" id=12]
+resource_name = "enteringDoor"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -38,11 +45,106 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 12 ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 8, 16 )
+[sub_resource type="Animation" id=13]
+resource_name = "exitingDoor"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 18 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "idle"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "idleTrash"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "picking"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9, 10 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "running"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "runningTrash"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 18, 19, 20, 21, 22, 23 ]
+}
 
 [node name="NPC" type="KinematicBody2D"]
 collision_layer = 4
@@ -67,6 +169,18 @@ script = ExtResource( 2 )
 [node name="Running" type="Node" parent="StateMachine"]
 script = ExtResource( 3 )
 
+[node name="Picking" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+
+[node name="EnteringDoor" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
+
+[node name="ExitingDoor" type="Node" parent="StateMachine"]
+script = ExtResource( 9 )
+
+[node name="ChangingFloor" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
+
 [node name="Label" type="Label" parent="."]
 margin_left = -40.0
 margin_top = -40.0
@@ -77,23 +191,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle"
-anims/dropping = SubResource( 2 )
-anims/idle = SubResource( 3 )
-
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 5 )
-hframes = 4
+hframes = 6
+vframes = 4
+frame = 18
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/dropping = SubResource( 10 )
+anims/enteringDoor = SubResource( 12 )
+anims/exitingDoor = SubResource( 13 )
+anims/idle = SubResource( 6 )
+anims/idleTrash = SubResource( 7 )
+anims/picking = SubResource( 11 )
+anims/running = SubResource( 8 )
+anims/runningTrash = SubResource( 9 )
 
 [connection signal="transitioned_to_state" from="StateMachine" to="." method="_on_StateMachine_transitioned_to_state"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Picking" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ExitingDoor" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]

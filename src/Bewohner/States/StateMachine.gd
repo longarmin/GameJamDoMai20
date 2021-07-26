@@ -11,10 +11,9 @@ func _ready():
 	yield(owner, "ready")
 	for child in get_children():
 		child.state_machine = self
-		print(child.name)
 	current_state = get_node(inital_state)
 	emit_signal("transitioned_to_state", current_state)
-	current_state.enter()
+	current_state.enter({})
 
 
 func _unhandled_input(event):
@@ -25,13 +24,13 @@ func _physics_process(delta: float) -> void:
 	current_state.update_physics(delta)
 
 
-func transition_to(target_state_name: String):
+func transition_to(target_state_name: String, dParams: Dictionary):
 	var next_state = get_state(target_state_name)
 
 	if next_state != null:
 		current_state.exit()
 		current_state = next_state
-		current_state.enter()
+		current_state.enter(dParams)
 		emit_signal("transitioned_to_state", current_state)
 		return
 	else:
@@ -39,8 +38,8 @@ func transition_to(target_state_name: String):
 
 
 func respond_to(message: Message):
-	var state_answer = current_state.respond_to(message)
-	transition_to(state_answer)
+	var response = current_state.respond_to(message)
+	transition_to(response.sTargetState, response.dParams)
 
 
 func get_state(state_name: String) -> State:

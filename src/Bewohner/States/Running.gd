@@ -20,13 +20,13 @@ func handle_input(_event) -> void:
 	pass
 
 
-func respond_to(message: Message) -> String:
+func respond_to(message: Message) -> Dictionary:
 	if message.status == 1:
-		return "Idle"
-	return ""
+		return {"sTargetState": "Idle", "dParams": {}}
+	return {}
 
 
-func enter() -> void:
+func enter(_dParams: Dictionary) -> void:
 	pass
 
 

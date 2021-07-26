@@ -14,10 +14,14 @@ class neighbour:
 		self.target_name = target_name
 
 
+onready var wohnung3: Wohnung = $Wohnung3
+onready var wohnung6: Wohnung = $Wohnung6
+onready var wohnung7: Wohnung = $Wohnung7
+
 onready var dictNavTable = {
-	"Gertrude": neighbour.new($Wohnung3.position, "Wohnung3", "Dump3"),
-	"Franz": neighbour.new($Wohnung6.position, "Wohnung6", "Wohnung6"),
-	"Lisa": neighbour.new($Wohnung7.position, "Wohnung7", "Wohnung7")
+	"Gertrude": neighbour.new(wohnung3.position, "Wohnung3", "Dump3"),
+	"Franz": neighbour.new(wohnung6.position, "Wohnung6", "Wohnung6"),
+	"Lisa": neighbour.new(wohnung7.position, "Wohnung7", "Wohnung7")
 }
 onready var NeighbourEvents = [
 	{"name": "Gertrude", "countdown_val": 12, "target": "Dump2"},
@@ -69,7 +73,7 @@ func _on_trash_created(trash: Trash):
 
 
 #to be deleted:
-func _on_Wohnung_nachbar_geht_raus(sNachbar, nbname) -> void:
+func _on_Wohnung_nachbar_geht_raus(sNachbar: neighbour, nbname: String) -> void:
 	#	add_child(sNachbar1)
 	print(str(nbname) + " showing up ...")
 #	self.add_child(sNachbar)

@@ -1,14 +1,16 @@
 extends BewohnerState
 class_name Dropping
 
+signal trash_dropped
 
-func respond_to(message: Message) -> String:
+
+func respond_to(message: Message) -> Dictionary:
 	if message.status == 1:
-		return "Idle"
-	return ""
+		return {"sTargetState": "Idle", "dParams": {}}
+	return {}
 
 
-func enter() -> void:
+func enter(_dParams: Dictionary) -> void:
 	if bewohner.aTrashBags.size() > 0:
 		bewohner.animationPlayer.play("dropping")
 	else:

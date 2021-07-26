@@ -16,11 +16,11 @@ func handle_input(_event) -> void:
 	pass
 
 
-func respond_to(_message) -> String:
-	return ""
+func respond_to(_message) -> Dictionary:
+	return {}
 
 
-func enter():
+func enter(_dParams: Dictionary) -> void:
 	pass
 
 

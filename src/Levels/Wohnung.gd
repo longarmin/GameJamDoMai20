@@ -1,5 +1,7 @@
 extends Dump
 export (PackedScene) var Trash
+
+class_name Wohnung
 #export (PackedScene) var Bewohner.Nachbar
 
 var fTrashInWohnung_Menge := 0.0
