@@ -9,7 +9,7 @@
 [ext_resource path="res://assets/speaker.png" type="Texture" id=7]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/Bewohner/NPC.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/Bewohner/PlayerWithStates.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/speaker-Sheet.png" type="Texture" id=13]
 [ext_resource path="res://assets/alanin.png" type="Texture" id=15]
@@ -194,7 +194,7 @@ playing = true
 visible = false
 position = Vector2( 415.629, 75.75 )
 frames = SubResource( 15 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
@@ -203,7 +203,7 @@ frames = SubResource( 20 )
 frame = 2
 playing = true
 
-[node name="NPC" parent="." instance=ExtResource( 10 )]
+[node name="PlayerWithStates" parent="." instance=ExtResource( 10 )]
 position = Vector2( 42, 168 )
 
 [connection signal="trash_created" from="Wohnung2" to="." method="_on_trash_created"]
@@ -221,4 +221,4 @@ position = Vector2( 42, 168 )
 [connection signal="trash_pickable" from="Player" to="UI" method="_on_Player_trash_pickable"]
 [connection signal="dialogue" from="Oma" to="UI" method="_on_Oma_dialogue"]
 [connection signal="karmachange" from="Oma" to="UI" method="_on_Oma_karmachange"]
-[connection signal="trash_created" from="NPC" to="." method="_on_trash_created"]
+[connection signal="trash_created" from="PlayerWithStates" to="." method="_on_trash_created"]

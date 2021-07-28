@@ -1,5 +1,5 @@
 extends KinematicBody2D
-class_name NPC
+class_name PlayerWithStates
 export (PackedScene) onready var Trash
 
 const FLOOR_NORMAL := Vector2.UP
@@ -69,7 +69,6 @@ func _on_Hitbox_area_exited(area: Area2D) -> void:
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = false
 		door = null
-
 
 
 func _on_Hitbox_area_entered(area: Area2D) -> void:

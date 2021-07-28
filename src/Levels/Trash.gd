@@ -20,3 +20,9 @@ func pick_up() -> Trash:
 	self.hide()
 	self.position.y = 0
 	return self
+
+func drop_down(position: Vector2) -> Trash:
+	self.position = position
+	self.position.y -= 7
+	self.show()
+	return self

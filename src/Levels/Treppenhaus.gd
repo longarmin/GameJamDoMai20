@@ -73,7 +73,7 @@ func _on_trash_created(trash: Trash):
 
 
 #to be deleted:
-func _on_Wohnung_nachbar_geht_raus(sNachbar: neighbour, nbname: String) -> void:
+func _on_Wohnung_nachbar_geht_raus(sNachbar, nbname: String) -> void:
 	#	add_child(sNachbar1)
 	print(str(nbname) + " showing up ...")
 #	self.add_child(sNachbar)
@@ -84,3 +84,4 @@ func _on_Wohnung_nachbar_geht_raus(sNachbar: neighbour, nbname: String) -> void:
 	sNachbar.connect("nb_goes_home", sNachbar, "_on_Nachbar_nb_goes_home", [nbname])
 	sNachbar.child_exists = true
 	print("... success!")
+

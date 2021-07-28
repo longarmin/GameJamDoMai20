@@ -30,9 +30,7 @@ func exit() -> void:
 			bewohner.aTrashBags.append(trash)
 			return
 	else:
-		trash.position = bewohner.position
-		trash.position.y -= 7
-		trash.show()
+		trash.drop_down(bewohner.position)
 	bewohner.fSpeed += bewohner.change_speed(bewohner.NORMAL_SPEED / 4)
 	emit_signal("trash_dropped", bewohner.aTrashBags.size(), bewohner.position)
 
