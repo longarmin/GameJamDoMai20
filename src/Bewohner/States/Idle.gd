@@ -10,7 +10,8 @@ func update_physics(_delta: float) -> void:
 		message.emitter = "IdleState"
 		state_machine.respond_to(message)
 
-
+# In Player-Klasse verschieben, die dann die Message an die State-Machine weiterleitet
+# Player Klasse soll Input handeln, bei NPCs sendet die KI die Messages
 func handle_input(_event) -> void:
 	if Input.is_action_pressed("action2"):
 		var message = Message.new()
