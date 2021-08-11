@@ -33,6 +33,13 @@ func retrieve_trash() -> Trash:
 func get_trashFuellstand() -> int:
 	return aTrashBags.size()
 
+
+func has_trash() -> bool:
+	if aTrashBags.size() > 0:
+		return true
+	else:
+		return false
+
 func update_fuellstand() -> void:
 	var fuellstand = get_trashFuellstand()
 	match fuellstand:

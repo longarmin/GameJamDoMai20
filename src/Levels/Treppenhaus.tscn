@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
 [ext_resource path="res://assets/Rolemusic - Crush At Maracas Bar.ogg" type="AudioStream" id=2]
@@ -7,10 +7,8 @@
 [ext_resource path="res://src/Levels/Wohnung.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Levels/Dump.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/speaker.png" type="Texture" id=7]
-[ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/Bewohner/PlayerWithStates.tscn" type="PackedScene" id=10]
-[ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/speaker-Sheet.png" type="Texture" id=13]
 [ext_resource path="res://assets/alanin.png" type="Texture" id=15]
 
@@ -173,14 +171,9 @@ frames = SubResource( 5 )
 frame = 1
 playing = true
 
-[node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 221.481, 189.237 )
-
 [node name="Oma" parent="." instance=ExtResource( 9 )]
 position = Vector2( 320, 285.237 )
 collision_layer = 1024
-
-[node name="UI" parent="." instance=ExtResource( 11 )]
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
@@ -196,7 +189,6 @@ playing = true
 visible = false
 position = Vector2( 415.629, 75.75 )
 frames = SubResource( 15 )
-frame = 2
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
@@ -205,8 +197,8 @@ frames = SubResource( 20 )
 frame = 3
 playing = true
 
-[node name="PlayerWithStates" parent="." instance=ExtResource( 10 )]
-position = Vector2( 42, 168 )
+[node name="Player" parent="." instance=ExtResource( 10 )]
+position = Vector2( 37, 189.237 )
 
 [connection signal="trash_created" from="Wohnung2" to="." method="_on_trash_created"]
 [connection signal="trash_created" from="Wohnung3" to="." method="_on_trash_created"]
@@ -215,12 +207,3 @@ position = Vector2( 42, 168 )
 [connection signal="trash_created" from="Wohnung8" to="." method="_on_trash_created"]
 [connection signal="trash_created" from="Wohnung9" to="." method="_on_trash_created"]
 [connection signal="trash_created" from="Wohnung10" to="." method="_on_trash_created"]
-[connection signal="trash_collected" from="Player" to="UI" method="_on_Player_trash_collected"]
-[connection signal="trash_dropable" from="Player" to="UI" method="_on_Player_trash_dropable"]
-[connection signal="trash_dropped" from="Player" to="UI" method="_on_Player_trash_dropped"]
-[connection signal="trash_notDropable" from="Player" to="UI" method="_on_Player_trash_notDropable"]
-[connection signal="trash_notPickable" from="Player" to="UI" method="_on_Player_trash_notPickable"]
-[connection signal="trash_pickable" from="Player" to="UI" method="_on_Player_trash_pickable"]
-[connection signal="dialogue" from="Oma" to="UI" method="_on_Oma_dialogue"]
-[connection signal="karmachange" from="Oma" to="UI" method="_on_Oma_karmachange"]
-[connection signal="trash_created" from="PlayerWithStates" to="." method="_on_trash_created"]

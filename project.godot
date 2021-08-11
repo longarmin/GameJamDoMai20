@@ -72,7 +72,7 @@ _global_script_classes=[ {
 "base": "Bewohner",
 "class": "Mieter",
 "language": "GDScript",
-"path": "res://src/Bewohner/mieter.gd"
+"path": "res://src/Bewohner/Mieter.gd"
 }, {
 "base": "Mieter",
 "class": "Nachbar",

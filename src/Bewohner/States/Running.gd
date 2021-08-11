@@ -3,11 +3,13 @@ class_name Running
 
 
 func update_physics(_delta: float) -> void:
-	var direction = bewohner.calculate_direction(bewohner.vNPCDirection)
-	var velocity = bewohner.calculate_move_velocity(
-		bewohner.vNPCVelocity, direction, bewohner.fSpeed
-	)
-	bewohner.vNPCVelocity = bewohner.move_and_slide(velocity, bewohner.FLOOR_NORMAL)
+	bewohner.vDirection = bewohner.calculate_direction(bewohner.vDirection)
+	if bewohner.vDirection.x < 0:
+		bewohner.sprite.flip_h = true
+	elif bewohner.vDirection.x > 0:
+		bewohner.sprite.flip_h = false
+	var velocity = bewohner.calculate_move_velocity(bewohner.vVelocity, bewohner.vDirection, bewohner.fSpeed)
+	bewohner.vVelocity = bewohner.move_and_slide(velocity, bewohner.FLOOR_NORMAL)
 	if velocity.x == 0:
 		var message = Message.new()
 		message.status = 1
@@ -27,7 +29,10 @@ func respond_to(message: Message) -> Dictionary:
 
 
 func enter(_dParams: Dictionary) -> void:
-	pass
+	if bewohner.aTrashBags:
+		bewohner.animationPlayer.play("runningTrash")
+	else:
+		bewohner.animationPlayer.play("running")
 
 
 func exit() -> void:

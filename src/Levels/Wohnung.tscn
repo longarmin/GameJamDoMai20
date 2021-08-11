@@ -50,7 +50,6 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 hframes = 4
-frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 autoplay = "none"
@@ -58,6 +57,7 @@ anims/low = SubResource( 2 )
 anims/none = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
 autostart = true
 
 [node name="create_bewohner" type="Timer" parent="."]

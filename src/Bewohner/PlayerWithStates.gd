@@ -8,28 +8,53 @@ const GRAVITY := 3000
 
 export var fSpeed := NORMAL_SPEED
 export var iMaxTrashAmount := 5
-var vNPCVelocity := Vector2.ZERO
-var vNPCDirection := Vector2(1, 0)
+var vVelocity := Vector2.ZERO
+var vDirection := Vector2(1, 0)
 var bIsOnDump := false
 var bIsOnDoor := false
 var bIsOnTrash := false
 var door: Stairwell
 var dump: Dump
-var trashes: Array
+var aTrashesNear: Array
 var aTrashBags: Array
 
-onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+signal trash_pickable
+signal trash_notPickable
+signal trash_dropable
+signal trash_notDropable
 
-signal trash_created(trash)
+onready var sprite: Sprite = $Sprite
+onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+onready var stateMachine: StateMachine = $StateMachine
 
 # DEBUGGING
 onready var label: Label = $Label
 
 func _ready():
-	var trash: Trash = Trash.instance()
-	yield(owner, "ready")
-	emit_signal("trash_created", trash)
-	aTrashBags = [trash]
+	pass
+
+func _unhandled_input(_event) -> void:
+	if Input.is_action_pressed("action2"):
+		var message = Message.new()
+		message.status = 2
+		message.content = "Actionbutton 2 gedrueckt"
+		message.emitter = "IdleState"
+		stateMachine.respond_to(message)
+	if Input.is_action_pressed("action1"):
+		var message = Message.new()
+		message.status = 3
+		message.content = "Actionbutton 1 gedrueckt"
+		message.emitter = "IdleState"
+		stateMachine.respond_to(message)
+	if Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down"):
+		var message = Message.new()
+		message.status = 4
+		if Input.is_action_just_pressed("ui_up"):
+			message.content = "up"
+		else:
+			message.content = "down"
+		message.emitter = "IdleState"
+		stateMachine.respond_to(message)
 
 
 func calculate_direction(_direction: Vector2) -> Vector2:
@@ -59,13 +84,18 @@ func change_speed(fAmount := NORMAL_SPEED / 4) -> float:
 		return fAmount
 
 
+# Hitbox-Detector
+
 func _on_Hitbox_area_exited(area: Area2D) -> void:
 	if area.has_method("store_trash"):
 		bIsOnDump = false
 		dump = null
+		emit_signal("trash_notPickable")
 	if area.has_method("pick_up"):
-		bIsOnTrash = false
-		trashes.erase(area)
+		aTrashesNear.erase(area)
+		if !aTrashesNear:
+			bIsOnTrash = false
+			emit_signal("trash_notPickable")
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = false
 		door = null
@@ -75,9 +105,14 @@ func _on_Hitbox_area_entered(area: Area2D) -> void:
 	if area.has_method("store_trash"):
 		bIsOnDump = true
 		dump = area
+		if dump.has_trash():
+			emit_signal("trash_pickable")
+		else:
+			emit_signal("trash_notPickable")
 	if area.has_method("pick_up"):
 		bIsOnTrash = true
-		trashes.push_front(area)
+		aTrashesNear.push_front(area)
+		emit_signal("trash_pickable")
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = true
 		door = area

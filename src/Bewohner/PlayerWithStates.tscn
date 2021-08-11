@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/Bewohner/PlayerWithStates.gd" type="Script" id=1]
 [ext_resource path="res://src/Bewohner/States/Dropping.gd" type="Script" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://src/Bewohner/States/ExitingDoor.gd" type="Script" id=9]
 [ext_resource path="res://src/Bewohner/States/ChangingFloor.gd" type="Script" id=10]
 [ext_resource path="res://src/Bewohner/States/EnteringDoor.gd" type="Script" id=11]
+[ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/UI/ContextBubble.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 16 )
@@ -154,6 +156,7 @@ Trash = ExtResource( 7 )
 fSpeed = 150.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
 [node name="StateMachine" type="Node" parent="."]
@@ -183,25 +186,28 @@ script = ExtResource( 10 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = -40.0
-margin_top = -40.0
+margin_top = -48.0
 margin_right = 40.0
-margin_bottom = -26.0
+margin_bottom = -34.0
 text = "State:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -16 )
 texture = ExtResource( 5 )
 hframes = 6
 vframes = 4
-frame = 1
+frame = 6
 
 [node name="Hitbox" type="Area2D" parent="."]
+position = Vector2( 0, -8 )
 collision_layer = 0
 collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0, -8 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -215,10 +221,31 @@ anims/picking = SubResource( 8 )
 anims/running = SubResource( 9 )
 anims/runningTrash = SubResource( 10 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -32 )
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 512
+limit_bottom = 300
+limit_smoothed = true
+smoothing_enabled = true
+editor_draw_limits = true
+
+[node name="UI" parent="." instance=ExtResource( 12 )]
+
+[node name="ContextBubble" parent="." instance=ExtResource( 13 )]
+
+[connection signal="trash_dropable" from="." to="UI" method="_on_Player_trash_dropable"]
+[connection signal="trash_notDropable" from="." to="UI" method="_on_Player_trash_notDropable"]
+[connection signal="trash_notPickable" from="." to="UI" method="_on_Player_trash_notPickable"]
+[connection signal="trash_pickable" from="." to="UI" method="_on_Player_trash_pickable"]
 [connection signal="transitioned_to_state" from="StateMachine" to="." method="_on_StateMachine_transitioned_to_state"]
+[connection signal="trash_dropped" from="StateMachine/Dropping" to="UI" method="_on_Player_trash_dropped"]
+[connection signal="trash_collected" from="StateMachine/Picking" to="UI" method="_on_Player_trash_collected"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Picking" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ExitingDoor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Picking" method="_on_AnimationPlayer_animation_finished"]

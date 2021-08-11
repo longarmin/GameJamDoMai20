@@ -29,6 +29,7 @@ func exit() -> void:
 		if ! bewohner.dump.store_trash(trash):
 			bewohner.aTrashBags.append(trash)
 			return
+		bewohner._on_Hitbox_area_entered(bewohner.dump)
 	else:
 		trash.drop_down(bewohner.position)
 	bewohner.fSpeed += bewohner.change_speed(bewohner.NORMAL_SPEED / 4)

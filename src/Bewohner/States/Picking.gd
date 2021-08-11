@@ -13,8 +13,14 @@ func respond_to(message: Message) -> Dictionary:
 
 
 func enter(_dParams: Dictionary) -> void:
-	if bewohner.aTrashBags.size() < bewohner.iMaxTrashAmount && bewohner.bIsOnTrash:
-		trashToPickup = bewohner.trashes[0]
+	if (
+		bewohner.aTrashBags.size() < bewohner.iMaxTrashAmount
+		&& (bewohner.bIsOnTrash || (bewohner.bIsOnDump && bewohner.dump.has_trash()))
+	):
+		if bewohner.bIsOnTrash:
+			trashToPickup = bewohner.aTrashesNear[0]
+		elif bewohner.dump.has_trash():
+			trashToPickup = bewohner.dump.retrieve_trash()
 		bewohner.animationPlayer.play("picking")
 	else:
 		var message = Message.new()
@@ -25,12 +31,14 @@ func enter(_dParams: Dictionary) -> void:
 
 
 func exit() -> void:
-	if ! bewohner.bIsOnTrash:
+	if !trashToPickup:
 		return
 	bewohner.aTrashBags.push_front(trashToPickup)
 # warning-ignore:return_value_discarded
 	trashToPickup.pick_up()
-	bewohner.trashes.erase(trashToPickup)
+	if bewohner.bIsOnDump:
+		bewohner._on_Hitbox_area_entered(bewohner.dump)
+	bewohner.aTrashesNear.erase(trashToPickup)
 	bewohner.fSpeed -= bewohner.change_speed(bewohner.NORMAL_SPEED / 4)
 	emit_signal("trash_collected", bewohner.aTrashBags.size(), bewohner.position)
 

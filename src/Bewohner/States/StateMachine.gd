@@ -39,7 +39,8 @@ func transition_to(target_state_name: String, dParams: Dictionary):
 
 func respond_to(message: Message):
 	var response = current_state.respond_to(message)
-	transition_to(response.sTargetState, response.dParams)
+	if response:
+		transition_to(response.sTargetState, response.dParams)
 
 
 func get_state(state_name: String) -> State:
