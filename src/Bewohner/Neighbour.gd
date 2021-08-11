@@ -59,7 +59,7 @@ func calculate_direction(current_direction: Vector2) -> Vector2:
 	else:
 		# Das muss noch in eine Funktion ausgegliedert werden
 		bHasToUseStairwell = true
-		if abs(STAIRWELLDOOR_POSX - position.x) < 1:
+		if abs(STAIRWELLDOOR_POSX - position.x) < 5:
 			var message = Message.new()
 			message.status = 4
 			if position.y > vTargetPosition.y:

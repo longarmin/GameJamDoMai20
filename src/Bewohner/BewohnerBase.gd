@@ -56,11 +56,13 @@ func change_speed(fAmount := NORMAL_SPEED / 4) -> float:
 
 func add_trash_bag(trashBag: Trash) -> void:
 	aTrashBags.push_front(trashBag)
+# warning-ignore:return_value_discarded
 	has_trash_bags()
 
 
 func remove_trash_bag() -> Trash:
 	var trash: Trash = aTrashBags.pop_back()
+# warning-ignore:return_value_discarded
 	has_trash_bags()
 	return trash
 

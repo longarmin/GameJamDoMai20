@@ -14,14 +14,16 @@ func _ready() -> void:
 
 
 func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
-	trashBox.update_trash(bewohner.aTrashBags.size())
-	buttonBox.update_trash_dropable(true)
+	if bewohner.name == "Player":
+		trashBox.update_trash(bewohner.aTrashBags.size())
+		buttonBox.update_trash_dropable(true)
 
 
 func _on_Player_trash_dropped(bewohner: BewohnerBase) -> void:
-	trashBox.update_trash(bewohner.aTrashBags.size())
-	if bewohner.aTrashBags.size() == 0:
-		buttonBox.update_trash_dropable(false)
+	if bewohner.name == "Player":
+		trashBox.update_trash(bewohner.aTrashBags.size())
+		if bewohner.aTrashBags.size() == 0:
+			buttonBox.update_trash_dropable(false)
 
 
 func _on_Oma_karmachange(iKarma) -> void:
@@ -32,11 +34,12 @@ func _on_Oma_dialogue(sCharacter, sText) -> void:
 	speechBubble.set_text("[color=red]" + sCharacter + ": [/color]" + sText)
 
 
-func _on_Player_trash_left(player: Player):
-	if player.aTrashBags.size() > 0:
-		return
-	else:
-		buttonBox.update_trash_dropable(false)
+func _on_Player_trash_left(bewohner: BewohnerBase):
+	if bewohner.name == "Player":
+		if bewohner.aTrashBags.size() > 0:
+			return
+		else:
+			buttonBox.update_trash_dropable(false)
 
 
 func _on_Player_trash_pickable():

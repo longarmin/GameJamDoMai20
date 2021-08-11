@@ -13,6 +13,7 @@ var bBodyInViewRange := false
 var dKarma := {"Player": 0, "Franz": 0, "Gertrude": 0, "Lisa": 0}
 var bTippDrop := false
 var bTippPickup := false
+var sTargetPlayer: String
 # Definiere onready Variablen fuer Typunterstuetzungs
 # onready var speechBubble: Node2D = $SpeechBubble
 onready var animationPlayer: AnimationPlayer = $Sprite/AnimationPlayer
@@ -76,10 +77,11 @@ func calc_speed(pos_player: Vector2):
 
 func _on_Player_trash_dropped(bewohner: BewohnerBase) -> void:
 	if bBodyInHearingRange:
-		dKarma["Player"] -= 1
-		Events.emit_signal("karma_changed", dKarma["Player"])
+		dKarma[bewohner.name] -= 1
+		Events.emit_signal("karma_changed", dKarma[bewohner.name])
 		calc_speed(bewohner.position)
 		bRunningToPlayer = true
+		sTargetPlayer = bewohner.name
 	elif ! bTippDrop && bewohner.name == "Player":
 		Events.emit_signal(
 			"dialog_started",
@@ -92,10 +94,10 @@ func _on_Player_trash_dropped(bewohner: BewohnerBase) -> void:
 func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
 	if bBodyInViewRange:
 		#print("Wie schoen, Herr Meier kuemmert sich um unser Treppenhaus")
-		dKarma["Player"] += 1
+		dKarma[bewohner.name] += 1
 		#print("Position of event:" + str(pos_player))
 		#print("Karma of Player: " + str(dKarma["Player"]))
-		Events.emit_signal("karma_changed", dKarma["Player"])
+		Events.emit_signal("karma_changed", dKarma[bewohner.name])
 	elif ! bTippPickup && bewohner.name == "Player":
 		Events.emit_signal(
 			"dialog_started",
@@ -108,7 +110,7 @@ func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
 #Funktionsbeschreibung: Dieser Detektor bringt die Oma zum stehen um mit Player zu reden (schimpfen).
 func _on_Player_Detector_body_entered(body: Node) -> void:
 	if bRunningToPlayer:
-		if body.name == 'Player':
+		if body.name == sTargetPlayer:
 			speed = 0
 			animationPlayer.play("Oma_Stehend")
 			var message = Message.new()
@@ -117,11 +119,12 @@ func _on_Player_Detector_body_entered(body: Node) -> void:
 			message.emitter = "Oma"
 # warning-ignore:unsafe_property_access
 			body.stateMachine.respond_to(message)
-			Events.emit_signal(
-				"dialog_started",
-				"Oma",
-				"Herr Meier, so nicht! Sie koennen nicht einfach Ihren Muell\nim Treppenhaus deponieren, das merke ich mir."
-			)
+			if sTargetPlayer == "Player":
+				Events.emit_signal(
+					"dialog_started",
+					"Oma",
+					"Herr Meier, so nicht! Sie koennen nicht einfach Ihren Muell\nim Treppenhaus deponieren, das merke ich mir."
+				)
 			timer.start(5)
 			bRunningToPlayer = false
 

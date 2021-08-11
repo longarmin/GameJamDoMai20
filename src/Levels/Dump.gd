@@ -8,7 +8,7 @@ var aTrashBags := []
 var object_type : String = "Dump"
 export var maximumTrashAmount := 5
 
-onready var animatonPlayer: AnimationPlayer = $Sprite/AnimationPlayer
+onready var animationPlayer: AnimationPlayer = $Sprite/AnimationPlayer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -44,15 +44,15 @@ func update_fuellstand() -> void:
 	var fuellstand = get_trashFuellstand()
 	match fuellstand:
 		0:
-			animatonPlayer.play("none")
+			animationPlayer.play("none")
 		1:
-			animatonPlayer.play("low")
+			animationPlayer.play("low")
 		2, 3:
-			animatonPlayer.play("mid")
+			animationPlayer.play("mid")
 		4, 5:
-			animatonPlayer.play("high")
+			animationPlayer.play("high")
 		_:
-			animatonPlayer.play("none")
+			animationPlayer.play("none")
 
 
 func is_full() -> bool:

@@ -12,8 +12,6 @@ var aNeighbours: Array = []
 signal trash_created(trashCreated)
 signal nachbar_geht_raus(neighbourExited)
 
-onready var bewohnerCreator: Timer = $create_bewohner
-
 
 func _ready() -> void:
 	self.object_type = "Wohnung"

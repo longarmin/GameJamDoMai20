@@ -8,11 +8,11 @@ onready var wohnung7: Wohnung = $Wohnung7
 
 onready var dictNavTable = {
 	"Gertrude":
-	[neighboursResource.instance(), wohnung3.position, "Wohnung3", "Dump3", "Getrude", wohnung3],
+	[neighboursResource.instance(), wohnung3, "Wohnung3", "Dump3", "Getrude"],
 	"Franz":
-	[neighboursResource.instance(), wohnung6.position, "Wohnung6", "Dump2", "Franz", wohnung6],
+	[neighboursResource.instance(), wohnung6, "Wohnung6", "Dump2", "Franz"],
 	"Lisa":
-	[neighboursResource.instance(), wohnung7.position, "Wohnung7", "Dump3", "Lisa", wohnung7]
+	[neighboursResource.instance(), wohnung7, "Wohnung7", "Dump3", "Lisa"]
 }
 onready var NeighbourEvents = [
 	{"name": "Gertrude", "countdown_val": 12, "target": "Dump2"},
@@ -29,18 +29,20 @@ onready var neighboursInstances = {}
 func _ready() -> void:
 	for name in dictNavTable:
 		neighboursInstances[name] = dictNavTable[name][0]
+		neighboursInstances[name].set_name(name)
 		# weil Godot anscheinend (noch) keinen guten Konstruktor fuer scenes hat:
 		neighboursInstances[name].instanciate(
-			dictNavTable[name][1],
+			dictNavTable[name][1].position,
 			dictNavTable[name][2],
 			dictNavTable[name][3],
 			dictNavTable[name][4]
 		)
 		add_child(neighboursInstances[name])
-		dictNavTable[name][5].enter_flat(neighboursInstances[name])
+		dictNavTable[name][1].enter_flat(neighboursInstances[name])
 	for i in NeighbourEvents:
 		if i["name"] in neighboursInstances:
 			neighboursInstances[i["name"]].push_neighbour_event(
+# warning-ignore:unsafe_property_access
 				i["target"], get_node(i["target"]).position, i["countdown_val"]
 			)
 		else:
