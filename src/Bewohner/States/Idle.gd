@@ -24,6 +24,11 @@ func respond_to(message: Message) -> Dictionary:
 			if message.content == "up":
 				up = true
 			return {"sTargetState": "EnteringDoor", "dParams": {"up": up}}
+		5:
+			var wait: int = int(message.content)
+			return {"sTargetState": "Talking", "dParams": {"wait": wait}}
+		6:
+			return {"sTargetState": "BeingInFlat", "dParams": {}}
 		_:
 			return {"sTargetState": "Idle", "dParams": {}}
 

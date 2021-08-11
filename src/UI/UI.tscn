@@ -11,9 +11,9 @@ script = ExtResource( 1 )
 
 [node name="SpeechBubble" parent="." instance=ExtResource( 3 )]
 margin_left = 0.222717
-margin_top = 71.5174
+margin_top = 61.5174
 margin_right = 156.223
-margin_bottom = 87.5174
+margin_bottom = 77.5174
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

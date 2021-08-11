@@ -16,10 +16,6 @@ func _on_Stairwell_body_exited(_body: Node) -> void:
 	animated_sprite.play("closing")
 
 
-func is_stairwell() -> bool:
-	return true
-
-
 func use_stairwell(position: Vector2, up: bool) -> Vector2:
 	var newPosition: Vector2 = position
 	if ! up && position.y < 250:

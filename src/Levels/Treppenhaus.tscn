@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
 [ext_resource path="res://assets/Rolemusic - Crush At Maracas Bar.ogg" type="AudioStream" id=2]
@@ -8,8 +8,7 @@
 [ext_resource path="res://src/Levels/Dump.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/speaker.png" type="Texture" id=7]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/Bewohner/PlayerWithStates.tscn" type="PackedScene" id=10]
-[ext_resource path="res://assets/speaker-Sheet.png" type="Texture" id=13]
+[ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/alanin.png" type="Texture" id=15]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -37,20 +36,20 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 13 )
-region = Rect2( 0, 0, 16, 16 )
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 13 )
-region = Rect2( 16, 0, 16, 16 )
+atlas = ExtResource( 15 )
+region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 13 )
-region = Rect2( 32, 0, 16, 16 )
+atlas = ExtResource( 15 )
+region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 13 )
-region = Rect2( 48, 0, 16, 16 )
+atlas = ExtResource( 15 )
+region = Rect2( 96, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
@@ -60,58 +59,11 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="StreamTexture" id=11]
-load_path = "res://.import/neighbourWithoutOutlines.png-8cd45305b8bda16536d5c0e66de45c6b.stex"
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = SubResource( 11 )
-region = Rect2( 0, 0, 32, 34 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = SubResource( 11 )
-region = Rect2( 32, 0, 32, 34 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = SubResource( 11 )
-region = Rect2( 64, 0, 32, 34 )
-
-[sub_resource type="SpriteFrames" id=15]
-animations = [ {
-"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 15 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 15 )
-region = Rect2( 32, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 15 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 15 )
-region = Rect2( 96, 0, 32, 32 )
-
-[sub_resource type="SpriteFrames" id=20]
-animations = [ {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
-"name": "default",
-"speed": 8.0
-} ]
-
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 300.125, 85.4798 ],
-"_edit_vertical_guides_": [ 4796.0, 512.277, 1841.79 ]
+"_edit_horizontal_guides_": [ 304.0, 0.0 ],
+"_edit_vertical_guides_": [ 4796.0, 512.0, 0.222717 ]
 }
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
@@ -157,13 +109,13 @@ position = Vector2( 165.882, 264 )
 position = Vector2( 368, 264 )
 
 [node name="Dump" parent="." instance=ExtResource( 6 )]
-position = Vector2( 464, 94 )
+position = Vector2( 464, 93.815 )
 
 [node name="Dump2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 464, 190.386 )
+position = Vector2( 464, 190.201 )
 
 [node name="Dump3" parent="." instance=ExtResource( 6 )]
-position = Vector2( 464, 286.312 )
+position = Vector2( 464, 286.127 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
@@ -175,35 +127,11 @@ playing = true
 position = Vector2( 320, 285.237 )
 collision_layer = 1024
 
-[node name="Sprite" type="Sprite" parent="."]
-visible = false
-position = Vector2( 435.612, 75.75 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
-position = Vector2( -406.612, 9.7298 )
-frames = SubResource( 10 )
-frame = 1
-playing = true
-
-[node name="Sprite3" type="AnimatedSprite" parent="."]
-visible = false
-position = Vector2( 415.629, 75.75 )
-frames = SubResource( 15 )
-playing = true
-
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
-frames = SubResource( 20 )
+frames = SubResource( 10 )
 frame = 3
 playing = true
 
 [node name="Player" parent="." instance=ExtResource( 10 )]
-position = Vector2( 37, 189.237 )
-
-[connection signal="trash_created" from="Wohnung2" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung3" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung6" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung7" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung8" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung9" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung10" to="." method="_on_trash_created"]
+position = Vector2( 400, 190.016 )

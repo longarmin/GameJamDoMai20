@@ -1,87 +1,51 @@
 extends Node2D
 
-
-class neighbour:
-	var pos := Vector2(0, 0)
-	var home_name: String = ""
-	var home_pos := Vector2(0, 0)
-	var target_name: String = ""
-	var target_position := Vector2(0, 0)
-
-	func _init(pos = Vector2(0, 0), home_name = "", target_name = ""):
-		self.pos = pos
-		self.home_name = home_name
-		self.target_name = target_name
-
+onready var neighboursResource = preload("res://src/Bewohner/Neighbour.tscn")
 
 onready var wohnung3: Wohnung = $Wohnung3
 onready var wohnung6: Wohnung = $Wohnung6
 onready var wohnung7: Wohnung = $Wohnung7
 
 onready var dictNavTable = {
-	"Gertrude": neighbour.new(wohnung3.position, "Wohnung3", "Dump3"),
-	"Franz": neighbour.new(wohnung6.position, "Wohnung6", "Wohnung6"),
-	"Lisa": neighbour.new(wohnung7.position, "Wohnung7", "Wohnung7")
+	"Gertrude":
+	[neighboursResource.instance(), wohnung3.position, "Wohnung3", "Dump3", "Getrude", wohnung3],
+	"Franz":
+	[neighboursResource.instance(), wohnung6.position, "Wohnung6", "Dump2", "Franz", wohnung6],
+	"Lisa":
+	[neighboursResource.instance(), wohnung7.position, "Wohnung7", "Dump3", "Lisa", wohnung7]
 }
 onready var NeighbourEvents = [
 	{"name": "Gertrude", "countdown_val": 12, "target": "Dump2"},
 	{"name": "Franz", "countdown_val": 24, "target": "Dump"},
 	{"name": "Lisa", "countdown_val": 36, "target": "Dump3"},
-	{"name": "Lisa", "countdown_val": 10, "target": "Dump2"},
-	{"name": "Lisa", "countdown_val": 15, "target": "Dump"},
 ]
 
-#spawning umgesetzt wie beschrieben in 
-#https://godotengine.org/qa/8025/how-to-add-a-child-in-a-specific-position:
-onready var sNachbar_resource = preload("res://src/Bewohner/Nachbar.tscn")
-onready var sNachbar_instances = {}
+# spawning umgesetzt wie beschrieben in 
+# https://godotengine.org/qa/8025/how-to-add-a-child-in-a-specific-position:
+
+onready var neighboursInstances = {}
 
 
 func _ready() -> void:
 	for name in dictNavTable:
-		sNachbar_instances[name] = sNachbar_resource.instance()
-		#weil Godot anscheinend (noch) keinen guten Konstruktor fuer scenes hat:
-		sNachbar_instances[name].instanciate(
-			dictNavTable[name].pos, dictNavTable[name].home_name, dictNavTable[name].target_name
+		neighboursInstances[name] = dictNavTable[name][0]
+		# weil Godot anscheinend (noch) keinen guten Konstruktor fuer scenes hat:
+		neighboursInstances[name].instanciate(
+			dictNavTable[name][1],
+			dictNavTable[name][2],
+			dictNavTable[name][3],
+			dictNavTable[name][4]
 		)
-		self.add_child(sNachbar_instances[name])
-		sNachbar_instances[name].hide()
+		add_child(neighboursInstances[name])
+		dictNavTable[name][5].enter_flat(neighboursInstances[name])
 	for i in NeighbourEvents:
-		if i["name"] in sNachbar_instances:
-#			print(str(i["target"]) + str(i["countdown_val"]) + str(i["name"]) + str(get_node(i["target"]).position))
-			sNachbar_instances[i["name"]].push_neighbour_event(
+		if i["name"] in neighboursInstances:
+			neighboursInstances[i["name"]].push_neighbour_event(
 				i["target"], get_node(i["target"]).position, i["countdown_val"]
 			)
 		else:
 			pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	check_for_spawning()
-
-
-func check_for_spawning():
-	for name in sNachbar_instances:
-		if sNachbar_instances[name].target_name != sNachbar_instances[name].home_name:
-			if ! sNachbar_instances[name].child_exists:
-				_on_Wohnung_nachbar_geht_raus(sNachbar_instances[name], name)
-
-
 func _on_trash_created(trash: Trash):
 	add_child(trash)
-
-
-#to be deleted:
-func _on_Wohnung_nachbar_geht_raus(sNachbar, nbname: String) -> void:
-	#	add_child(sNachbar1)
-	print(str(nbname) + " showing up ...")
-#	self.add_child(sNachbar)
-	sNachbar.show()
-	sNachbar.target_position = get_node(sNachbar.target_name).position
-	sNachbar.home_position = get_node(sNachbar.home_name).position
-	sNachbar.nbname = str(nbname)
-	sNachbar.connect("nb_goes_home", sNachbar, "_on_Nachbar_nb_goes_home", [nbname])
-	sNachbar.child_exists = true
-	print("... success!")
-

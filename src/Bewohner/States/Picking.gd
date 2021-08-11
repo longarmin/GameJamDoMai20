@@ -3,8 +3,6 @@ class_name Picking
 
 var trashToPickup: Trash
 
-signal trash_collected
-
 
 func respond_to(message: Message) -> Dictionary:
 	if message.status == 1:
@@ -31,16 +29,16 @@ func enter(_dParams: Dictionary) -> void:
 
 
 func exit() -> void:
-	if !trashToPickup:
+	if ! trashToPickup:
 		return
-	bewohner.aTrashBags.push_front(trashToPickup)
+	bewohner.add_trash_bag(trashToPickup)
 # warning-ignore:return_value_discarded
 	trashToPickup.pick_up()
 	if bewohner.bIsOnDump:
 		bewohner._on_Hitbox_area_entered(bewohner.dump)
 	bewohner.aTrashesNear.erase(trashToPickup)
 	bewohner.fSpeed -= bewohner.change_speed(bewohner.NORMAL_SPEED / 4)
-	emit_signal("trash_collected", bewohner.aTrashBags.size(), bewohner.position)
+	Events.emit_signal("trash_picked", bewohner)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:

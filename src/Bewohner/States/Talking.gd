@@ -12,6 +12,10 @@ func respond_to(message: Message) -> Dictionary:
 
 
 func enter(dParams: Dictionary) -> void:
+	if bewohner.aTrashBags:
+		bewohner.animationPlayer.play("idleTrash")
+	else:
+		bewohner.animationPlayer.play("idle")
 	if dParams.wait:
 		wait = dParams.wait
 	timer = Timer.new()
@@ -27,5 +31,5 @@ func _timeout() -> void:
 	var message = Message.new()
 	message.status = 1
 	message.content = "Timer stopped"
-	message.emitter = "ChangingFloorState"
+	message.emitter = "TalkingState"
 	state_machine.respond_to(message)

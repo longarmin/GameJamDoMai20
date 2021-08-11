@@ -1,13 +1,16 @@
 extends BewohnerState
 class_name Dropping
 
-signal trash_dropped
-
 
 func respond_to(message: Message) -> Dictionary:
-	if message.status == 1:
-		return {"sTargetState": "Idle", "dParams": {}}
-	return {}
+	match message.status:
+		1:
+			return {"sTargetState": "Idle", "dParams": {}}
+		5:
+			var wait: int = int(message.content)
+			return {"sTargetState": "Talking", "dParams": {"wait": wait}}
+		_:
+			return {"sTargetState": "Idle", "dParams": {}}
 
 
 func enter(_dParams: Dictionary) -> void:
@@ -24,16 +27,17 @@ func enter(_dParams: Dictionary) -> void:
 func exit() -> void:
 	if bewohner.aTrashBags.size() == 0:
 		return
-	var trash: Trash = bewohner.aTrashBags.pop_back()
+	var trash: Trash = bewohner.remove_trash_bag()
 	if bewohner.bIsOnDump:
 		if ! bewohner.dump.store_trash(trash):
-			bewohner.aTrashBags.append(trash)
+			bewohner.add_trash_bag(trash)
 			return
 		bewohner._on_Hitbox_area_entered(bewohner.dump)
 	else:
+# warning-ignore:return_value_discarded
 		trash.drop_down(bewohner.position)
 	bewohner.fSpeed += bewohner.change_speed(bewohner.NORMAL_SPEED / 4)
-	emit_signal("trash_dropped", bewohner.aTrashBags.size(), bewohner.position)
+	Events.emit_signal("trash_dropped", bewohner)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:

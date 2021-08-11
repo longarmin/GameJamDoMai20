@@ -9,15 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "BewohnerState",
+"class": "BeingInFlat",
+"language": "GDScript",
+"path": "res://src/Bewohner/States/BeingInFlat.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Bewohner",
 "language": "GDScript",
 "path": "res://src/Bewohner/Bewohner.gd"
 }, {
-"base": "Bewohner",
-"class": "BewohnerNPC",
+"base": "KinematicBody2D",
+"class": "BewohnerBase",
 "language": "GDScript",
-"path": "res://src/Bewohner/BewohnerNPC.gd"
+"path": "res://src/Bewohner/BewohnerBase.gd"
 }, {
 "base": "State",
 "class": "BewohnerState",
@@ -79,7 +84,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/Nachbar.gd"
 }, {
-"base": "BewohnerNPC",
+"base": "BewohnerBase",
+"class": "Neighbour",
+"language": "GDScript",
+"path": "res://src/Bewohner/Neighbour.gd"
+}, {
+"base": "Bewohner",
 "class": "Oma",
 "language": "GDScript",
 "path": "res://src/Bewohner/Oma.gd"
@@ -89,15 +99,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/States/Picking.gd"
 }, {
-"base": "Mieter",
+"base": "BewohnerBase",
 "class": "Player",
 "language": "GDScript",
 "path": "res://src/Bewohner/Player.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "PlayerWithStates",
-"language": "GDScript",
-"path": "res://src/Bewohner/PlayerWithStates.gd"
 }, {
 "base": "BewohnerState",
 "class": "Running",
@@ -145,8 +150,9 @@ _global_script_classes=[ {
 "path": "res://src/Levels/Wohnung.gd"
 } ]
 _global_script_class_icons={
+"BeingInFlat": "",
 "Bewohner": "",
-"BewohnerNPC": "",
+"BewohnerBase": "",
 "BewohnerState": "",
 "ButtonBoxContainer": "",
 "ChangingFloor": "",
@@ -159,10 +165,10 @@ _global_script_class_icons={
 "Message": "",
 "Mieter": "",
 "Nachbar": "",
+"Neighbour": "",
 "Oma": "",
 "Picking": "",
 "Player": "",
-"PlayerWithStates": "",
 "Running": "",
 "SpeechBubble": "",
 "Stairwell": "",
@@ -180,6 +186,10 @@ config/name="GameJamMai20"
 run/main_scene="res://src/Levels/Treppenhaus.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Events="*res://src/Events.gd"
+
 [debug]
 
 gdscript/warnings/unsafe_property_access=true
@@ -189,10 +199,10 @@ gdscript/warnings/unsafe_call_argument=true
 
 [display]
 
-window/size/width=160
-window/size/height=90
-window/size/test_width=800
-window/size/test_height=450
+window/size/width=640
+window/size/height=320
+window/size/test_width=960
+window/size/test_height=480
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 

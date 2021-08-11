@@ -1,6 +1,5 @@
 extends KinematicBody2D
-class_name PlayerWithStates
-export (PackedScene) onready var Trash
+class_name BewohnerBase
 
 const FLOOR_NORMAL := Vector2.UP
 const NORMAL_SPEED := 50.0
@@ -27,38 +26,13 @@ onready var sprite: Sprite = $Sprite
 onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 onready var stateMachine: StateMachine = $StateMachine
 
-# DEBUGGING
-onready var label: Label = $Label
 
 func _ready():
 	pass
 
-func _unhandled_input(_event) -> void:
-	if Input.is_action_pressed("action2"):
-		var message = Message.new()
-		message.status = 2
-		message.content = "Actionbutton 2 gedrueckt"
-		message.emitter = "IdleState"
-		stateMachine.respond_to(message)
-	if Input.is_action_pressed("action1"):
-		var message = Message.new()
-		message.status = 3
-		message.content = "Actionbutton 1 gedrueckt"
-		message.emitter = "IdleState"
-		stateMachine.respond_to(message)
-	if Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down"):
-		var message = Message.new()
-		message.status = 4
-		if Input.is_action_just_pressed("ui_up"):
-			message.content = "up"
-		else:
-			message.content = "down"
-		message.emitter = "IdleState"
-		stateMachine.respond_to(message)
 
-
-func calculate_direction(_direction: Vector2) -> Vector2:
-	return Vector2(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"), 0)
+func calculate_direction(direction: Vector2) -> Vector2:
+	return direction
 
 
 func calculate_move_velocity(
@@ -73,10 +47,6 @@ func calculate_move_velocity(
 	return out
 
 
-func _on_StateMachine_transitioned_to_state(new_state: State) -> void:
-	label.text = "State: " + new_state.get_name()
-
-
 func change_speed(fAmount := NORMAL_SPEED / 4) -> float:
 	if fSpeed < fAmount:
 		return 0.0
@@ -84,7 +54,30 @@ func change_speed(fAmount := NORMAL_SPEED / 4) -> float:
 		return fAmount
 
 
+func add_trash_bag(trashBag: Trash) -> void:
+	aTrashBags.push_front(trashBag)
+	has_trash_bags()
+
+
+func remove_trash_bag() -> Trash:
+	var trash: Trash = aTrashBags.pop_back()
+	has_trash_bags()
+	return trash
+
+
+func has_trash_bags() -> bool:
+	if aTrashBags.size() == 0:
+		emit_signal("trash_notDropable")
+		return false
+	else:
+		emit_signal("trash_dropable")
+		return true
+
+
 # Hitbox-Detector
+# Schaut auch, ob Muell aufgenommen oder abgelegt werden kann.
+# Wirkt etwas fehl am Platz.
+
 
 func _on_Hitbox_area_exited(area: Area2D) -> void:
 	if area.has_method("store_trash"):
@@ -92,8 +85,9 @@ func _on_Hitbox_area_exited(area: Area2D) -> void:
 		dump = null
 		emit_signal("trash_notPickable")
 	if area.has_method("pick_up"):
+		fSpeed += change_speed(NORMAL_SPEED / 4)
 		aTrashesNear.erase(area)
-		if !aTrashesNear:
+		if ! aTrashesNear:
 			bIsOnTrash = false
 			emit_signal("trash_notPickable")
 	if area.has_method("use_stairwell"):
@@ -107,9 +101,11 @@ func _on_Hitbox_area_entered(area: Area2D) -> void:
 		dump = area
 		if dump.has_trash():
 			emit_signal("trash_pickable")
+			emit_signal("trash_notDropable")
 		else:
 			emit_signal("trash_notPickable")
 	if area.has_method("pick_up"):
+		fSpeed -= change_speed(NORMAL_SPEED / 4)
 		bIsOnTrash = true
 		aTrashesNear.push_front(area)
 		emit_signal("trash_pickable")

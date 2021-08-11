@@ -5,17 +5,22 @@ onready var karmaBox: KarmaBoxContainer = $GridContainer/KarmaBoxContainer
 onready var buttonBox: ButtonBoxContainer = $GridContainer/ButtonBoxContainer
 onready var speechBubble: SpeechBubble = $SpeechBubble
 
-func _ready() -> void:
-	pass  # Replace with function body.
 
-func _on_Player_trash_collected(trash_amount: int, _pos_player: Vector2) -> void:
-	trashBox.update_trash(trash_amount)
+func _ready() -> void:
+	assert(Events.connect("dialog_started", self, "_on_Oma_dialogue") == 0)
+	assert(Events.connect("karma_changed", self, "_on_Oma_karmachange") == 0)
+	assert(Events.connect("trash_picked", self, "_on_Player_trash_picked") == 0)
+	assert(Events.connect("trash_dropped", self, "_on_Player_trash_dropped") == 0)
+
+
+func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
+	trashBox.update_trash(bewohner.aTrashBags.size())
 	buttonBox.update_trash_dropable(true)
 
 
-func _on_Player_trash_dropped(trash_amount: int, _pos_player: Vector2) -> void:
-	trashBox.update_trash(trash_amount)
-	if trash_amount == 0:
+func _on_Player_trash_dropped(bewohner: BewohnerBase) -> void:
+	trashBox.update_trash(bewohner.aTrashBags.size())
+	if bewohner.aTrashBags.size() == 0:
 		buttonBox.update_trash_dropable(false)
 
 
@@ -28,7 +33,7 @@ func _on_Oma_dialogue(sCharacter, sText) -> void:
 
 
 func _on_Player_trash_left(player: Player):
-	if player.carried_trash.size() > 0:
+	if player.aTrashBags.size() > 0:
 		return
 	else:
 		buttonBox.update_trash_dropable(false)

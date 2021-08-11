@@ -50,7 +50,7 @@ b = Vector2( 0.537427, 959.06 )
 extents = Vector2( 5.92984, 5.0255 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 34.6163, 13.5752 )
+extents = Vector2( 22.2536, 6.74533 )
 
 [node name="Oma" type="KinematicBody2D"]
 collision_layer = 32

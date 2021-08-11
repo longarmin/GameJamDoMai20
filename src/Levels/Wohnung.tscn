@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/Levels/Wohnung.gd" type="Script" id=1]
 [ext_resource path="res://src/Levels/Trash.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/doorTrash.png" type="Texture" id=3]
+[ext_resource path="res://src/Bewohner/Neighbour.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6.75175, 21.2813 )
+extents = Vector2( 8.118, 21.2813 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "low"
@@ -42,9 +43,10 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )
 Trash = ExtResource( 2 )
+Neighbour = ExtResource( 4 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2( -0.117996, 21.2372 )
+position = Vector2( 0, 16 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -57,12 +59,7 @@ anims/low = SubResource( 2 )
 anims/none = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
 autostart = true
 
-[node name="create_bewohner" type="Timer" parent="."]
-wait_time = 7.152
-one_shot = true
-
+[connection signal="trash_created" from="." to="." method="_on_Wohnung_trash_created"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="create_bewohner" to="." method="_on_create_bewohner_timeout"]

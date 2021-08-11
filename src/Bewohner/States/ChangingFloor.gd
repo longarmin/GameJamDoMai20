@@ -13,6 +13,7 @@ func respond_to(message: Message) -> Dictionary:
 
 
 func enter(dParams: Dictionary) -> void:
+	bewohner.hide()
 	up = dParams.up
 	door = bewohner.door
 	timer = Timer.new()
@@ -25,6 +26,7 @@ func enter(dParams: Dictionary) -> void:
 
 func exit() -> void:
 	bewohner.position = door.use_stairwell(bewohner.position, up)
+	bewohner.show()
 
 
 func _timeout() -> void:
