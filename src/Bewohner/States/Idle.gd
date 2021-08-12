@@ -20,10 +20,9 @@ func respond_to(message: Message) -> Dictionary:
 		3:
 			return {"sTargetState": "Picking", "dParams": {}}
 		4:
-			var up: bool = false
-			if message.content == "up":
-				up = true
-			return {"sTargetState": "EnteringDoor", "dParams": {"up": up}}
+			var up: bool = message.params["up"]
+			var double: bool = message.params["double"]
+			return {"sTargetState": "EnteringDoor", "dParams": {"up": up, "double": double}}
 		5:
 			var wait: int = int(message.content)
 			return {"sTargetState": "Talking", "dParams": {"wait": wait}}

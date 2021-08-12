@@ -9,11 +9,9 @@ const MAX_Y_DELTA_ON_SAME_LEVEL := 50
 const STANDARD_TIME_IDLE := 10
 
 var bAllowDropOnHalde: bool = true
-var bHasChild: bool = false
 var fDropTime: float = 0.0
 var iDropLocation: int = 0
 var bIsGoingHome: bool = false
-var bHasToUseStairwell: bool
 var vHomePosition: Vector2
 var sNeighbour: String
 var sHome: String
@@ -46,41 +44,54 @@ func push_neighbour_event(target_name: String, target_position: Vector2, countdo
 
 
 func calculate_direction(current_direction: Vector2) -> Vector2:
-	var dir: float = current_direction.x
-	# t=target
-	var t = vTargetPosition
-	# i=instance
-	var i = position
-	# Das muss noch in eine Funktion ausgegliedert
-	var abs_delta_y = abs(t.y - i.y)
-	if abs_delta_y <= MAX_Y_DELTA_ON_SAME_LEVEL:
-		bHasToUseStairwell = false
-		dir = sign(t.x - i.x)
+	var fDir: float = 1
+	if has_to_use_stairwell(position, vTargetPosition):
+		if abs(STAIRWELLDOOR_POSX - position.x) < 1:
+			emit_stairwell_message(position, vTargetPosition)
+		if STAIRWELLDOOR_POSX != position.x:
+			fDir = sign(STAIRWELLDOOR_POSX - position.x)
 	else:
-		# Das muss noch in eine Funktion ausgegliedert werden
-		bHasToUseStairwell = true
-		if abs(STAIRWELLDOOR_POSX - position.x) < 5:
-			var message = Message.new()
-			message.status = 4
-			if position.y > vTargetPosition.y:
-				message.content = "up"
-			else:
-				message.content = "down"
-			message.emitter = "Neighbour"
-			stateMachine.respond_to(message)
-		if STAIRWELLDOOR_POSX != i.x:
-			dir = sign(STAIRWELLDOOR_POSX - i.x)
-	dir = dir * abs(current_direction.x)
-	return Vector2(dir, current_direction.y)
+		fDir = sign(vTargetPosition.x - position.x)
+	return Vector2(fDir, current_direction.y)
+
+
+func has_to_use_stairwell(vPos: Vector2, vTargetPos: Vector2) -> bool:
+	var abs_delta_y = abs(vPos.y - vTargetPos.y)
+	if abs_delta_y <= MAX_Y_DELTA_ON_SAME_LEVEL:
+		return false
+	else:
+		return true
+
+
+func emit_stairwell_message(vPos: Vector2, vTargetPos: Vector2) -> void:
+	var message = Message.new()
+	message.status = 4
+	if vPos.y > vTargetPos.y:
+		message.params["up"] = true
+	else:
+		message.params["up"] = false
+	if abs(vPos.y - vTargetPos.y) > 150:
+		message.params["double"] = true
+	else:
+		message.params["double"] = false
+	message.emitter = "Neighbour"
+	stateMachine.respond_to(message)
 
 
 # weil Godot anscheinend (noch) keinen guten Konstruktor fuer scenes hat:
-func instanciate(pos: Vector2, sHomeName: String, sTargetName: String, sNeighbourName: String) -> void:
+func instanciate(
+	pos: Vector2,
+	sHomeName: String,
+	sTargetName: String,
+	sNeighbourName: String,
+	fSpeedNew: float = fSpeed
+) -> void:
 	position = pos
 	vHomePosition = pos
 	sHome = sHomeName
 	sTarget = sTargetName
 	sNeighbour = sNeighbourName
+	fSpeed = fSpeedNew
 
 
 func _on_Hitbox_area_entered(area: Area2D) -> void:
@@ -107,7 +118,8 @@ func _on_Hitbox_area_entered(area: Area2D) -> void:
 
 
 func _on_Hitbox_area_exited(area: Area2D) -> void:
-	if area.position == vHomePosition:
+	# Trash mitnehmen, wenn welcher vor der eigenen Wohnung liegt
+	if area.position == vHomePosition - Vector2(0, 20):
 		var message = Message.new()
 		message.status = 3
 		message.content = "Neighbour on Flat"
@@ -120,10 +132,12 @@ func _on_EvtCountdownTimer_timeout() -> void:
 	var temp = aQueueNeighbourEvents.pop_front()
 	if temp != null:
 		sTarget = temp.target_name
+		vTargetPosition = get_parent().get_node(sTarget).position
 		evtCountdownTimer.wait_time = temp.countdown_val
 		evtCountdownTimer.start()
 	else:
 		sTarget = sHome
+		vTargetPosition = vHomePosition
 		bIsGoingHome = true
 		evtCountdownTimer.wait_time = STANDARD_TIME_IDLE
 		evtCountdownTimer.start()

@@ -23,9 +23,10 @@ func _unhandled_input(_event) -> void:
 		var message = Message.new()
 		message.status = 4
 		if Input.is_action_just_pressed("ui_up"):
-			message.content = "up"
+			message.params["up"] = true
 		else:
-			message.content = "down"
+			message.params["up"] = false
+		message.params["double"] = false
 		message.emitter = "Player"
 		stateMachine.respond_to(message)
 

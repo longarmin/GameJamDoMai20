@@ -74,16 +74,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/Message.gd"
 }, {
-"base": "Bewohner",
-"class": "Mieter",
-"language": "GDScript",
-"path": "res://src/Bewohner/Mieter.gd"
-}, {
-"base": "Mieter",
-"class": "Nachbar",
-"language": "GDScript",
-"path": "res://src/Bewohner/Nachbar.gd"
-}, {
 "base": "BewohnerBase",
 "class": "Neighbour",
 "language": "GDScript",
@@ -163,8 +153,6 @@ _global_script_class_icons={
 "Idle": "",
 "KarmaBoxContainer": "",
 "Message": "",
-"Mieter": "",
-"Nachbar": "",
 "Neighbour": "",
 "Oma": "",
 "Picking": "",
@@ -199,12 +187,11 @@ gdscript/warnings/unsafe_call_argument=true
 
 [display]
 
-window/size/width=160
-window/size/height=80
-window/size/test_width=960
-window/size/test_height=480
+window/size/width=1280
+window/size/height=640
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+window/stretch/shrink=2.0
 
 [gdnative]
 

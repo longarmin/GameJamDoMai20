@@ -7,9 +7,9 @@ extends Bewohner
 
 # Definiere Variablen
 var playerPositionX := 0.0
-var bBodyInHearingRange := false
+var aBodiesInHearingRange := []
 var bRunningToPlayer := false
-var bBodyInViewRange := false
+var aBodiesInViewRange := []
 var dKarma := {"Player": 0, "Franz": 0, "Gertrude": 0, "Lisa": 0}
 var bTippDrop := false
 var bTippPickup := false
@@ -43,27 +43,21 @@ func change_floor() -> void:
 		.change_floor()
 
 
-func _on_Character_Detector_body_entered(body: PhysicsBody2D) -> void:
-	if body.name == 'Player':
-		#speed = 0
-		playerPositionX = body.position.x
-		bBodyInHearingRange = true
+func _on_Character_Detector_body_entered(body: BewohnerBase) -> void:
+	playerPositionX = body.position.x
+	aBodiesInHearingRange.append(body)
 
 
-func _on_Character_Detector_body_exited(body: PhysicsBody2D) -> void:
-	if body.name == 'Player':
-		#speed = NORMAL_SPEED
-		bBodyInHearingRange = false
+func _on_Character_Detector_body_exited(body: BewohnerBase) -> void:
+	aBodiesInHearingRange.erase(body)
 
 
-func _on_Character_Detector_NearField_body_entered(body: Node) -> void:
-	if body.name == 'Player':
-		bBodyInViewRange = true
+func _on_Character_Detector_NearField_body_entered(body: BewohnerBase) -> void:
+	aBodiesInViewRange.append(body)
 
 
-func _on_Character_Detector_NearField_body_exited(body: Node) -> void:
-	if body.name == 'Player':
-		bBodyInViewRange = false
+func _on_Character_Detector_NearField_body_exited(body: BewohnerBase) -> void:
+	aBodiesInViewRange.erase(body)
 
 
 func calc_speed(pos_player: Vector2):
@@ -76,7 +70,7 @@ func calc_speed(pos_player: Vector2):
 
 
 func _on_Player_trash_dropped(bewohner: BewohnerBase) -> void:
-	if bBodyInHearingRange:
+	if aBodiesInHearingRange.has(bewohner):
 		dKarma[bewohner.name] -= 1
 		Events.emit_signal("karma_changed", dKarma[bewohner.name])
 		calc_speed(bewohner.position)
@@ -92,7 +86,7 @@ func _on_Player_trash_dropped(bewohner: BewohnerBase) -> void:
 
 
 func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
-	if bBodyInViewRange:
+	if aBodiesInViewRange.has(bewohner):
 		#print("Wie schoen, Herr Meier kuemmert sich um unser Treppenhaus")
 		dKarma[bewohner.name] += 1
 		#print("Position of event:" + str(pos_player))

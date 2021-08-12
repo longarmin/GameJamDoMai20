@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/oma.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11.566, 15.4658 )
+extents = Vector2( 11.566, 16 )
 
 [sub_resource type="AnimatedTexture" id=2]
 
@@ -59,7 +59,7 @@ script = ExtResource( 1 )
 speed = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.056406, -16.5716 )
+position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 one_way_collision_margin = 0.0
 
@@ -105,7 +105,7 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2( 0, -4 )
+position = Vector2( 0, -8 )
 shape = SubResource( 6 )
 
 [node name="timer_changeDirection" type="Timer" parent="."]
@@ -118,7 +118,7 @@ one_shot = true
 [node name="Player_Detector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Detector"]
-position = Vector2( -1.32433, -14.0379 )
+position = Vector2( 0, -16 )
 shape = SubResource( 7 )
 
 [node name="Timer" type="Timer" parent="."]

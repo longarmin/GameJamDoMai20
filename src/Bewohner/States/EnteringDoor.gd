@@ -2,19 +2,21 @@ extends BewohnerState
 class_name EnteringDoor
 
 var up: bool = false
+var double: bool = false
 
 
 func respond_to(message: Message) -> Dictionary:
 	if message.status == 1:
 		return {"sTargetState": "Idle", "dParams": {}}
 	if message.status == 2:
-		return {"sTargetState": "ChangingFloor", "dParams": {"up": up}}
+		return {"sTargetState": "ChangingFloor", "dParams": {"up": up, "double": double}}
 	return {}
 
 
 func enter(dParams: Dictionary) -> void:
 	if bewohner.bIsOnDoor:
 		up = dParams.up
+		double = dParams.double
 		if (up && bewohner.position.y > 150) || (! up && bewohner.position.y < 250):
 			bewohner.animationPlayer.play("enteringDoor")
 		else:

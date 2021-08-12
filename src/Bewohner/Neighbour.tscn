@@ -221,6 +221,7 @@ anims/running = SubResource( 9 )
 anims/runningTrash = SubResource( 10 )
 
 [node name="EvtCountdownTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Label" type="Label" parent="."]
 margin_left = -18.6663
@@ -234,8 +235,8 @@ __meta__ = {
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Picking" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ExitingDoor" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Picking" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="EvtCountdownTimer" to="." method="_on_EvtCountdownTimer_timeout"]
