@@ -132,6 +132,7 @@ func _on_EvtCountdownTimer_timeout() -> void:
 	var temp = aQueueNeighbourEvents.pop_front()
 	if temp != null:
 		sTarget = temp.target_name
+# warning-ignore:unsafe_property_access
 		vTargetPosition = get_parent().get_node(sTarget).position
 		evtCountdownTimer.wait_time = temp.countdown_val
 		evtCountdownTimer.start()

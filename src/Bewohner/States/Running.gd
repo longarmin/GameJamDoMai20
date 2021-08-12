@@ -50,6 +50,7 @@ func enter(_dParams: Dictionary) -> void:
 		bewohner.animationPlayer.play("runningTrash")
 	else:
 		bewohner.animationPlayer.play("running")
+	bewohner.animationPlayer.playback_speed = bewohner.fSpeed * 0.008
 
 
 func exit() -> void:

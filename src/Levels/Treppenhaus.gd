@@ -23,8 +23,6 @@ onready var NeighbourEvents = [
 # https://godotengine.org/qa/8025/how-to-add-a-child-in-a-specific-position:
 
 onready var neighboursInstances = {}
-
-
 func _ready() -> void:
 	for name in dictNavTable:
 		neighboursInstances[name] = dictNavTable[name][0]

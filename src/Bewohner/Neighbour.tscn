@@ -15,10 +15,10 @@
 [ext_resource path="res://src/Bewohner/States/Talking.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 16 )
+extents = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 16 )
+extents = Vector2( 16, 16 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "dropping"
@@ -198,7 +198,7 @@ position = Vector2( 0, -16 )
 texture = ExtResource( 5 )
 hframes = 6
 vframes = 4
-frame = 6
+frame = 18
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2( 0, -8 )
@@ -235,8 +235,8 @@ __meta__ = {
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ExitingDoor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Picking" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ExitingDoor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="EvtCountdownTimer" to="." method="_on_EvtCountdownTimer_timeout"]

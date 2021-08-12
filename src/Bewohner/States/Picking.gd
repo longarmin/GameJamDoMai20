@@ -12,7 +12,7 @@ func respond_to(message: Message) -> Dictionary:
 
 func enter(_dParams: Dictionary) -> void:
 	if (
-		bewohner.aTrashBags.size() < bewohner.iMaxTrashAmount
+		(bewohner.aTrashBags.size() < bewohner.iMaxTrashAmount)
 		&& (bewohner.bIsOnTrash || (bewohner.bIsOnDump && bewohner.dump.has_trash()))
 	):
 		if bewohner.bIsOnTrash:
@@ -21,6 +21,7 @@ func enter(_dParams: Dictionary) -> void:
 			trashToPickup = bewohner.dump.retrieve_trash()
 		bewohner.animationPlayer.play("picking")
 	else:
+		trashToPickup = null
 		var message = Message.new()
 		message.status = 1
 		message.content = "Zu viel Trash oder kein Trash vorhanden"

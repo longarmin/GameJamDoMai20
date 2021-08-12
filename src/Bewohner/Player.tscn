@@ -15,10 +15,10 @@
 [ext_resource path="res://src/Bewohner/States/Talking.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 16 )
+extents = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 16 )
+extents = Vector2( 16, 16 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "dropping"
@@ -218,6 +218,8 @@ position = Vector2( 0, -32 )
 current = true
 limit_left = 0
 limit_top = 0
+limit_right = 512
+limit_bottom = 304
 limit_smoothed = true
 smoothing_enabled = true
 editor_draw_limits = true
@@ -232,7 +234,7 @@ editor_draw_limits = true
 [connection signal="trash_pickable" from="." to="UI" method="_on_Player_trash_pickable"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ExitingDoor" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Picking" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ExitingDoor" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]

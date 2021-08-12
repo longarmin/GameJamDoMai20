@@ -5,8 +5,8 @@ class_name ButtonBoxContainer
 # var a = 2
 # var b = "text"
 
-onready var dropButton: AnimatedSprite = $DropButton
-onready var pickupButton: AnimatedSprite = $PickupButton
+onready var dropButton: AnimatedSprite = $PanelContainer/DropButton
+onready var pickupButton: AnimatedSprite = $PanelContainer2/PickupButton
 
 
 # Called when the node enters the scene tree for the first time.

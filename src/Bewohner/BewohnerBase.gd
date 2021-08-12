@@ -89,7 +89,7 @@ func _on_Hitbox_area_exited(area: Area2D) -> void:
 	if area.has_method("pick_up"):
 		fSpeed += change_speed(NORMAL_SPEED / 4)
 		aTrashesNear.erase(area)
-		if ! aTrashesNear:
+		if aTrashesNear.size() == 0:
 			bIsOnTrash = false
 			emit_signal("trash_notPickable")
 	if area.has_method("use_stairwell"):

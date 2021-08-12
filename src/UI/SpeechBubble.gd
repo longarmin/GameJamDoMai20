@@ -1,7 +1,7 @@
 extends Control
 class_name SpeechBubble
 
-onready var text_node: RichTextLabel = $Anchor/RichTextLabel
+onready var text_node: RichTextLabel = $RichTextLabel
 onready var timer: Timer = $Timer
 onready var tween: Tween = $Tween
 

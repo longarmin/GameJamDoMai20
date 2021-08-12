@@ -4,49 +4,20 @@
 [ext_resource path="res://assets/trashDownButton.png" type="Texture" id=2]
 [ext_resource path="res://src/UI/ButtonBoxContainer.gd" type="Script" id=3]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 10, 24 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 24, 10, 24 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 10, 24, 10, 24 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 20, 24, 10, 24 )
-
-[sub_resource type="SpriteFrames" id=5]
-animations = [ {
-"frames": [ SubResource( 1 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
-"name": "action",
-"speed": 5.0
-} ]
-
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 10, 24 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 24, 10, 24 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 10, 24, 10, 24 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 20, 24, 10, 24 )
 
 [sub_resource type="SpriteFrames" id=10]
@@ -62,22 +33,68 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 10, 24 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 24, 10, 24 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 10, 24, 10, 24 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 20, 24, 10, 24 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 11 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "action",
+"speed": 5.0
+} ]
+
 [node name="ButtonBoxContainer" type="HBoxContainer"]
-margin_right = 61.0
-margin_bottom = 32.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_right = 36.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 32, 20 )
+alignment = 2
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PickupButton" type="AnimatedSprite" parent="."]
-position = Vector2( 60, 13 )
-frames = SubResource( 5 )
-playing = true
+[node name="PanelContainer2" type="AspectRatioContainer" parent="."]
+margin_right = 16.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 2
+alignment_vertical = 2
 
-[node name="DropButton" type="AnimatedSprite" parent="."]
-position = Vector2( 79, 13 )
+[node name="PickupButton" type="AnimatedSprite" parent="PanelContainer2"]
 frames = SubResource( 10 )
 playing = true
+centered = false
+
+[node name="PanelContainer" type="AspectRatioContainer" parent="."]
+margin_left = 20.0
+margin_right = 36.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 20 )
+alignment_horizontal = 2
+alignment_vertical = 2
+
+[node name="DropButton" type="AnimatedSprite" parent="PanelContainer"]
+frames = SubResource( 15 )
+playing = true
+centered = false
