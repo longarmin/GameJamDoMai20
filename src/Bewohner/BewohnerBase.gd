@@ -47,7 +47,7 @@ func calculate_move_velocity(
 	return out
 
 
-func change_speed(fAmount := NORMAL_SPEED / 4) -> float:
+func change_speed(fAmount := NORMAL_SPEED / 5) -> float:
 	if fSpeed < fAmount:
 		return 0.0
 	else:

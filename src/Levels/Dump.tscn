@@ -87,3 +87,8 @@ anims/high = SubResource( 2 )
 anims/low = SubResource( 3 )
 anims/mid = SubResource( 4 )
 anims/none = SubResource( 5 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
