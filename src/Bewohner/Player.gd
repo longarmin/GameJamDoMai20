@@ -3,17 +3,17 @@ class_name Player
 
 
 func _ready():
-	pass
+	sName = "Player"
 
 
 func _unhandled_input(_event) -> void:
-	if Input.is_action_pressed("action2"):
+	if Input.is_action_just_pressed("action2"):
 		var message = Message.new()
 		message.status = 2
 		message.content = "Actionbutton 2 gedrueckt"
 		message.emitter = "Player"
 		stateMachine.respond_to(message)
-	if Input.is_action_pressed("action1"):
+	if Input.is_action_just_pressed("action1"):
 		var message = Message.new()
 		message.status = 3
 		message.content = "Actionbutton 1 gedrueckt"

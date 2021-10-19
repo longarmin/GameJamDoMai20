@@ -16,6 +16,7 @@ var door: Stairwell
 var dump: Dump
 var aTrashesNear: Array
 var aTrashBags: Array
+var sName: String
 
 signal trash_pickable
 signal trash_notPickable
@@ -40,7 +41,7 @@ func calculate_move_velocity(
 ) -> Vector2:
 	var out := linear_velocity
 	out.x = current_speed * current_direction.x
-	if ! is_on_floor():
+	if !is_on_floor():
 		out.y += GRAVITY * get_physics_process_delta_time()
 	else:
 		out.y = 0
@@ -92,6 +93,8 @@ func _on_Hitbox_area_exited(area: Area2D) -> void:
 		if aTrashesNear.size() == 0:
 			bIsOnTrash = false
 			emit_signal("trash_notPickable")
+			if !stateMachine.current_state.name == "Idle":
+				Events.emit_signal("neighbour_passed_trash", self)
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = false
 		door = null

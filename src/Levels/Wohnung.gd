@@ -1,8 +1,7 @@
 extends Dump
 class_name Wohnung
 
-export (PackedScene) var Trash
-export (PackedScene) var Neighbour
+export(PackedScene) var Trash
 
 var fTrashInWohnung_Menge := 0.0
 var aNeighbours: Array = []
@@ -37,7 +36,7 @@ func _on_Timer_timeout():
 		fTrashInWohnung_Menge += 0.25
 
 
-func enter_flat(neighbourEntering: Neighbour) -> void:
+func enter_flat(neighbourEntering) -> void:
 	var message = Message.new()
 	message.status = 6
 	message.content = "Neighbour enters flat"
@@ -46,15 +45,18 @@ func enter_flat(neighbourEntering: Neighbour) -> void:
 	aNeighbours.append(neighbourEntering)
 
 
-func exit_flat(neighbourExiting: Neighbour) -> void:
-	if neighbourExiting.sTarget != self.name:
+func exit_flat(neighbourExiting) -> void:
+	# Fuer den Fall, dass der Nachbar in seiner Wohnung das Spiel verliert.
+	# Wie auch immer das moeglich ist...
+	if neighbourExiting == null:
+		return
+	if neighbourExiting.target != self:
 		aNeighbours.erase(neighbourExiting)
 		var message = Message.new()
 		message.status = 7
 		message.content = "Neighbour exits flat"
 		message.emitter = "Flat"
 		neighbourExiting.stateMachine.respond_to(message)
-		neighbourExiting.vTargetPosition = get_parent().get_node(neighbourExiting.sTarget).position
 
 
 func _on_Wohnung_trash_created(_trash):

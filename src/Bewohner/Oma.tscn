@@ -78,25 +78,23 @@ anims/Oma_Laufend = SubResource( 3 )
 anims/Oma_Stehend = SubResource( 4 )
 
 [node name="Character_Detector" type="Area2D" parent="."]
-position = Vector2( 0.765228, 1.21585 )
 rotation = 1.5708
 input_pickable = false
 collision_layer = 0
-collision_mask = 4
+collision_mask = 6
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector"]
 position = Vector2( -16, 0 )
 shape = SubResource( 5 )
 
 [node name="Character_Detector_NearField" type="Area2D" parent="."]
-position = Vector2( 0.765228, 1.21585 )
 rotation = 1.5708
 input_pickable = false
 collision_layer = 0
-collision_mask = 4
+collision_mask = 6
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector_NearField"]
-position = Vector2( -16.6459, 0.000152588 )
+position = Vector2( -16, 0 )
 scale = Vector2( 1, 0.1 )
 shape = SubResource( 5 )
 
@@ -116,6 +114,8 @@ wait_time = 0.25
 one_shot = true
 
 [node name="Player_Detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Detector"]
 position = Vector2( 0, -16 )

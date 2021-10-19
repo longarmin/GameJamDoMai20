@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
 [ext_resource path="res://assets/Rolemusic - Crush At Maracas Bar.ogg" type="AudioStream" id=2]
@@ -7,8 +7,10 @@
 [ext_resource path="res://src/Levels/Wohnung.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Levels/Dump.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/speaker.png" type="Texture" id=7]
+[ext_resource path="res://src/Levels/SpawnerNeighbour.gd" type="Script" id=8]
 [ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/Levels/Trash.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/alanin.png" type="Texture" id=15]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -87,47 +89,77 @@ position = Vector2( 272, 67 )
 [node name="Door3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 272, 259 )
 
-[node name="Wohnung2" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung2" parent="." groups=[
+"flats",
+"flatsEmpty",
+] instance=ExtResource( 5 )]
 position = Vector2( 166, 168 )
 maximumTrashAmount = 1
 
-[node name="Wohnung3" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung3" parent="." groups=[
+"flats",
+"flatsEmpty",
+] instance=ExtResource( 5 )]
 position = Vector2( 368, 168 )
 maximumTrashAmount = 1
 
-[node name="Wohnung6" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung6" parent="." groups=[
+"flats",
+"flatsEmpty",
+] instance=ExtResource( 5 )]
 position = Vector2( 368, 72 )
 maximumTrashAmount = 1
 
-[node name="Wohnung7" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung7" parent="." groups=[
+"flats",
+"flatsEmpty",
+] instance=ExtResource( 5 )]
 position = Vector2( 165.764, 72 )
 maximumTrashAmount = 1
 
-[node name="Wohnung8" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung8" parent="." groups=[
+"flats",
+"flatsEmpty",
+] instance=ExtResource( 5 )]
 position = Vector2( 71.5388, 264 )
 maximumTrashAmount = 1
 
-[node name="Wohnung9" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung9" parent="." groups=[
+"flats",
+"flatsEmpty",
+] instance=ExtResource( 5 )]
 position = Vector2( 165.882, 264 )
 maximumTrashAmount = 1
 
-[node name="Wohnung10" parent="." instance=ExtResource( 5 )]
+[node name="Wohnung10" parent="." groups=[
+"flats",
+"flatsEmpty",
+] instance=ExtResource( 5 )]
 position = Vector2( 368, 264 )
 maximumTrashAmount = 1
 
-[node name="Dump" parent="." instance=ExtResource( 6 )]
+[node name="Player" parent="." instance=ExtResource( 10 )]
+position = Vector2( 201.764, 187.948 )
+
+[node name="Dump" parent="." groups=[
+"dumps",
+] instance=ExtResource( 6 )]
 position = Vector2( 464, 93.815 )
 
-[node name="Dump2" parent="." instance=ExtResource( 6 )]
+[node name="Dump2" parent="." groups=[
+"dumps",
+] instance=ExtResource( 6 )]
 position = Vector2( 464, 190.201 )
 
-[node name="Dump3" parent="." instance=ExtResource( 6 )]
+[node name="Dump3" parent="." groups=[
+"dumps",
+] instance=ExtResource( 6 )]
 position = Vector2( 464, 286.127 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Oma" parent="." instance=ExtResource( 9 )]
@@ -137,14 +169,18 @@ collision_layer = 1024
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 10 )
+frame = 1
 playing = true
-
-[node name="Player" parent="." instance=ExtResource( 10 )]
-position = Vector2( 400, 190.016 )
 
 [node name="EventTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="SpawnerNeighbour" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="Trash" parent="." instance=ExtResource( 11 )]
+position = Vector2( 240, 184 )
 
 [connection signal="trash_created" from="Wohnung2" to="." method="_on_trash_created"]
 [connection signal="trash_created" from="Wohnung3" to="." method="_on_trash_created"]

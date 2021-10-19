@@ -17,13 +17,14 @@ func enter(dParams: Dictionary) -> void:
 	if bewohner.bIsOnDoor:
 		up = dParams.up
 		double = dParams.double
-		if (up && bewohner.position.y > 150) || (! up && bewohner.position.y < 250):
+		if (up && bewohner.position.y > 150) || (!up && bewohner.position.y < 250):
 			bewohner.animationPlayer.play("enteringDoor")
 		else:
 			var message = Message.new()
 			message.status = 1
 			message.content = "Zu hoch oder zu tief"
 			message.emitter = "EnteringDoorState"
+			print(message.content)
 			state_machine.respond_to(message)
 	else:
 		var message = Message.new()

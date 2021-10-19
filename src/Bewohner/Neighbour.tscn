@@ -18,7 +18,7 @@
 extents = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 16 )
+extents = Vector2( 1, 16 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "dropping"
@@ -153,8 +153,7 @@ size = 8
 font_data = ExtResource( 7 )
 
 [node name="Neighbour" type="KinematicBody2D"]
-collision_layer = 4
-collision_mask = 3
+collision_layer = 2
 script = ExtResource( 1 )
 fSpeed = 100.0
 
@@ -222,6 +221,7 @@ anims/runningTrash = SubResource( 10 )
 
 [node name="EvtCountdownTimer" type="Timer" parent="."]
 one_shot = true
+autostart = true
 
 [node name="Label" type="Label" parent="."]
 margin_left = -18.6663
@@ -235,8 +235,8 @@ __meta__ = {
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Picking" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ExitingDoor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="EvtCountdownTimer" to="." method="_on_EvtCountdownTimer_timeout"]

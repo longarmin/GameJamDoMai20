@@ -150,7 +150,6 @@ tracks/0/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 3
 script = ExtResource( 1 )
 fSpeed = 150.0
 
@@ -234,7 +233,7 @@ editor_draw_limits = true
 [connection signal="trash_pickable" from="." to="UI" method="_on_Player_trash_pickable"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Picking" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/ExitingDoor" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Dropping" method="_on_AnimationPlayer_animation_finished"]

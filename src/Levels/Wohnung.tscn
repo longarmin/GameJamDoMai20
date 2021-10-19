@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Levels/Wohnung.gd" type="Script" id=1]
 [ext_resource path="res://src/Levels/Trash.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/doorTrash.png" type="Texture" id=3]
-[ext_resource path="res://src/Bewohner/Neighbour.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8.118, 21.2813 )
+extents = Vector2( 0, 21.2813 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "low"
@@ -43,7 +42,6 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )
 Trash = ExtResource( 2 )
-Neighbour = ExtResource( 4 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 16 )

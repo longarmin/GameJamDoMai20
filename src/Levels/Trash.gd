@@ -18,7 +18,7 @@ func is_pickable() -> bool:
 
 func pick_up() -> Trash:
 	self.hide()
-	self.position.y = 0
+	self.position.y = -10
 	return self
 
 
