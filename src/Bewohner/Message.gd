@@ -1,6 +1,13 @@
 class_name Message
 
-var status: int
-var content: String
-var emitter: String
-var params: Dictionary
+var iStatus: int
+var sContent: String
+var emitter: Node
+var dParams: Dictionary
+
+
+func _init(status, content, emitterNode, params = {}):
+	iStatus = status
+	sContent = content
+	emitter = emitterNode
+	dParams = params

@@ -8,26 +8,19 @@ func _ready():
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("action2"):
-		var message = Message.new()
-		message.status = 2
-		message.content = "Actionbutton 2 gedrueckt"
-		message.emitter = "Player"
+		var message = Message.new(2, "Actionbutton 2 gedrueckt", self)
 		stateMachine.respond_to(message)
 	if Input.is_action_just_pressed("action1"):
-		var message = Message.new()
-		message.status = 3
-		message.content = "Actionbutton 1 gedrueckt"
-		message.emitter = "Player"
+		var message = Message.new(3, "Actionbutton 1 gedrueckt", self)
 		stateMachine.respond_to(message)
 	if Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down"):
-		var message = Message.new()
-		message.status = 4
+		var message_params: Dictionary
 		if Input.is_action_just_pressed("ui_up"):
-			message.params["up"] = true
+			message_params["up"] = true
 		else:
-			message.params["up"] = false
-		message.params["double"] = false
-		message.emitter = "Player"
+			message_params["up"] = false
+		message_params["double"] = false
+		var message = Message.new(4, "Treppen rauf oder runter", self, message_params)
 		stateMachine.respond_to(message)
 
 

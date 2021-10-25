@@ -114,10 +114,7 @@ func _on_Player_Detector_body_entered(body: BewohnerBase) -> void:
 		if body.sName == sTargetPlayer:
 			speed = 0
 			animationPlayer.play("Oma_Stehend")
-			var message = Message.new()
-			message.status = 5
-			message.content = "5"
-			message.emitter = "Oma"
+			var message = Message.new(5, "5", self)
 # warning-ignore:unsafe_property_access
 			body.stateMachine.respond_to(message)
 			if sTargetPlayer == "Player":

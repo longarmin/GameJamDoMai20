@@ -3,7 +3,6 @@ class_name Neighbour
 
 # Declare member variables here.
 const TIME_FACTOR := 20
-enum { HALDE, DANEBEN, WOHNUNG }
 const STAIRWELLDOOR_POSX := 272
 const MAX_Y_DELTA_ON_SAME_LEVEL := 30
 const STANDARD_TIME_IDLE := 15
@@ -56,17 +55,16 @@ func has_to_use_stairwell(vPos: Vector2, vTargetPos: Vector2) -> bool:
 
 
 func emit_stairwell_message(vPos: Vector2, vTargetPos: Vector2) -> void:
-	var message = Message.new()
-	message.status = 4
+	var message_params: Dictionary
 	if vPos.y > vTargetPos.y:
-		message.params["up"] = true
+		message_params["up"] = true
 	else:
-		message.params["up"] = false
+		message_params["up"] = false
 	if abs(vPos.y - vTargetPos.y) > 150:
-		message.params["double"] = true
+		message_params["double"] = true
 	else:
-		message.params["double"] = false
-	message.emitter = "Neighbour"
+		message_params["double"] = false
+	var message = Message.new(4, "Treppen steigen", self, message_params)
 	stateMachine.respond_to(message)
 
 
@@ -82,10 +80,7 @@ func instanciate(homeNew: Wohnung, sNeighbourName: String, fSpeedNew: float = fS
 func _on_Hitbox_area_entered(area: Area2D) -> void:
 	._on_Hitbox_area_entered(area)
 	if area is Dump && abs(target.position.x - area.position.x) < 5:
-		var message = Message.new()
-		message.status = 2
-		message.content = "Neighbour on Dump"
-		message.emitter = "Neighbour"
+		var message = Message.new(2, "Neighbour on Dump", self)
 		stateMachine.respond_to(message)
 
 	# Check, ob Neighbour wieder in seine Flat zurueck soll:
@@ -104,10 +99,7 @@ func _on_Hitbox_area_entered(area: Area2D) -> void:
 func _on_Hitbox_area_exited(area: Area2D) -> void:
 	# Trash mitnehmen, wenn welcher vor der eigenen Wohnung liegt
 	if area == home:
-		var message = Message.new()
-		message.status = 3
-		message.content = "Neighbour on Flat"
-		message.emitter = "Neighbour"
+		var message = Message.new(3, "Neighbour on Flat", self)
 		stateMachine.respond_to(message)
 	._on_Hitbox_area_exited(area)
 

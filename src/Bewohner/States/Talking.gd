@@ -6,11 +6,9 @@ var wait: int = 5
 
 
 func respond_to(message: Message) -> Response:
-	var response = Response.new()
-	if message.status == 1:
-		response.sTargetState = "Idle"
-		response.dParams = {}
-	return response
+	if message.iStatus == 1:
+		sTargetState = "Idle"
+	return Response.new(sTargetState, dParams)
 
 
 func enter(dParams: Dictionary) -> void:
@@ -30,8 +28,5 @@ func enter(dParams: Dictionary) -> void:
 
 func _timeout() -> void:
 	timer.queue_free()
-	var message = Message.new()
-	message.status = 1
-	message.content = "Timer stopped"
-	message.emitter = "TalkingState"
+	var message = Message.new(1, "Timer stopped", self)
 	state_machine.respond_to(message)

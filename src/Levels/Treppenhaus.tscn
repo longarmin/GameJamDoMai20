@@ -181,11 +181,4 @@ script = ExtResource( 8 )
 [node name="Trash" parent="." instance=ExtResource( 11 )]
 position = Vector2( 240, 184 )
 
-[connection signal="trash_created" from="Wohnung2" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung3" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung6" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung7" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung8" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung9" to="." method="_on_trash_created"]
-[connection signal="trash_created" from="Wohnung10" to="." method="_on_trash_created"]
 [connection signal="timeout" from="EventTimer" to="." method="_on_EventTimer_timeout"]

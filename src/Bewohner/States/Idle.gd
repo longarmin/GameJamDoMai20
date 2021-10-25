@@ -4,40 +4,32 @@ class_name Idle
 
 func update_physics(_delta: float) -> void:
 	if bewohner.calculate_direction(bewohner.vDirection).x != 0:
-		var message = Message.new()
-		message.status = 1
-		message.content = "Geschwindigkeit ungleich 0"
-		message.emitter = "IdleState"
+		var message = Message.new(1, "Geschwindigkeit ungleich 0", self)
 		state_machine.respond_to(message)
 
 
 func respond_to(message: Message) -> Response:
-	var response  = Response.new()
-	match message.status:
+	match message.iStatus:
 		1:
-			response.sTargetState = "Running"
-			response.dParams = {}
+			sTargetState = "Running"
 		2:
-			response.sTargetState = "Dropping"
-			response.dParams = {}
+			sTargetState = "Dropping"
 		3:
-			response.sTargetState = "Picking"
-			response.dParams = {}
+			sTargetState = "Picking"
 		4:
-			response.sTargetState = "Running"
-			var up: bool = message.params["up"]
-			var double: bool = message.params["double"]
-			response.dParams = {"up": up, "double": double}
+			sTargetState = "EnteringDoor"
+			var up: bool = message.dParams["up"]
+			var double: bool = message.dParams["double"]
+			dParams = {"up": up, "double": double}
 		5:
-			response.sTargetState = "Talking"
-			var wait: int = int(message.content)
-			response.dParams = {"wait": wait}
+			sTargetState = "Talking"
+			var wait: int = int(message.sContent)
+			dParams = {"wait": wait}
 		6:
-			response.sTargetState = "BeingInFlat"
-			response.dParams = {}
+			sTargetState = "BeingInFlat"
 		_:
 			pass
-	return response
+	return Response.new(sTargetState, dParams)
 
 
 func enter(_params):

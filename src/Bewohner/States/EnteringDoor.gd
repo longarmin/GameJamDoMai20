@@ -6,14 +6,12 @@ var double: bool = false
 
 
 func respond_to(message: Message) -> Response:
-	var response = Response.new()
-	if message.status == 1:
-		response.sTargetState = "Idle"
-		response.dParams = {}
-	if message.status == 2:
-		response.sTargetState = "ChangingFloor"
-		response.dParams = {"up": up, "double": double}
-	return response
+	if message.iStatus == 1:
+		sTargetState = "Idle"
+	if message.iStatus == 2:
+		sTargetState = "ChangingFloor"
+		dParams = {"up": up, "double": double}
+	return Response.new(sTargetState, dParams)
 
 
 func enter(dParams: Dictionary) -> void:
@@ -23,24 +21,14 @@ func enter(dParams: Dictionary) -> void:
 		if (up && bewohner.position.y > 150) || (!up && bewohner.position.y < 250):
 			bewohner.animationPlayer.play("enteringDoor")
 		else:
-			var message = Message.new()
-			message.status = 1
-			message.content = "Zu hoch oder zu tief"
-			message.emitter = "EnteringDoorState"
-			print(message.content)
+			var message = Message.new(1, "Zu hoch oder zu tief", self)
 			state_machine.respond_to(message)
 	else:
-		var message = Message.new()
-		message.status = 1
-		message.content = "Keine Tuer"
-		message.emitter = "EnteringDoorState"
+		var message = Message.new(1, "Keine Tuer", self)
 		state_machine.respond_to(message)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "enteringDoor":
-		var message = Message.new()
-		message.status = 2
-		message.content = "Animation stopp"
-		message.emitter = "EnteringDoorState"
+		var message = Message.new(2, "Animation stopp", self)
 		state_machine.respond_to(message)

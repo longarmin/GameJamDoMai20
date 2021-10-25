@@ -37,10 +37,7 @@ func _on_Timer_timeout():
 
 
 func enter_flat(neighbourEntering) -> void:
-	var message = Message.new()
-	message.status = 6
-	message.content = "Neighbour enters flat"
-	message.emitter = "Flat"
+	var message = Message.new(6, "Neighbour enters flat", self)
 	neighbourEntering.stateMachine.respond_to(message)
 	aNeighbours.append(neighbourEntering)
 
@@ -52,10 +49,7 @@ func exit_flat(neighbourExiting) -> void:
 		return
 	if neighbourExiting.target != self:
 		aNeighbours.erase(neighbourExiting)
-		var message = Message.new()
-		message.status = 7
-		message.content = "Neighbour exits flat"
-		message.emitter = "Flat"
+		var message = Message.new(7, "Neighbour exits flat", self)
 		neighbourExiting.stateMachine.respond_to(message)
 
 

@@ -3,28 +3,23 @@ class_name Dropping
 
 
 func respond_to(message: Message) -> Response:
-	var response = Response.new()
-	match message.status:
+	match message.iStatus:
 		1:
-			response.sTargetState = "Idle"
-			response.dParams = {}
+			sTargetState = "Idle"
 		5:
-			response.sTargetState = "Talking"
-			var wait: int = int(message.content)
-			response.dParams = {"wait": wait}
+			sTargetState = "Talking"
+			var wait: int = int(message.sContent)
+			dParams = {"wait": wait}
 		_:
 			pass
-	return response
+	return Response.new(sTargetState, dParams)
 
 
 func enter(_dParams: Dictionary) -> void:
 	if bewohner.aTrashBags.size() > 0:
 		bewohner.animationPlayer.play("dropping")
 	else:
-		var message = Message.new()
-		message.status = 1
-		message.content = "Keinen Trash"
-		message.emitter = "DroppingState"
+		var message = Message.new(1, "Keinen Trash", self)
 		state_machine.respond_to(message)
 
 
@@ -49,8 +44,5 @@ func exit() -> void:
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "dropping":
-		var message = Message.new()
-		message.status = 1
-		message.content = "Animation stopp"
-		message.emitter = "DroppingState"
+		var message = Message.new(1, "Animation stopp", self)
 		state_machine.respond_to(message)

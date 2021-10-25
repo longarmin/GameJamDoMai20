@@ -5,11 +5,9 @@ var trashToPickup: Trash
 
 
 func respond_to(message: Message) -> Response:
-	var response = Response.new()
-	if message.status == 1:
-		response.sTargetState = "Idle"
-		response.dParams = {}
-	return response
+	if message.iStatus == 1:
+		sTargetState = "Idle"
+	return Response.new(sTargetState, dParams)
 
 
 func enter(_dParams: Dictionary) -> void:
@@ -24,15 +22,12 @@ func enter(_dParams: Dictionary) -> void:
 		bewohner.animationPlayer.play("picking")
 	else:
 		trashToPickup = null
-		var message = Message.new()
-		message.status = 1
-		message.content = "Zu viel Trash oder kein Trash vorhanden"
-		message.emitter = "PickingState"
+		var message = Message.new(1, "Zu viel Trash oder kein Trash vorhanden", self)
 		state_machine.respond_to(message)
 
 
 func exit() -> void:
-	if ! trashToPickup:
+	if !trashToPickup:
 		return
 	bewohner.add_trash_bag(trashToPickup)
 # warning-ignore:return_value_discarded
@@ -46,8 +41,5 @@ func exit() -> void:
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "picking":
-		var message = Message.new()
-		message.status = 1
-		message.content = "Animation stopp"
-		message.emitter = "PickingState"
+		var message = Message.new(1, "Animation stopp", self)
 		state_machine.respond_to(message)
