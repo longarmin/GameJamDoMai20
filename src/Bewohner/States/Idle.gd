@@ -11,25 +11,33 @@ func update_physics(_delta: float) -> void:
 		state_machine.respond_to(message)
 
 
-func respond_to(message: Message) -> Dictionary:
+func respond_to(message: Message) -> Response:
+	var response  = Response.new()
 	match message.status:
 		1:
-			return {"sTargetState": "Running", "dParams": {}}
+			response.sTargetState = "Running"
+			response.dParams = {}
 		2:
-			return {"sTargetState": "Dropping", "dParams": {}}
+			response.sTargetState = "Dropping"
+			response.dParams = {}
 		3:
-			return {"sTargetState": "Picking", "dParams": {}}
+			response.sTargetState = "Picking"
+			response.dParams = {}
 		4:
+			response.sTargetState = "Running"
 			var up: bool = message.params["up"]
 			var double: bool = message.params["double"]
-			return {"sTargetState": "EnteringDoor", "dParams": {"up": up, "double": double}}
+			response.dParams = {"up": up, "double": double}
 		5:
+			response.sTargetState = "Talking"
 			var wait: int = int(message.content)
-			return {"sTargetState": "Talking", "dParams": {"wait": wait}}
+			response.dParams = {"wait": wait}
 		6:
-			return {"sTargetState": "BeingInFlat", "dParams": {}}
+			response.sTargetState = "BeingInFlat"
+			response.dParams = {}
 		_:
-			return {"sTargetState": "Idle", "dParams": {}}
+			pass
+	return response
 
 
 func enter(_params):

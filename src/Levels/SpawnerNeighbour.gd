@@ -2,11 +2,13 @@ extends Node
 class_name SpawnerNeighbour
 
 # Es werden zunaechst zufaellige Nachbarn generiert.
-# Ihnen werden Wohnungen zugewiesen.
+# Ihnen werden Wohnungen und Namen zugewiesen.
+# Abschließend werden die Nachbarn mit den passenden Eigenschaften gespawnt.
 
 onready var neighboursResource = preload("res://src/Bewohner/Neighbour.tscn")
 # In der Gruppe Flats sollten nur leere Wohnung sein. Diese werden hier in das Array gespeichert.
 onready var aFlats = get_tree().get_nodes_in_group("flatsEmpty")
+# Alle Deponien sind in der Gruppe dumps.
 onready var aDumps = get_tree().get_nodes_in_group("dumps")
 
 var neighbourSpawnTable

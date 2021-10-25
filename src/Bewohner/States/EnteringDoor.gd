@@ -5,12 +5,15 @@ var up: bool = false
 var double: bool = false
 
 
-func respond_to(message: Message) -> Dictionary:
+func respond_to(message: Message) -> Response:
+	var response = Response.new()
 	if message.status == 1:
-		return {"sTargetState": "Idle", "dParams": {}}
+		response.sTargetState = "Idle"
+		response.dParams = {}
 	if message.status == 2:
-		return {"sTargetState": "ChangingFloor", "dParams": {"up": up, "double": double}}
-	return {}
+		response.sTargetState = "ChangingFloor"
+		response.dParams = {"up": up, "double": double}
+	return response
 
 
 func enter(dParams: Dictionary) -> void:

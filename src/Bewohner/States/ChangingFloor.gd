@@ -7,10 +7,12 @@ var up: bool = false
 var double: bool = false
 
 
-func respond_to(message: Message) -> Dictionary:
+func respond_to(message: Message) -> Response:
+	var response = Response.new()
 	if message.status == 1:
-		return {"sTargetState": "ExitingDoor", "dParams": {}}
-	return {}
+		response.sTargetState = "ExitingDoor"
+		response.dParams = {}
+	return response
 
 
 func enter(dParams: Dictionary) -> void:

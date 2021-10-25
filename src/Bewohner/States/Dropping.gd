@@ -2,15 +2,19 @@ extends BewohnerState
 class_name Dropping
 
 
-func respond_to(message: Message) -> Dictionary:
+func respond_to(message: Message) -> Response:
+	var response = Response.new()
 	match message.status:
 		1:
-			return {"sTargetState": "Idle", "dParams": {}}
+			response.sTargetState = "Idle"
+			response.dParams = {}
 		5:
+			response.sTargetState = "Talking"
 			var wait: int = int(message.content)
-			return {"sTargetState": "Talking", "dParams": {"wait": wait}}
+			response.dParams = {"wait": wait}
 		_:
-			return {"sTargetState": "Idle", "dParams": {}}
+			pass
+	return response
 
 
 func enter(_dParams: Dictionary) -> void:

@@ -4,10 +4,12 @@ class_name Picking
 var trashToPickup: Trash
 
 
-func respond_to(message: Message) -> Dictionary:
+func respond_to(message: Message) -> Response:
+	var response = Response.new()
 	if message.status == 1:
-		return {"sTargetState": "Idle", "dParams": {}}
-	return {}
+		response.sTargetState = "Idle"
+		response.dParams = {}
+	return response
 
 
 func enter(_dParams: Dictionary) -> void:

@@ -16,8 +16,9 @@ func handle_input(_event) -> void:
 	pass
 
 
-func respond_to(_message) -> Dictionary:
-	return {}
+func respond_to(_message: Message) -> Response:
+	var response = Response.new()
+	return response
 
 
 func enter(_dParams: Dictionary) -> void:

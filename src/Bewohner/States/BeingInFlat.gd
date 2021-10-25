@@ -2,11 +2,12 @@ extends BewohnerState
 class_name BeingInFlat
 
 
-func respond_to(message: Message) -> Dictionary:
+func respond_to(message: Message) -> Response:
+	var response = Response.new()
 	if message.status == 7:
-		return {"sTargetState": "Idle", "dParams": {}}
-	return {}
-
+		response.sTargetState = "Idle"
+		response.dParams = {}
+	return response
 
 func enter(_dParams: Dictionary) -> void:
 	bewohner.hide()
