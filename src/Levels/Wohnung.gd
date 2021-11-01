@@ -56,3 +56,7 @@ func exit_flat(neighbourExiting) -> void:
 func _on_Wohnung_trash_created(_trash):
 	if aNeighbours.size() > 0:
 		exit_flat(aNeighbours[0])
+
+
+func setText(sName):
+	$Label.text = sName

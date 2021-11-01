@@ -3,7 +3,7 @@ class_name SpawnerNeighbour
 
 # Es werden zunaechst zufaellige Nachbarn generiert.
 # Ihnen werden Wohnungen und Namen zugewiesen.
-# Abschließend werden die Nachbarn mit den passenden Eigenschaften gespawnt.
+# Abschlie�end werden die Nachbarn mit den passenden Eigenschaften gespawnt.
 
 onready var neighboursResource = preload("res://src/Bewohner/Neighbour.tscn")
 # In der Gruppe Flats sollten nur leere Wohnung sein. Diese werden hier in das Array gespeichert.
@@ -95,4 +95,5 @@ func spawn(neighbourSpawn):
 	get_parent().add_child(neighbourSpawn["neighbourNode"])
 	neighbourSpawn["neighbourNode"].add_to_group("neighbours")
 	neighbourSpawn["neighbourFlat"].enter_flat(neighbourSpawn["neighbourNode"])
+	neighbourSpawn["neighbourFlat"].setText(neighbourSpawn["neighbourName"])
 	Events.emit_signal("neighbour_spawned", neighbourSpawn["neighbourNode"])
