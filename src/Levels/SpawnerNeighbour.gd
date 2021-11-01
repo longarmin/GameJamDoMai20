@@ -84,6 +84,10 @@ func _ready():
 	]
 	for neighbourSpawn in neighbourSpawnTable:
 		spawn(neighbourSpawn)
+	var OmaWohnung = aFlats.pop_back()
+	var PlayerWohnung = aFlats.pop_back()
+	OmaWohnung.setText("Oma")
+	PlayerWohnung.setText("Player")
 
 
 func spawn(neighbourSpawn):
