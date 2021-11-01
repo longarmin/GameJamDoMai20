@@ -34,6 +34,5 @@ func _on_Oma_karmachange(bewohner: BewohnerBase, iKarma: int) -> void:
 		bewohner.queue_free()
 	if iKarma == 6:
 		print(bewohner.sName + " hat gewonnen!")
-		if bewohner.sName == "Player":
-			get_tree().quit()
+		get_tree().quit()
 		bewohner.queue_free()
