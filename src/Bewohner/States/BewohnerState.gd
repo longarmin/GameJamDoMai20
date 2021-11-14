@@ -4,7 +4,7 @@ class_name BewohnerState
 extends State
 
 # Typed reference to the bewohner node.
-var bewohner: BewohnerBase
+var bewohner: Bewohner
 
 
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _ready() -> void:
 	yield(owner, "ready")
 	# The `as` keyword casts the `owner` variable to the `Bewohner` type.
 	# If the `owner` is not a `Bewohner`, we'll get `null`.
-	bewohner = owner as BewohnerBase
+	bewohner = owner as Bewohner
 	# This check will tell us if we inadvertently assign a derived state script
 	# in a scene other than `Bewohner.tscn`, which would be unintended. This can
 	# help prevent some bugs that are difficult to understand.

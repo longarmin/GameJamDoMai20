@@ -139,7 +139,7 @@ position = Vector2( 368, 264 )
 maximumTrashAmount = 1
 
 [node name="Player" parent="." instance=ExtResource( 10 )]
-position = Vector2( 201.764, 187.948 )
+position = Vector2( 214.764, 187.948 )
 
 [node name="Dump" parent="." groups=[
 "dumps",
@@ -159,17 +159,18 @@ position = Vector2( 464, 286.127 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="Oma" parent="." instance=ExtResource( 9 )]
 position = Vector2( 320, 285.237 )
 collision_layer = 1024
+fSpeed = 50.0
+iMaxTrashAmount = 5
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 10 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="EventTimer" type="Timer" parent="."]

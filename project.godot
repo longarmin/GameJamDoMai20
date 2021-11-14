@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Bewohner/Bewohner.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Bewohner",
 "class": "BewohnerBase",
 "language": "GDScript",
 "path": "res://src/Bewohner/BewohnerBase.gd"

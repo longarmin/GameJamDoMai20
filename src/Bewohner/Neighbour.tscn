@@ -197,7 +197,7 @@ position = Vector2( 0, -16 )
 texture = ExtResource( 5 )
 hframes = 6
 vframes = 4
-frame = 18
+frame = 7
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2( 0, -8 )

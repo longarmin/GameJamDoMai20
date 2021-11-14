@@ -8,6 +8,8 @@ onready var timerLabel: Label = $Label
 
 var running = true
 var elapsed = 0
+var bTippDrop: bool = false
+var bTippPick: bool = false
 
 
 func _process(delta):
@@ -27,6 +29,16 @@ func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
 	if bewohner.name == "Player":
 		trashBox.update_trash(bewohner.aTrashBags.size())
 		buttonBox.update_trash_dropable(true)
+		if !bTippPick:
+			speechBubble.set_text(
+				(
+					"[color=red]"
+					+ "Tipp"
+					+ ": [/color]"
+					+ "Wenn du den Muell ausserhalb\n von Omas Sichtbereich aufnimmst, bringt dir das wenig."
+				)
+			)
+			bTippPick = true
 
 
 func _on_Player_trash_dropped(bewohner: BewohnerBase, _bOnDump: bool) -> void:
@@ -34,6 +46,16 @@ func _on_Player_trash_dropped(bewohner: BewohnerBase, _bOnDump: bool) -> void:
 		trashBox.update_trash(bewohner.aTrashBags.size())
 		if bewohner.aTrashBags.size() == 0:
 			buttonBox.update_trash_dropable(false)
+		if !bTippDrop:
+			speechBubble.set_text(
+				(
+					"[color=red]"
+					+ "Tipp"
+					+ ": [/color]"
+					+ "Wenn du den Muell ausserhalb\n von Omas Hoerbereich ablegst, passiert nichts."
+				)
+			)
+			bTippDrop = true
 
 
 func _on_Oma_karmachange(bewohner: BewohnerBase, iKarma: int) -> void:
