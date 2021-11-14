@@ -89,7 +89,7 @@ func _ready():
 	OmaWohnung.setText("Oma")
 	PlayerWohnung.setText("Player")
 
-
+#func spawnMiscellaneous()
 func spawn(neighbourSpawn):
 	neighbourSpawn["neighbourNode"].instanciate(
 		neighbourSpawn["neighbourFlat"], neighbourSpawn["neighbourName"], rand_range(80, 120)
