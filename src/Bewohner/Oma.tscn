@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/Bewohner/Oma.gd" type="Script" id=1]
 [ext_resource path="res://assets/oma.png" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://src/Bewohner/States/Running.gd" type="Script" id=7]
 [ext_resource path="res://src/Bewohner/States/ChangingFloor.gd" type="Script" id=8]
 [ext_resource path="res://src/Bewohner/States/EnteringDoor.gd" type="Script" id=9]
+[ext_resource path="res://src/Bewohner/EventManager.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/Bewohner/States/BeingInFlat.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.566, 16 )
@@ -22,7 +24,7 @@ a = Vector2( 0, 100 )
 b = Vector2( 0, -100 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 5.92984, 5.0255 )
+extents = Vector2( 8, 16 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 22.2536, 6.74533 )
@@ -115,9 +117,10 @@ shape = SubResource( 3 )
 [node name="HitBox" type="Area2D" parent="."]
 position = Vector2( 0, -4 )
 collision_layer = 0
-collision_mask = 16
+collision_mask = 30
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2( 0, -12 )
 shape = SubResource( 4 )
 
 [node name="timer_changeDirection" type="Timer" parent="."]
@@ -161,6 +164,9 @@ script = ExtResource( 7 )
 [node name="Talking" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
 
+[node name="BeingInFlat" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
 anims/enteringDoor = SubResource( 6 )
@@ -174,8 +180,11 @@ texture = ExtResource( 2 )
 hframes = 6
 vframes = 2
 
+[node name="EventManager" parent="." instance=ExtResource( 10 )]
+
 [connection signal="area_entered" from="HitBox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_Hitbox_area_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
 [connection signal="body_entered" from="Talk_Detector" to="." method="_on_Player_Detector_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/EnteringDoor" method="_on_AnimationPlayer_animation_finished"]

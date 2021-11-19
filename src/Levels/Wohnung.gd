@@ -6,6 +6,9 @@ export(PackedScene) var Trash
 var fTrashInWohnung_Menge := 0.0
 var aNeighbours: Array = []
 
+onready var wohnungTrashTimer: Timer = $WohnungTrashTimer
+
+
 func _ready() -> void:
 	self.object_type = "Wohnung"
 
@@ -28,9 +31,11 @@ func create_trash():
 		Events.emit_signal("trash_spawned", trash)
 		force_exit()
 
+
 func _on_Timer_timeout():
-	if randf() > 0.5 && aNeighbours.size() > 0:
+	if aNeighbours.size() > 0:
 		fTrashInWohnung_Menge += 0.25
+	wohnungTrashTimer.start(randi() % 10 + 3)
 
 
 func enter_flat(neighbourEntering) -> void:
@@ -45,9 +50,10 @@ func exit_flat(neighbourExiting) -> void:
 	if neighbourExiting == null:
 		return
 	if neighbourExiting.target != self:
-		aNeighbours.erase(neighbourExiting)
-		var message = Message.new(7, "Neighbour exits flat", self)
-		neighbourExiting.stateMachine.respond_to(message)
+		if neighbourExiting.activate_new_target():
+			aNeighbours.erase(neighbourExiting)
+			var message = Message.new(7, "Neighbour exits flat", self)
+			neighbourExiting.stateMachine.respond_to(message)
 
 
 func force_exit():

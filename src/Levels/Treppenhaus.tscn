@@ -139,7 +139,7 @@ position = Vector2( 368, 264 )
 maximumTrashAmount = 1
 
 [node name="Player" parent="." instance=ExtResource( 10 )]
-position = Vector2( 214.764, 187.948 )
+position = Vector2( 104, 187.948 )
 
 [node name="Dump" parent="." groups=[
 "dumps",
@@ -162,10 +162,8 @@ frames = SubResource( 5 )
 playing = true
 
 [node name="Oma" parent="." instance=ExtResource( 9 )]
-position = Vector2( 320, 285.237 )
+position = Vector2( 29, 187.948 )
 collision_layer = 1024
-fSpeed = 50.0
-iMaxTrashAmount = 5
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
@@ -173,14 +171,8 @@ frames = SubResource( 10 )
 frame = 2
 playing = true
 
-[node name="EventTimer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
-
 [node name="SpawnerNeighbour" type="Node" parent="."]
 script = ExtResource( 8 )
 
 [node name="Trash" parent="." instance=ExtResource( 11 )]
 position = Vector2( 240, 184 )
-
-[connection signal="timeout" from="EventTimer" to="." method="_on_EventTimer_timeout"]
