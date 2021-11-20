@@ -14,7 +14,6 @@ const STANDARD_TIME_IDLE := 15
 var bRunningToPlayer := false
 var sTargetPlayer: String
 var target: Node2D
-var home: Node2D
 
 onready var dKarma: Dictionary = {get_node("../Player"): 0}
 onready var timer: Timer = $Timer
@@ -30,6 +29,8 @@ func _ready() -> void:
 	target = eventManager.activate_new_event()
 	home = get_tree().get_nodes_in_group("flatsEmpty")[0]
 	home.remove_from_group("flatsEmpty")
+	home.add_to_group("flats")
+	home.setText(sName)
 	assert(Events.connect("trash_picked", self, "_on_Player_trash_picked") == 0)
 	assert(Events.connect("trash_dropped", self, "_on_Player_trash_dropped") == 0)
 	assert(Events.connect("neighbour_spawned", self, "_on_Neighbour_spawned") == 0)
@@ -87,11 +88,16 @@ func _on_Hitbox_area_entered(area: Area2D) -> void:
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = true
 		door = area
+	if area.has_method("get_trashFuellstand") && area.get_trashFuellstand() > 0:
+		for bewohner in get_tree().get_nodes_in_group("bewohner"):
+			if bewohner.home == area:
+				dKarma[bewohner] -= 1
+				Events.emit_signal("karma_changed", bewohner, dKarma[bewohner])
 	# Check, ob Neighbour wieder in seine Flat zurueck soll:
 	if area == target:
 		# neues Ziel setzen: Flat des Neighbour
 		eventManager.remove_current_event()
-		target = null
+		target = eventManager.activate_new_event()
 
 	if target == null:
 		if area == home:
@@ -124,7 +130,7 @@ func calc_speed(pos_player: Vector2):
 
 
 func _on_Player_trash_dropped(bewohner: BewohnerBase, bOnDump: bool) -> void:
-	if hear_radius.get_overlapping_bodies().has(bewohner):
+	if hear_radius.monitoring && hear_radius.get_overlapping_bodies().has(bewohner):
 		if bOnDump:
 			dKarma[bewohner] += 1
 		else:
@@ -137,7 +143,7 @@ func _on_Player_trash_dropped(bewohner: BewohnerBase, bOnDump: bool) -> void:
 
 
 func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
-	if view_radius.get_overlapping_bodies().has(bewohner):
+	if view_radius.monitoring && view_radius.get_overlapping_bodies().has(bewohner):
 		dKarma[bewohner] += 1
 		Events.emit_signal("karma_changed", bewohner, dKarma[bewohner])
 
@@ -147,7 +153,7 @@ func _on_Neighbour_spawned(spawnedNeighbour: Neighbour) -> void:
 
 
 func _on_Neighbour_passed_trash(passedNeighbour: BewohnerBase) -> void:
-	if view_radius.get_overlapping_bodies().has(passedNeighbour):
+	if view_radius.monitoring && view_radius.get_overlapping_bodies().has(passedNeighbour):
 		dKarma[passedNeighbour] -= 1
 		Events.emit_signal("karma_changed", passedNeighbour, dKarma[passedNeighbour])
 

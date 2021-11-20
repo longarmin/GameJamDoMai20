@@ -79,8 +79,7 @@ func _ready():
 	]
 	for neighbourSpawn in neighbourSpawnTable:
 		spawn(neighbourSpawn)
-	var PlayerWohnung = aFlats.pop_back()
-	PlayerWohnung.setText("Player")
+	print("Done spawning")
 
 
 #func spawnMiscellaneous()
@@ -92,6 +91,7 @@ func spawn(neighbourSpawn):
 	neighbourSpawn["neighbourFlat"].remove_from_group("flatsEmpty")
 	get_parent().add_child(neighbourSpawn["neighbourNode"])
 	neighbourSpawn["neighbourNode"].add_to_group("neighbours")
+	neighbourSpawn["neighbourNode"].add_to_group("bewohner")
 	neighbourSpawn["neighbourFlat"].enter_flat(neighbourSpawn["neighbourNode"])
 	neighbourSpawn["neighbourFlat"].setText(neighbourSpawn["neighbourName"])
 	Events.emit_signal("neighbour_spawned", neighbourSpawn["neighbourNode"])

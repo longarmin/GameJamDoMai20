@@ -8,7 +8,6 @@ const MAX_Y_DELTA_ON_SAME_LEVEL := 30
 const STANDARD_TIME_IDLE := 15
 
 var bAllowDropOnHalde: bool = true
-var home: Wohnung
 var target: Dump
 
 onready var nameLabel: Label = $Label

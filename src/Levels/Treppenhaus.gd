@@ -3,9 +3,10 @@ extends Node2D
 
 func _ready() -> void:
 	assert(Events.connect("karma_changed", self, "_on_Oma_karmachange") == 0)
+	assert(Events.connect("trash_spawned", self, "_on_trash_spawned") == 0)
 
 
-func _on_trash_created(trash: Trash):
+func _on_trash_spawned(trash: Trash):
 	add_child(trash)
 
 

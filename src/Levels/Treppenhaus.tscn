@@ -89,71 +89,44 @@ position = Vector2( 272, 67 )
 [node name="Door3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 272, 259 )
 
-[node name="Wohnung2" parent="." groups=[
-"flats",
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung2" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 166, 168 )
 maximumTrashAmount = 1
 
-[node name="Wohnung3" parent="." groups=[
-"flats",
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung3" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 368, 168 )
 maximumTrashAmount = 1
 
-[node name="Wohnung6" parent="." groups=[
-"flats",
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung6" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 368, 72 )
 maximumTrashAmount = 1
 
-[node name="Wohnung7" parent="." groups=[
-"flats",
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung7" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 165.764, 72 )
 maximumTrashAmount = 1
 
-[node name="Wohnung8" parent="." groups=[
-"flats",
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung8" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 71.5388, 264 )
 maximumTrashAmount = 1
 
-[node name="Wohnung9" parent="." groups=[
-"flats",
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung9" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 165.882, 264 )
 maximumTrashAmount = 1
 
-[node name="Wohnung10" parent="." groups=[
-"flats",
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung10" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 368, 264 )
 maximumTrashAmount = 1
 
-[node name="Player" parent="." instance=ExtResource( 10 )]
+[node name="Player" parent="." groups=["bewohner"] instance=ExtResource( 10 )]
 position = Vector2( 104, 187.948 )
 
-[node name="Dump" parent="." groups=[
-"dumps",
-] instance=ExtResource( 6 )]
+[node name="Dump" parent="." groups=["dumps"] instance=ExtResource( 6 )]
 position = Vector2( 464, 93.815 )
 
-[node name="Dump2" parent="." groups=[
-"dumps",
-] instance=ExtResource( 6 )]
+[node name="Dump2" parent="." groups=["dumps"] instance=ExtResource( 6 )]
 position = Vector2( 464, 190.201 )
 
-[node name="Dump3" parent="." groups=[
-"dumps",
-] instance=ExtResource( 6 )]
+[node name="Dump3" parent="." groups=["dumps"] instance=ExtResource( 6 )]
 position = Vector2( 464, 286.127 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -164,6 +137,8 @@ playing = true
 [node name="Oma" parent="." instance=ExtResource( 9 )]
 position = Vector2( 29, 187.948 )
 collision_layer = 1024
+fSpeed = 50.0
+iMaxTrashAmount = 5
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
@@ -176,3 +151,11 @@ script = ExtResource( 8 )
 
 [node name="Trash" parent="." instance=ExtResource( 11 )]
 position = Vector2( 240, 184 )
+
+[node name="Muellabfuhr" type="Timer" parent="."]
+wait_time = 60.0
+autostart = true
+
+[connection signal="timeout" from="Muellabfuhr" to="Dump" method="_on_Muellabfuhr_timeout"]
+[connection signal="timeout" from="Muellabfuhr" to="Dump2" method="_on_Muellabfuhr_timeout"]
+[connection signal="timeout" from="Muellabfuhr" to="Dump3" method="_on_Muellabfuhr_timeout"]

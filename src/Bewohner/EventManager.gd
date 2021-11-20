@@ -1,6 +1,11 @@
 extends Node
 class_name EventManager
 
+export var bTargetDumps: bool = true
+export var bTargetFlats: bool = false
+export var bTargetBewohner: bool = false
+export var iEventGeneratorTime: int = 5
+
 var aQueue: Array = []
 var current_event: AIEvent
 
@@ -10,7 +15,7 @@ onready var aRandDump = get_tree().get_nodes_in_group("dumps")
 
 
 func _ready():
-	pass
+	eventGeneratorTimer.wait_time = iEventGeneratorTime
 
 
 func push_new_event(event: AIEvent) -> void:
@@ -43,18 +48,26 @@ func _on_Timer_timeout() -> void:
 
 
 func _on_event_spawned(event: AIEvent, neighbour: Bewohner) -> void:
-	if get_parent() == neighbour:
+	if owner == neighbour:
 		push_new_event(event)
 
 
 # EventGenerator
 # optionaler Generator implementieren?
 func generate_neighbour_event() -> void:
-	var randomDump: Dump = aRandDump[randi() % aRandDump.size()]
-	var event = AIEvent.new(randomDump, 10)
+	var randomTargets: Array
+	if bTargetDumps:
+		randomTargets.append(aRandDump[randi() % aRandDump.size()])
+	if bTargetFlats:
+		var aRandFlat = get_tree().get_nodes_in_group("flats")
+		randomTargets.append(aRandFlat[randi() % aRandFlat.size()])
+	if bTargetBewohner:
+		var aRandBewohner = get_tree().get_nodes_in_group("Bewohner")
+		randomTargets.append(aRandBewohner[randi() % aRandBewohner.size()])
+	var event = AIEvent.new(randomTargets[randi() % randomTargets.size()], 10)
 	push_new_event(event)
 
 
 func _on_EventGeneratorTimer_timeout() -> void:
 	generate_neighbour_event()
-	eventGeneratorTimer.start(randi() % 20 + 10)
+	eventGeneratorTimer.start(iEventGeneratorTime)

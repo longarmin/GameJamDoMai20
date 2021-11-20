@@ -10,7 +10,9 @@ var double: bool = false
 func respond_to(message: Message) -> Response:
 	if message.iStatus == 1:
 		sTargetState = "ExitingDoor"
-	return Response.new(sTargetState, dParams)
+		return Response.new(sTargetState, dParams)
+	else:
+		return null
 
 
 func enter(dParams: Dictionary) -> void:

@@ -11,7 +11,7 @@ func respond_to(message: Message) -> Response:
 			var wait: int = int(message.sContent)
 			dParams = {"wait": wait}
 		_:
-			pass
+			return null
 	return Response.new(sTargetState, dParams)
 
 

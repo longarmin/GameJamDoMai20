@@ -2,6 +2,7 @@ extends Dump
 class_name Wohnung
 
 export(PackedScene) var Trash
+export var fTrashCreationSpeed: float = 0.5
 
 var fTrashInWohnung_Menge := 0.0
 var aNeighbours: Array = []
@@ -10,13 +11,13 @@ onready var wohnungTrashTimer: Timer = $WohnungTrashTimer
 
 
 func _ready() -> void:
-	self.object_type = "Wohnung"
+	pass
 
 
 func _process(_delta):
 	if fTrashInWohnung_Menge > 1:
 		create_trash()
-	if aNeighbours.size() > 0 && aTrashBags.size() > 0:
+	if aNeighbours.size() > 0 && (aTrashBags.size() > 0 || aNeighbours[0].sName == "Oma"):
 		exit_flat(aNeighbours[0])
 
 
@@ -29,12 +30,11 @@ func create_trash():
 	if self.store_trash(trash):
 		fTrashInWohnung_Menge = 0
 		Events.emit_signal("trash_spawned", trash)
-		force_exit()
 
 
 func _on_Timer_timeout():
-	if aNeighbours.size() > 0:
-		fTrashInWohnung_Menge += 0.25
+	if aNeighbours.size() > 0 && aNeighbours[0].sName != "Oma":
+		fTrashInWohnung_Menge += fTrashCreationSpeed
 	wohnungTrashTimer.start(randi() % 10 + 3)
 
 

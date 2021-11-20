@@ -7,7 +7,9 @@ var trashToPickup: Trash
 func respond_to(message: Message) -> Response:
 	if message.iStatus == 1:
 		sTargetState = "Idle"
-	return Response.new(sTargetState, dParams)
+		return Response.new(sTargetState, dParams)
+	else:
+		return null
 
 
 func enter(_dParams: Dictionary) -> void:

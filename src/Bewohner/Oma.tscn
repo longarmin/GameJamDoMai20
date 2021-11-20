@@ -88,6 +88,8 @@ tracks/0/keys = {
 collision_layer = 32
 collision_mask = 17
 script = ExtResource( 1 )
+fSpeed = null
+iMaxTrashAmount = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -16 )
@@ -97,9 +99,9 @@ one_way_collision_margin = 0.0
 [node name="Character_Detector_Hear" type="Area2D" parent="."]
 position = Vector2( 0, -24 )
 rotation = 1.5708
-input_pickable = false
 collision_layer = 0
 collision_mask = 6
+input_pickable = false
 
 [node name="Hear_Radius" type="CollisionShape2D" parent="Character_Detector_Hear"]
 shape = SubResource( 2 )
@@ -107,9 +109,9 @@ shape = SubResource( 2 )
 [node name="Character_Detector_View" type="Area2D" parent="."]
 position = Vector2( 0, -23 )
 rotation = 1.5708
-input_pickable = false
 collision_layer = 0
 collision_mask = 6
+input_pickable = false
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector_View"]
 shape = SubResource( 3 )
@@ -181,6 +183,7 @@ hframes = 6
 vframes = 2
 
 [node name="EventManager" parent="." instance=ExtResource( 10 )]
+bTargetFlats = true
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_Hitbox_area_exited"]
