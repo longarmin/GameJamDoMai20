@@ -2,6 +2,22 @@ extends BewohnerState
 class_name Running
 
 
+func enter(_dParams: Dictionary) -> void:
+	if bewohner.aTrashBags:
+		bewohner.animationPlayer.play("runningTrash")
+	else:
+		bewohner.animationPlayer.play("running")
+		bewohner.animationPlayer.playback_speed = bewohner.fSpeed * 0.008
+		
+		
+func exit() -> void:
+	pass
+
+
+func handle_input(_event) -> void:
+	pass
+
+
 func update_physics(_delta: float) -> void:
 	bewohner.vDirection = bewohner.calculate_direction(bewohner.vDirection)
 	if bewohner.vDirection.x < 0:
@@ -17,10 +33,6 @@ func update_physics(_delta: float) -> void:
 		state_machine.respond_to(message)
 
 
-func handle_input(_event) -> void:
-	pass
-
-
 func respond_to(message: Message) -> Response:
 	match message.iStatus:
 		1:
@@ -30,6 +42,7 @@ func respond_to(message: Message) -> Response:
 		3:
 			sTargetState = "Picking"
 		4:
+			#todo: Was ist mit "down"?
 			sTargetState = "EnteringDoor"
 			var up: bool = message.dParams["up"]
 			var double: bool = message.dParams["double"]
@@ -44,14 +57,4 @@ func respond_to(message: Message) -> Response:
 			pass
 	return Response.new(sTargetState, dParams)
 
-
-func enter(_dParams: Dictionary) -> void:
-	if bewohner.aTrashBags:
-		bewohner.animationPlayer.play("runningTrash")
-	else:
-		bewohner.animationPlayer.play("running")
-	bewohner.animationPlayer.playback_speed = bewohner.fSpeed * 0.008
-
-
-func exit() -> void:
-	pass
+		
