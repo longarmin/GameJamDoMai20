@@ -22,8 +22,8 @@ func pick_up() -> Trash:
 	return self
 
 
-func drop_down(position: Vector2) -> Trash:
+func drop_down(position: Vector2) -> void:
 	self.position = position
 	self.position.y -= 7
 	self.show()
-	return self
+	#return self
