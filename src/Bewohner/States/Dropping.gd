@@ -1,24 +1,7 @@
 extends BewohnerState
 class_name Dropping
 
-<<<<<<< HEAD
 	
-=======
-
-func respond_to(message: Message) -> Response:
-	match message.iStatus:
-		1:
-			sTargetState = "Idle"
-		5:
-			sTargetState = "Talking"
-			var wait: int = int(message.sContent)
-			dParams = {"wait": wait}
-		_:
-			return null
-	return Response.new(sTargetState, dParams)
-
-
->>>>>>> f11b96d828d30149c629ae229560b78d97b4af8d
 func enter(_dParams: Dictionary) -> void:
 	if bewohner.aTrashBags.size() > 0:
 		bewohner.animationPlayer.play("dropping")
