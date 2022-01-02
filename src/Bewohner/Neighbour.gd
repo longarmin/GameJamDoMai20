@@ -8,41 +8,32 @@ const MAX_Y_DELTA_ON_SAME_LEVEL := 30
 const STANDARD_TIME_IDLE := 15
 
 var bAllowDropOnHalde: bool = true
-var bIsGoingHome: bool = false
-var home: Wohnung
 var target: Dump
-var aQueueNeighbourEvents := []
-var iCounter: int = 0
 
-onready var evtCountdownTimer: Timer = $EvtCountdownTimer
 onready var nameLabel: Label = $Label
-
-
-class neighbour_event:
-	var target: Dump
-	var countdown_val: float = 0.0
+onready var eventManager: EventManager = $EventManager
 
 
 func _ready() -> void:
 	nameLabel.text = sName
 
 
-func push_neighbour_event(targetEvent: Dump, countdown_val: float) -> void:
-	var neighbourEvent = neighbour_event.new()
-	neighbourEvent.target = targetEvent
-	neighbourEvent.countdown_val = countdown_val
-	aQueueNeighbourEvents.push_back(neighbourEvent)
-
-
 func calculate_direction(current_direction: Vector2) -> Vector2:
 	var fDir: float = 1
-	if has_to_use_stairwell(position, target.position):
+	var currentTarget: Node2D
+	if eventManager.current_event != null:
+		target = eventManager.current_event.target
+	if target != null:
+		currentTarget = target
+	else:
+		currentTarget = home
+	if has_to_use_stairwell(position, currentTarget.position):
 		if abs(STAIRWELLDOOR_POSX - position.x) < 10:
-			emit_stairwell_message(position, target.position)
+			emit_stairwell_message(position, currentTarget.position)
 		if STAIRWELLDOOR_POSX != position.x:
 			fDir = sign(STAIRWELLDOOR_POSX - position.x)
 	else:
-		fDir = sign(target.position.x - position.x)
+		fDir = sign(currentTarget.position.x - position.x)
 	return Vector2(fDir, current_direction.y)
 
 
@@ -72,28 +63,26 @@ func emit_stairwell_message(vPos: Vector2, vTargetPos: Vector2) -> void:
 func instanciate(homeNew: Wohnung, sNeighbourName: String, fSpeedNew: float = fSpeed) -> void:
 	position = homeNew.position + Vector2(0, 20)
 	home = homeNew
-	target = home
 	sName = sNeighbourName
 	fSpeed = fSpeedNew
 
 
 func _on_Hitbox_area_entered(area: Area2D) -> void:
 	._on_Hitbox_area_entered(area)
-	if area is Dump && abs(target.position.x - area.position.x) < 5:
+	if area is Dump && target != null && abs(target.position.x - area.position.x) < 5:
 		var message = Message.new(2, "Neighbour on Dump", self)
 		stateMachine.respond_to(message)
 
 	# Check, ob Neighbour wieder in seine Flat zurueck soll:
 	if area == target:
 		# neues Ziel setzen: Flat des Neighbour
-		target = home
-		bIsGoingHome = true
-	if bIsGoingHome:
+		eventManager.remove_current_event()
+		target = null
+
+	if target == null:
 		if area == home:
-			bIsGoingHome = false
 			# warning-ignore:unsafe_method_access
 			area.enter_flat(self)
-			evtCountdownTimer.start()
 
 
 func _on_Hitbox_area_exited(area: Area2D) -> void:
@@ -104,24 +93,9 @@ func _on_Hitbox_area_exited(area: Area2D) -> void:
 	._on_Hitbox_area_exited(area)
 
 
-func _on_EvtCountdownTimer_timeout() -> void:
-	if (
-		stateMachine.current_state.name == "EnteringDoor"
-		|| stateMachine.current_state.name == "ExitingDoor"
-		|| stateMachine.current_state.name == "ChangingFloor"
-	):
-		evtCountdownTimer.wait_time = STANDARD_TIME_IDLE
-		evtCountdownTimer.start()
+func activate_new_target() -> bool:
+	target = eventManager.activate_new_event()
+	if target:
+		return true
 	else:
-		var temp = aQueueNeighbourEvents.pop_front()
-		# Workaround: Bewohner wissen nicht wohin, wenn das Event waehrend des Fahrstuhls kommt
-		if temp != null:
-			target = temp.target
-			# warning-ignore:unsafe_property_access
-			evtCountdownTimer.wait_time = temp.countdown_val
-			evtCountdownTimer.start()
-		else:
-			target = home
-			bIsGoingHome = true
-			evtCountdownTimer.wait_time = STANDARD_TIME_IDLE
-			evtCountdownTimer.start()
+		return false

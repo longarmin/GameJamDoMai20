@@ -190,11 +190,11 @@ position = Vector2( 0, -16 )
 texture = ExtResource( 5 )
 hframes = 6
 vframes = 4
-frame = 6
+frame = 9
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2( 0, -8 )
-collision_layer = 0
+collision_layer = 4
 collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

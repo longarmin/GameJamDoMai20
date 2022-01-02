@@ -56,7 +56,8 @@ autoplay = "none"
 anims/low = SubResource( 2 )
 anims/none = SubResource( 3 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="WohnungTrashTimer" type="Timer" parent="."]
+one_shot = true
 autostart = true
 
 [node name="Label" type="Label" parent="."]
@@ -68,5 +69,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="trash_created" from="." to="." method="_on_Wohnung_trash_created"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="WohnungTrashTimer" to="." method="_on_Timer_timeout"]

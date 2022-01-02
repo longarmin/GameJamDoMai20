@@ -14,6 +14,7 @@ var aTrashBags: Array
 var sName: String
 var bIsOnDoor := false
 var door: Stairwell
+var home: Wohnung
 
 onready var sprite: Sprite = $Sprite
 onready var animationPlayer: AnimationPlayer = $AnimationPlayer

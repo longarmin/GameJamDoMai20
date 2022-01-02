@@ -19,11 +19,18 @@ onready var dKarma: Dictionary = {get_node("../Player"): 0}
 onready var timer: Timer = $Timer
 onready var hear_radius: Area2D = $Character_Detector_Hear
 onready var view_radius: Area2D = $Character_Detector_View
+onready var eventManager: EventManager = $EventManager
 
 
 func _ready() -> void:
 	sName = "Oma"
-	target = get_node("../Player")
+	var startEvent = AIEvent.new(get_node("../Player"), 20)
+	eventManager.push_new_event(startEvent)
+	target = eventManager.activate_new_event()
+	home = get_tree().get_nodes_in_group("flatsEmpty")[0]
+	home.remove_from_group("flatsEmpty")
+	home.add_to_group("flats")
+	home.setText(sName)
 	assert(Events.connect("trash_picked", self, "_on_Player_trash_picked") == 0)
 	assert(Events.connect("trash_dropped", self, "_on_Player_trash_dropped") == 0)
 	assert(Events.connect("neighbour_spawned", self, "_on_Neighbour_spawned") == 0)
@@ -32,13 +39,20 @@ func _ready() -> void:
 
 func calculate_direction(current_direction: Vector2) -> Vector2:
 	var fDir: float = 1
-	if has_to_use_stairwell(position, target.position):
+	var currentTarget: Node2D
+	if eventManager.current_event != null:
+		target = eventManager.current_event.target
+	if target != null:
+		currentTarget = target
+	else:
+		currentTarget = home
+	if has_to_use_stairwell(position, currentTarget.position):
 		if abs(STAIRWELLDOOR_POSX - position.x) < 10:
-			emit_stairwell_message(position, target.position)
+			emit_stairwell_message(position, currentTarget.position)
 		if STAIRWELLDOOR_POSX != position.x:
 			fDir = sign(STAIRWELLDOOR_POSX - position.x)
 	else:
-		fDir = sign(target.position.x - position.x)
+		fDir = sign(currentTarget.position.x - position.x)
 	return Vector2(fDir, current_direction.y)
 
 
@@ -74,6 +88,33 @@ func _on_Hitbox_area_entered(area: Area2D) -> void:
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = true
 		door = area
+	if area.has_method("get_trashFuellstand") && area.get_trashFuellstand() > 0:
+		for bewohner in get_tree().get_nodes_in_group("bewohner"):
+			if bewohner.home == area:
+				dKarma[bewohner] -= 1
+				Events.emit_signal("karma_changed", bewohner, dKarma[bewohner])
+	# Check, ob Neighbour wieder in seine Flat zurueck soll:
+	if area == target:
+		# neues Ziel setzen: Flat des Neighbour
+		eventManager.remove_current_event()
+		target = eventManager.activate_new_event()
+
+	if target == null:
+		if area == home:
+			# warning-ignore:unsafe_method_access
+			area.enter_flat(self)
+
+
+func _on_HitBox_body_entered(body: Node) -> void:
+	if body == target:
+		# neues Ziel setzen: Flat des Neighbour
+		eventManager.remove_current_event()
+		target = null
+
+	if target == null:
+		if body == home:
+			# warning-ignore:unsafe_method_access
+			body.enter_flat(self)
 
 
 func calc_speed(pos_player: Vector2):
@@ -89,7 +130,7 @@ func calc_speed(pos_player: Vector2):
 
 
 func _on_Player_trash_dropped(bewohner: BewohnerBase, bOnDump: bool) -> void:
-	if hear_radius.get_overlapping_bodies().has(bewohner):
+	if hear_radius.monitoring && hear_radius.get_overlapping_bodies().has(bewohner):
 		if bOnDump:
 			dKarma[bewohner] += 1
 		else:
@@ -102,7 +143,7 @@ func _on_Player_trash_dropped(bewohner: BewohnerBase, bOnDump: bool) -> void:
 
 
 func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
-	if view_radius.get_overlapping_bodies().has(bewohner):
+	if view_radius.monitoring && view_radius.get_overlapping_bodies().has(bewohner):
 		dKarma[bewohner] += 1
 		Events.emit_signal("karma_changed", bewohner, dKarma[bewohner])
 
@@ -112,7 +153,7 @@ func _on_Neighbour_spawned(spawnedNeighbour: Neighbour) -> void:
 
 
 func _on_Neighbour_passed_trash(passedNeighbour: BewohnerBase) -> void:
-	if view_radius.get_overlapping_bodies().has(passedNeighbour):
+	if view_radius.monitoring && view_radius.get_overlapping_bodies().has(passedNeighbour):
 		dKarma[passedNeighbour] -= 1
 		Events.emit_signal("karma_changed", passedNeighbour, dKarma[passedNeighbour])
 
@@ -139,3 +180,11 @@ func _on_Player_Detector_body_entered(body: BewohnerBase) -> void:
 func _on_Timer_timeout() -> void:
 	fSpeed = NORMAL_SPEED
 	bRunningToPlayer = false
+
+
+func activate_new_target() -> bool:
+	target = eventManager.activate_new_event()
+	if target:
+		return true
+	else:
+		return false

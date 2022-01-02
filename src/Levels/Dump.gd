@@ -5,11 +5,10 @@ class_name Dump
 # var a = 2
 # var b = "text"
 var aTrashBags := []
-var object_type : String = "Dump"
+var object_type: String = "Dump"
 export var maximumTrashAmount := 5
 
 onready var animationPlayer: AnimationPlayer = $Sprite/AnimationPlayer
-onready var timer: Timer = $Timer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -42,6 +41,7 @@ func has_trash() -> bool:
 	else:
 		return false
 
+
 func update_fuellstand() -> void:
 	var fuellstand = get_trashFuellstand()
 	match fuellstand:
@@ -61,14 +61,15 @@ func is_full() -> bool:
 	if aTrashBags.size() < maximumTrashAmount:
 		return false
 	else:
-		timer.start(rand_range(1, 10))
 		return true
 
 
 func remove_trash() -> void:
+	for trash in aTrashBags:
+		trash.queue_free()
 	aTrashBags = []
 	update_fuellstand()
 
 
-func _on_Timer_timeout():
+func _on_Muellabfuhr_timeout():
 	remove_trash()

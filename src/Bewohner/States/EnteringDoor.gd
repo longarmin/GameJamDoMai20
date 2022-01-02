@@ -8,10 +8,12 @@ var double: bool = false
 func respond_to(message: Message) -> Response:
 	if message.iStatus == 1:
 		sTargetState = "Idle"
+		return Response.new(sTargetState, dParams)
 	if message.iStatus == 2:
 		sTargetState = "ChangingFloor"
 		dParams = {"up": up, "double": double}
-	return Response.new(sTargetState, dParams)
+		return Response.new(sTargetState, dParams)
+	return null
 
 
 func enter(dParams: Dictionary) -> void:

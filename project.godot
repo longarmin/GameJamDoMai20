@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "AIEvent",
+"language": "GDScript",
+"path": "res://src/Bewohner/AIEvent.gd"
+}, {
 "base": "BewohnerState",
 "class": "BeingInFlat",
 "language": "GDScript",
@@ -53,6 +58,11 @@ _global_script_classes=[ {
 "class": "EnteringDoor",
 "language": "GDScript",
 "path": "res://src/Bewohner/States/EnteringDoor.gd"
+}, {
+"base": "Node",
+"class": "EventManager",
+"language": "GDScript",
+"path": "res://src/Bewohner/EventManager.gd"
 }, {
 "base": "BewohnerState",
 "class": "ExitingDoor",
@@ -150,6 +160,7 @@ _global_script_classes=[ {
 "path": "res://src/Levels/Wohnung.gd"
 } ]
 _global_script_class_icons={
+"AIEvent": "",
 "BeingInFlat": "",
 "Bewohner": "",
 "BewohnerBase": "",
@@ -159,6 +170,7 @@ _global_script_class_icons={
 "Dropping": "",
 "Dump": "",
 "EnteringDoor": "",
+"EventManager": "",
 "ExitingDoor": "",
 "Idle": "",
 "KarmaBoxContainer": "",
@@ -212,12 +224,12 @@ singletons=[  ]
 
 action1={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 action2={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

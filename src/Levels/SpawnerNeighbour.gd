@@ -3,7 +3,7 @@ class_name SpawnerNeighbour
 
 # Es werden zunaechst zufaellige Nachbarn generiert.
 # Ihnen werden Wohnungen und Namen zugewiesen.
-# Abschlie�end werden die Nachbarn mit den passenden Eigenschaften gespawnt.
+# Abschliessend werden die Nachbarn mit den passenden Eigenschaften gespawnt.
 
 onready var neighboursResource = preload("res://src/Bewohner/Neighbour.tscn")
 # In der Gruppe Flats sollten nur leere Wohnung sein. Diese werden hier in das Array gespeichert.
@@ -54,40 +54,33 @@ func _ready():
 		{
 			"neighbourNode": neighboursResource.instance(),
 			"neighbourFlat": aFlats.pop_back(),
-			"neighbourDump": aDumps[randi() % aDumps.size()],
 			"neighbourName": aNames.pop_back()
 		},
 		{
 			"neighbourNode": neighboursResource.instance(),
 			"neighbourFlat": aFlats.pop_back(),
-			"neighbourDump": aDumps[randi() % aDumps.size()],
 			"neighbourName": aNames.pop_back()
 		},
 		{
 			"neighbourNode": neighboursResource.instance(),
 			"neighbourFlat": aFlats.pop_back(),
-			"neighbourDump": aDumps[randi() % aDumps.size()],
 			"neighbourName": aNames.pop_back()
 		},
 		{
 			"neighbourNode": neighboursResource.instance(),
 			"neighbourFlat": aFlats.pop_back(),
-			"neighbourDump": aDumps[randi() % aDumps.size()],
 			"neighbourName": aNames.pop_back()
 		},
 		{
 			"neighbourNode": neighboursResource.instance(),
 			"neighbourFlat": aFlats.pop_back(),
-			"neighbourDump": aDumps[randi() % aDumps.size()],
 			"neighbourName": aNames.pop_back()
 		},
 	]
 	for neighbourSpawn in neighbourSpawnTable:
 		spawn(neighbourSpawn)
-	var OmaWohnung = aFlats.pop_back()
-	var PlayerWohnung = aFlats.pop_back()
-	OmaWohnung.setText("Oma")
-	PlayerWohnung.setText("Player")
+	print("Done spawning")
+
 
 #func spawnMiscellaneous()
 func spawn(neighbourSpawn):
@@ -98,6 +91,7 @@ func spawn(neighbourSpawn):
 	neighbourSpawn["neighbourFlat"].remove_from_group("flatsEmpty")
 	get_parent().add_child(neighbourSpawn["neighbourNode"])
 	neighbourSpawn["neighbourNode"].add_to_group("neighbours")
+	neighbourSpawn["neighbourNode"].add_to_group("bewohner")
 	neighbourSpawn["neighbourFlat"].enter_flat(neighbourSpawn["neighbourNode"])
 	neighbourSpawn["neighbourFlat"].setText(neighbourSpawn["neighbourName"])
 	Events.emit_signal("neighbour_spawned", neighbourSpawn["neighbourNode"])
