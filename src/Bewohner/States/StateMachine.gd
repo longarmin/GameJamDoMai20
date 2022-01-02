@@ -22,6 +22,7 @@ func _physics_process(delta: float) -> void:
 
 
 func transition_to(target_state_name: String, dParams: Dictionary):
+	#todo: Hier vielleicht eine Assertion vornehmen, falls der angefragte State nicht vorhanden ist?
 	var next_state = get_state(target_state_name)
 
 	if next_state != null:
