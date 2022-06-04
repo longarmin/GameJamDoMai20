@@ -138,16 +138,6 @@ maximumTrashAmount = 1
 ] instance=ExtResource( 6 )]
 position = Vector2( 103.109, 187.948 )
 
-[node name="Dump" parent="." groups=[
-"dumps",
-] instance=ExtResource( 7 )]
-position = Vector2( 464, 93.815 )
-
-[node name="Dump2" parent="." groups=[
-"dumps",
-] instance=ExtResource( 7 )]
-position = Vector2( 202.843, 189.142 )
-
 [node name="Dump3" parent="." groups=[
 "dumps",
 ] instance=ExtResource( 7 )]
@@ -156,6 +146,7 @@ position = Vector2( 464, 286.127 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [node name="SpawnerNeighbour" type="Node" parent="."]
@@ -164,13 +155,11 @@ script = ExtResource( 9 )
 [node name="Oma" parent="." instance=ExtResource( 10 )]
 position = Vector2( 29, 187.948 )
 collision_layer = 1024
-fSpeed = 50.0
-iMaxTrashAmount = 5
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 10 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Trash" parent="." instance=ExtResource( 12 )]

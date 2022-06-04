@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/Bewohner/Oma.gd" type="Script" id=1]
 [ext_resource path="res://assets/oma.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://src/Bewohner/EventManager.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/Bewohner/States/BeingInFlat.gd" type="Script" id=11]
 [ext_resource path="res://src/Bewohner/InputManagerKI.gd" type="Script" id=12]
+[ext_resource path="res://assets/sfx/schritte-bootsteppich.wav" type="AudioStream" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.566, 16 )
@@ -83,6 +84,20 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "points": PoolRealArray( 7, -0.25, 0, 0.25, 0, 8, -0.25, 0, 0.25, 0, 9, -0.25, 0, 0.25, 0, 10, -0.25, 0, 0.25, 0, 11, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 )
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("StepsSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.63,
+"start_offset": 0.0,
+"stream": ExtResource( 14 )
+} ],
+"times": PoolRealArray( -0.8 )
 }
 
 [node name="Oma" type="KinematicBody2D"]
@@ -180,12 +195,17 @@ position = Vector2( 0, -16 )
 texture = ExtResource( 2 )
 hframes = 6
 vframes = 2
+frame = 7
 
 [node name="EventManager" parent="." instance=ExtResource( 10 )]
 bTargetFlats = true
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource( 12 )
+
+[node name="StepsSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 14 )
+max_distance = 64.0
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_Hitbox_area_exited"]

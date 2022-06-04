@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://src/Bewohner/Neighbour.gd" type="Script" id=1]
 [ext_resource path="res://src/Bewohner/States/Dropping.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://src/Bewohner/EventManager.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/Bewohner/States/Talking.gd" type="Script" id=14]
 [ext_resource path="res://src/Bewohner/InputManagerKI.gd" type="Script" id=15]
+[ext_resource path="res://assets/sfx/schritte-bootsteppich.wav" type="AudioStream" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -132,6 +133,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
+tracks/1/type = "audio"
+tracks/1/path = NodePath("StepsSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.41,
+"start_offset": 0.0,
+"stream": ExtResource( 17 )
+} ],
+"times": PoolRealArray( -0.6 )
+}
 
 [sub_resource type="Animation" id=10]
 resource_name = "runningTrash"
@@ -199,7 +214,7 @@ position = Vector2( 0, -16 )
 texture = ExtResource( 5 )
 hframes = 6
 vframes = 4
-frame = 7
+frame = 6
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2( 0, -8 )
@@ -239,6 +254,9 @@ __meta__ = {
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource( 15 )
+
+[node name="StepsSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 17 )
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]

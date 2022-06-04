@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/Bewohner/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Bewohner/States/Dropping.gd" type="Script" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/UI/ContextBubble.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/Bewohner/States/Talking.gd" type="Script" id=14]
+[ext_resource path="res://assets/sfx/schritte-bootsteppich.wav" type="AudioStream" id=16]
+[ext_resource path="res://assets/sfx/schritte2.wav" type="AudioStream" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -34,6 +36,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 6, 7 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("StepsSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 16 )
+} ],
+"times": PoolRealArray( -0.8 )
 }
 
 [sub_resource type="Animation" id=4]
@@ -130,6 +146,24 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 6, 7, 8, 9, 10, 11 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("StepsSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0448069,
+"start_offset": 0.0,
+"stream": ExtResource( 17 )
+}, {
+"end_offset": 0.241957,
+"start_offset": 0.0,
+"stream": ExtResource( 17 )
+} ],
+"times": PoolRealArray( 0.0108817, 0.380157 )
 }
 
 [sub_resource type="Animation" id=10]
@@ -230,6 +264,9 @@ editor_draw_limits = true
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource( 7 )
+
+[node name="StepsSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 17 )
 
 [connection signal="trash_dropable" from="." to="UI" method="_on_Player_trash_dropable"]
 [connection signal="trash_notDropable" from="." to="UI" method="_on_Player_trash_notDropable"]
