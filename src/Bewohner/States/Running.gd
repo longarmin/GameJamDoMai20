@@ -19,14 +19,12 @@ func handle_input(_event) -> void:
 
 
 func update_physics(_delta: float) -> void:
-	bewohner.vDirection = bewohner.calculate_direction(bewohner.vDirection)
+	bewohner.vDirection = bewohner.inputManager.calculate_direction(bewohner.position)
 	if bewohner.vDirection.x < 0:
 		bewohner.sprite.flip_h = true
 	elif bewohner.vDirection.x > 0:
 		bewohner.sprite.flip_h = false
-	var velocity = bewohner.calculate_move_velocity(
-		bewohner.vVelocity, bewohner.vDirection, bewohner.fSpeed
-	)
+	var velocity: Vector2 = Vector2(bewohner.fSpeed * bewohner.vDirection.x, 1)
 	bewohner.vVelocity = bewohner.move_and_slide(velocity, bewohner.FLOOR_NORMAL)
 	if velocity.x == 0:
 		var message = Message.new(1, "Geschwindigkeit 0", self)

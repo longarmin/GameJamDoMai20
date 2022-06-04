@@ -3,7 +3,7 @@ class_name Idle
 
 
 func update_physics(_delta: float) -> void:
-	if bewohner.calculate_direction(bewohner.vDirection).x != 0:
+	if bewohner.inputManager.calculate_direction(bewohner.position).x != 0:
 		var message = Message.new(1, "Geschwindigkeit ungleich 0", self)
 		state_machine.respond_to(message)
 

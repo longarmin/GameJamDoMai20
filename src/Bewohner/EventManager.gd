@@ -6,7 +6,7 @@ export var bTargetFlats: bool = false
 export var bTargetBewohner: bool = false
 export var iEventGeneratorTime: int = 5
 
-var aQueue: Array = []
+var aQueue: Array
 var current_event: AIEvent
 
 onready var timer: Timer = $Timer
@@ -19,6 +19,9 @@ func _ready():
 
 
 func push_new_event(event: AIEvent) -> void:
+	print(event)
+	if event == null:
+		return
 	aQueue.push_back(event)
 
 
@@ -28,14 +31,25 @@ func remove_event(event: AIEvent) -> void:
 
 func activate_new_event() -> Node2D:
 	if aQueue.size() > 0:
+		if aQueue[0] == null:
+			aQueue.pop_front()
+			if aQueue.size() == 0:
+				return null
 		current_event = aQueue.pop_front()
 		timer.start(current_event.iMax_Event_time)
 		return current_event.target
 	return null
 
 
+func activate_event(event: AIEvent) -> void:
+	deactivate_current_event()
+	current_event = event
+	timer.start(current_event.iMax_Event_time)
+
 func deactivate_current_event() -> void:
-	aQueue.push_front(current_event)
+	timer.stop()
+	if current_event:
+		aQueue.push_front(current_event)
 	current_event = null
 
 
@@ -66,6 +80,11 @@ func generate_neighbour_event() -> void:
 		randomTargets.append(aRandBewohner[randi() % aRandBewohner.size()])
 	var event = AIEvent.new(randomTargets[randi() % randomTargets.size()], 10)
 	push_new_event(event)
+	if owner.name == "Oma":
+		print(event.target)
+		print("Omas Events: " + str(aQueue))
+		if current_event:
+			print("Omas Target: " + current_event.target.name)
 
 
 func _on_EventGeneratorTimer_timeout() -> void:

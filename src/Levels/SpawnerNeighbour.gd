@@ -79,7 +79,6 @@ func _ready():
 	]
 	for neighbourSpawn in neighbourSpawnTable:
 		spawn(neighbourSpawn)
-	print("Done spawning")
 
 
 #func spawnMiscellaneous()

@@ -31,9 +31,9 @@ func enter(_dParams: Dictionary) -> void:
 func exit() -> void:
 	if !trashToPickup:
 		return
+	trashToPickup.pick_up()
 	bewohner.add_trash_bag(trashToPickup)
 # warning-ignore:return_value_discarded
-	trashToPickup.pick_up()
 	if bewohner.bIsOnDump:
 		bewohner._on_Hitbox_area_entered(bewohner.dump)
 	bewohner.aTrashesNear.erase(trashToPickup)

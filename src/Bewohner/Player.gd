@@ -27,6 +27,3 @@ func _unhandled_input(_event) -> void:
 		var message = Message.new(3, "Actionbutton 1 gedrueckt", self)
 		stateMachine.respond_to(message)
 
-
-func calculate_direction(_direction: Vector2) -> Vector2:
-	return Vector2(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"), 0)

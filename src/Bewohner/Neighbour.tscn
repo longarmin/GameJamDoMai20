@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/Bewohner/Neighbour.gd" type="Script" id=1]
 [ext_resource path="res://src/Bewohner/States/Dropping.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://src/Bewohner/States/BeingInFlat.gd" type="Script" id=12]
 [ext_resource path="res://src/Bewohner/EventManager.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/Bewohner/States/Talking.gd" type="Script" id=14]
+[ext_resource path="res://src/Bewohner/InputManagerKI.gd" type="Script" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -157,7 +158,6 @@ font_data = ExtResource( 7 )
 collision_layer = 2
 script = ExtResource( 1 )
 fSpeed = 100.0
-iMaxTrashAmount = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -16 )
@@ -236,6 +236,9 @@ __meta__ = {
 }
 
 [node name="EventManager" parent="." instance=ExtResource( 13 )]
+
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource( 15 )
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]

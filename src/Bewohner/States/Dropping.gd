@@ -22,11 +22,11 @@ func exit() -> void:
 		if bewohner.dump.is_in_group("dumps"):
 			bOnDump = true
 			bewohner._on_Hitbox_area_entered(bewohner.dump)
-		else:
-			# warning-ignore:return_value_discarded
-			trash.drop_down(bewohner.position)
-			bewohner.fSpeed += bewohner.change_speed(bewohner.NORMAL_SPEED / 4)
-			Events.emit_signal("trash_dropped", bewohner, bOnDump)
+	else:
+		# warning-ignore:return_value_discarded
+		trash.drop_down(bewohner.position)
+		bewohner.fSpeed += bewohner.change_speed(bewohner.NORMAL_SPEED / 4)
+		Events.emit_signal("trash_dropped", bewohner, bOnDump)
 			
 			
 func handle_input(_event) -> void:

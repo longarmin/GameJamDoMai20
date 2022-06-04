@@ -49,11 +49,10 @@ func exit_flat(neighbourExiting) -> void:
 	# Wie auch immer das moeglich ist...
 	if neighbourExiting == null:
 		return
-	if neighbourExiting.target != self:
-		if neighbourExiting.activate_new_target():
-			aNeighbours.erase(neighbourExiting)
-			var message = Message.new(7, "Neighbour exits flat", self)
-			neighbourExiting.stateMachine.respond_to(message)
+	if neighbourExiting.activate_new_target():
+		aNeighbours.erase(neighbourExiting)
+		var message = Message.new(7, "Neighbour exits flat", self)
+		neighbourExiting.stateMachine.respond_to(message)
 
 
 func force_exit():
@@ -62,4 +61,4 @@ func force_exit():
 
 
 func setText(sName):
-	$Label.text = sName
+	$Label.text = self.name + " " + sName
