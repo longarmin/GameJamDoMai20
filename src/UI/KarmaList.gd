@@ -33,4 +33,6 @@ func write_list() -> void:
 	list = ""
 	for karma in dKarmaList:
 		list = list + karma.sName + ": " + str(dKarmaList[karma]) + "\n"
+	list = list + str(get_node("/root/Level/Oma").target) + "\n"
+	print(list)
 	text = list

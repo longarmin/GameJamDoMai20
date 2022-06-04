@@ -87,3 +87,5 @@ anims/high = SubResource( 2 )
 anims/low = SubResource( 3 )
 anims/mid = SubResource( 4 )
 anims/none = SubResource( 5 )
+
+[connection signal="area_entered" from="." to="." method="_on_Dump_area_entered"]

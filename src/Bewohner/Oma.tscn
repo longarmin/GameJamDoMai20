@@ -25,7 +25,7 @@ a = Vector2( 0, 100 )
 b = Vector2( 0, -100 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 8, 16 )
+extents = Vector2( 5.92984, 5.0255 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 22.2536, 6.74533 )

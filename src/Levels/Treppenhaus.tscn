@@ -1,32 +1,34 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/Levels/Treppenhaus.gd" type="Script" id=1]
 [ext_resource path="res://assets/Rolemusic - Crush At Maracas Bar.ogg" type="AudioStream" id=2]
 [ext_resource path="res://assets/TreppenhausTest.tres" type="TileSet" id=3]
 [ext_resource path="res://src/Levels/Stairwell.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Levels/Wohnung.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/Levels/Dump.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/speaker.png" type="Texture" id=7]
-[ext_resource path="res://src/Levels/SpawnerNeighbour.gd" type="Script" id=8]
-[ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=10]
-[ext_resource path="res://src/Levels/Trash.tscn" type="PackedScene" id=11]
-[ext_resource path="res://assets/alanin.png" type="Texture" id=15]
+[ext_resource path="res://src/Bewohner/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Levels/Dump.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/speaker.png" type="Texture" id=8]
+[ext_resource path="res://src/Levels/SpawnerNeighbour.gd" type="Script" id=9]
+[ext_resource path="res://src/Bewohner/Oma.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/alanin.png" type="Texture" id=11]
+[ext_resource path="res://src/Levels/Trash.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/UI/PauseMenuPopup.gd" type="Script" id=13]
+[ext_resource path="res://assets/font_default.tres" type="DynamicFont" id=14]
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 8 )
 region = Rect2( 18, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 8 )
 region = Rect2( 36, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 8 )
 region = Rect2( 54, 0, 18, 18 )
 
 [sub_resource type="SpriteFrames" id=5]
@@ -38,19 +40,19 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 15 )
+atlas = ExtResource( 11 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 15 )
+atlas = ExtResource( 11 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 15 )
+atlas = ExtResource( 11 )
 region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 15 )
+atlas = ExtResource( 11 )
 region = Rect2( 96, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=10]
@@ -98,7 +100,7 @@ maximumTrashAmount = 1
 [node name="App 3" parent="." groups=[
 "flatsEmpty",
 ] instance=ExtResource( 5 )]
-position = Vector2( 368, 168 )
+position = Vector2( 392.368, 167.47 )
 maximumTrashAmount = 1
 
 [node name="App 6" parent="." groups=[
@@ -133,21 +135,33 @@ maximumTrashAmount = 1
 
 [node name="Player" parent="." groups=[
 "bewohner",
-] instance=ExtResource( 10 )]
-position = Vector2( 104, 187.948 )
+] instance=ExtResource( 6 )]
+position = Vector2( 103.109, 187.948 )
+
+[node name="Dump" parent="." groups=[
+"dumps",
+] instance=ExtResource( 7 )]
+position = Vector2( 464, 93.815 )
+
+[node name="Dump2" parent="." groups=[
+"dumps",
+] instance=ExtResource( 7 )]
+position = Vector2( 202.843, 189.142 )
 
 [node name="Dump3" parent="." groups=[
 "dumps",
-] instance=ExtResource( 6 )]
+] instance=ExtResource( 7 )]
 position = Vector2( 464, 286.127 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
-[node name="Oma" parent="." instance=ExtResource( 9 )]
+[node name="SpawnerNeighbour" type="Node" parent="."]
+script = ExtResource( 9 )
+
+[node name="Oma" parent="." instance=ExtResource( 10 )]
 position = Vector2( 29, 187.948 )
 collision_layer = 1024
 
@@ -163,8 +177,91 @@ script = ExtResource( 8 )
 [node name="Trash" parent="." instance=ExtResource( 11 )]
 position = Vector2( 221, 182 )
 
-[node name="Muellabfuhr" type="Timer" parent="."]
-wait_time = 60.0
-autostart = true
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[connection signal="timeout" from="Muellabfuhr" to="Dump3" method="_on_Muellabfuhr_timeout"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseMenuPopup" type="Popup" parent="CanvasLayer"]
+pause_mode = 2
+visible = true
+popup_exclusive = true
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PauseMenuPopup"]
+margin_left = 156.0
+margin_top = 102.0
+margin_right = 356.0
+margin_bottom = 202.0
+color = Color( 0.313726, 0.313726, 0.313726, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="ColorRect" parent="CanvasLayer/PauseMenuPopup"]
+margin_left = 166.0
+margin_top = 112.0
+margin_right = 346.0
+margin_bottom = 132.0
+color = Color( 0.784314, 0.784314, 0.784314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseMenuPopup/Resume"]
+margin_right = 180.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 14 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "RESUME GAME"
+align = 1
+valign = 1
+
+[node name="Restart" type="ColorRect" parent="CanvasLayer/PauseMenuPopup"]
+margin_left = 166.0
+margin_top = 142.0
+margin_right = 346.0
+margin_bottom = 162.0
+color = Color( 0.784314, 0.784314, 0.784314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseMenuPopup/Restart"]
+margin_right = 180.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 14 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "RESTART GAME"
+align = 1
+valign = 1
+
+[node name="Quit" type="ColorRect" parent="CanvasLayer/PauseMenuPopup"]
+margin_left = 166.0
+margin_top = 172.0
+margin_right = 346.0
+margin_bottom = 192.0
+color = Color( 0.784314, 0.784314, 0.784314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseMenuPopup/Quit"]
+margin_right = 180.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 14 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "QUIT GAME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

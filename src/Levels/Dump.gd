@@ -73,3 +73,7 @@ func remove_trash() -> void:
 
 func _on_Muellabfuhr_timeout():
 	remove_trash()
+
+
+func _on_Dump_area_entered(area: Area2D) -> void:
+	print("area dump entered")

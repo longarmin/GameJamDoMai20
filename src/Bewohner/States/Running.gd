@@ -2,6 +2,7 @@ extends BewohnerState
 class_name Running
 
 
+
 func enter(_dParams: Dictionary) -> void:
 	if bewohner.aTrashBags:
 		bewohner.animationPlayer.play("runningTrash")
