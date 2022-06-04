@@ -100,11 +100,7 @@ maximumTrashAmount = 1
 [node name="Wohnung3" parent="." groups=[
 "flatsEmpty",
 ] instance=ExtResource( 5 )]
-<<<<<<< HEAD
 position = Vector2( 392.368, 167.47 )
-=======
-position = Vector2( 368, 168 )
->>>>>>> 220becb4bbe1cd0e29f2c5d1fd49c475c46cc769
 maximumTrashAmount = 1
 
 [node name="Wohnung6" parent="." groups=[
@@ -139,7 +135,6 @@ maximumTrashAmount = 1
 
 [node name="Player" parent="." groups=[
 "bewohner",
-<<<<<<< HEAD
 ] instance=ExtResource( 6 )]
 position = Vector2( 103.109, 187.948 )
 
@@ -156,20 +151,11 @@ position = Vector2( 202.843, 189.142 )
 [node name="Dump3" parent="." groups=[
 "dumps",
 ] instance=ExtResource( 7 )]
-=======
-] instance=ExtResource( 10 )]
-position = Vector2( 104, 187.948 )
-
-[node name="Dump3" parent="." groups=[
-"dumps",
-] instance=ExtResource( 6 )]
->>>>>>> 220becb4bbe1cd0e29f2c5d1fd49c475c46cc769
 position = Vector2( 464, 286.127 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
-frame = 2
 playing = true
 
 [node name="SpawnerNeighbour" type="Node" parent="."]
@@ -184,6 +170,7 @@ iMaxTrashAmount = 5
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 10 )
+frame = 2
 playing = true
 
 [node name="Trash" parent="." instance=ExtResource( 12 )]
