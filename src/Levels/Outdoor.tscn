@@ -7,28 +7,34 @@
 extents = Vector2( 11.306, 12.1778 )
 
 [sub_resource type="AtlasTexture" id=2]
+flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 54, 0, 27, 42 )
+region = Rect2( 0, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=3]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 27, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=4]
+flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 27, 42 )
+region = Rect2( 54, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=5]
+flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 27, 42 )
+region = Rect2( 54, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=6]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 27, 0, 27, 42 )
 
 [sub_resource type="AtlasTexture" id=7]
+flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 54, 0, 27, 42 )
+region = Rect2( 0, 0, 27, 42 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
@@ -39,12 +45,12 @@ animations = [ {
 }, {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
-"name": "closing",
+"name": "opening",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
-"name": "opening",
+"name": "closing",
 "speed": 5.0
 } ]
 
@@ -61,5 +67,6 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 8 )
 animation = "opening"
+
 [connection signal="body_entered" from="." to="." method="_on_Stairwell_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Stairwell_body_exited"]

@@ -137,7 +137,7 @@ func _on_Player_trash_dropped(bewohner: BewohnerBase, bOnDump: bool) -> void:
 			dKarma[bewohner] -= 1
 			calc_speed(bewohner.position)
 			bRunningToPlayer = true
-			target = bewohner
+			target = bewohner # Eventuell als "Event"/Quest implementieren
 			timer.start()
 		Events.emit_signal("karma_changed", bewohner, dKarma[bewohner])
 
