@@ -91,43 +91,43 @@ position = Vector2( 272, 67 )
 [node name="Door3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 272, 259 )
 
-[node name="App 2" parent="." groups=[
+[node name="Wohnung2" parent="." groups=[
 "flatsEmpty",
 ] instance=ExtResource( 5 )]
 position = Vector2( 166, 168 )
 maximumTrashAmount = 1
 
-[node name="App 3" parent="." groups=[
+[node name="Wohnung3" parent="." groups=[
 "flatsEmpty",
 ] instance=ExtResource( 5 )]
 position = Vector2( 392.368, 167.47 )
 maximumTrashAmount = 1
 
-[node name="App 6" parent="." groups=[
+[node name="Wohnung6" parent="." groups=[
 "flatsEmpty",
 ] instance=ExtResource( 5 )]
 position = Vector2( 368, 72 )
 maximumTrashAmount = 1
 
-[node name="App 7" parent="." groups=[
+[node name="Wohnung7" parent="." groups=[
 "flatsEmpty",
 ] instance=ExtResource( 5 )]
 position = Vector2( 165.764, 72 )
 maximumTrashAmount = 1
 
-[node name="App 8" parent="." groups=[
+[node name="Wohnung8" parent="." groups=[
 "flatsEmpty",
 ] instance=ExtResource( 5 )]
 position = Vector2( 71.5388, 264 )
 maximumTrashAmount = 1
 
-[node name="App 9" parent="." groups=[
+[node name="Wohnung9" parent="." groups=[
 "flatsEmpty",
 ] instance=ExtResource( 5 )]
 position = Vector2( 165.882, 264 )
 maximumTrashAmount = 1
 
-[node name="App 1" parent="." groups=[
+[node name="Wohnung10" parent="." groups=[
 "flatsEmpty",
 ] instance=ExtResource( 5 )]
 position = Vector2( 368, 264 )
@@ -164,18 +164,17 @@ script = ExtResource( 9 )
 [node name="Oma" parent="." instance=ExtResource( 10 )]
 position = Vector2( 29, 187.948 )
 collision_layer = 1024
+fSpeed = 50.0
+iMaxTrashAmount = 5
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 10 )
-frame = 3
+frame = 2
 playing = true
 
-[node name="SpawnerNeighbour" type="Node" parent="."]
-script = ExtResource( 8 )
-
-[node name="Trash" parent="." instance=ExtResource( 11 )]
-position = Vector2( 221, 182 )
+[node name="Trash" parent="." instance=ExtResource( 12 )]
+position = Vector2( 240, 184 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
