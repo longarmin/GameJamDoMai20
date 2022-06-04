@@ -15,25 +15,25 @@
 [ext_resource path="res://src/UI/PauseMenuPopup.gd" type="Script" id=13]
 [ext_resource path="res://assets/font_default.tres" type="DynamicFont" id=14]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 18, 18 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 8 )
 region = Rect2( 18, 0, 18, 18 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 8 )
 region = Rect2( 36, 0, 18, 18 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 8 )
 region = Rect2( 54, 0, 18, 18 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=14]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "default",
 "speed": 8.0
@@ -55,7 +55,7 @@ region = Rect2( 64, 0, 32, 32 )
 atlas = ExtResource( 11 )
 region = Rect2( 96, 0, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id=15]
 animations = [ {
 "frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
@@ -155,7 +155,8 @@ position = Vector2( 464, 286.127 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
-frames = SubResource( 5 )
+frames = SubResource( 14 )
+frame = 1
 playing = true
 
 [node name="SpawnerNeighbour" type="Node" parent="."]
@@ -164,13 +165,11 @@ script = ExtResource( 9 )
 [node name="Oma" parent="." instance=ExtResource( 10 )]
 position = Vector2( 29, 187.948 )
 collision_layer = 1024
-fSpeed = 50.0
-iMaxTrashAmount = 5
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
-frames = SubResource( 10 )
-frame = 2
+frames = SubResource( 15 )
+frame = 3
 playing = true
 
 [node name="Trash" parent="." instance=ExtResource( 12 )]

@@ -60,7 +60,8 @@ func _input(event):
 					get_tree().paused = false
 				2:
 					#Quit
-					get_tree().quit()
+					get_tree().change_scene("res://src/UI/StartScreen.tscn")
+					get_tree().paused = false
 					
 
 
