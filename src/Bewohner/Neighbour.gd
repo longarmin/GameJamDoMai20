@@ -69,17 +69,18 @@ func instanciate(homeNew: Wohnung, sNeighbourName: String, fSpeedNew: float = fS
 
 func _on_Hitbox_area_entered(area: Area2D) -> void:
 	._on_Hitbox_area_entered(area)
-	if area is Dump && target != null && abs(target.position.x - area.position.x) < 5:
-		var message = Message.new(2, "Neighbour on Dump", self)
-		stateMachine.respond_to(message)
+	if target != null:
+		if area is Dump && abs(target.position.x - area.position.x) < 5:
+			var message = Message.new(2, "Neighbour on Dump", self)
+			stateMachine.respond_to(message)
 
-	# Check, ob Neighbour wieder in seine Flat zurueck soll:
-	if area == target:
-		# neues Ziel setzen: Flat des Neighbour
-		eventManager.remove_current_event()
-		target = null
+		# Check, ob Neighbour wieder in seine Flat zurueck soll:
+		if area == target:
+			# neues Ziel setzen: Flat des Neighbour
+			eventManager.remove_current_event()
+			target = null
 
-	if target == null:
+	else: #if target equals 0
 		if area == home:
 			# warning-ignore:unsafe_method_access
 			area.enter_flat(self)
