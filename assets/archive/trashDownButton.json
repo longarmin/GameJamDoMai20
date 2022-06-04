@@ -1,0 +1,52 @@
+{ "frames": {
+   "trashDownButton #idle.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 10, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 10, "h": 24 },
+    "sourceSize": { "w": 10, "h": 24 },
+    "duration": 100
+   },
+   "trashDownButton #action 0.aseprite": {
+    "frame": { "x": 0, "y": 24, "w": 10, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 10, "h": 24 },
+    "sourceSize": { "w": 10, "h": 24 },
+    "duration": 100
+   },
+   "trashDownButton #action 1.aseprite": {
+    "frame": { "x": 10, "y": 24, "w": 10, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 10, "h": 24 },
+    "sourceSize": { "w": 10, "h": 24 },
+    "duration": 100
+   },
+   "trashDownButton #action 2.aseprite": {
+    "frame": { "x": 20, "y": 24, "w": 10, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 10, "h": 24 },
+    "sourceSize": { "w": 10, "h": 24 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.25-dev",
+  "image": "trashDownButton.png",
+  "format": "RGBA8888",
+  "size": { "w": 30, "h": 48 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "action", "from": 1, "to": 3, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
