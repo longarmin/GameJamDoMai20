@@ -156,7 +156,7 @@ position = Vector2( 464, 286.127 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
 frames = SubResource( 5 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="SpawnerNeighbour" type="Node" parent="."]
@@ -171,7 +171,6 @@ iMaxTrashAmount = 5
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
 frames = SubResource( 10 )
-frame = 3
 playing = true
 
 [node name="Trash" parent="." instance=ExtResource( 12 )]
