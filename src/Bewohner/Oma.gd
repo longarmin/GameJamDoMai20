@@ -19,15 +19,14 @@ onready var dKarma: Dictionary = {get_node("../Player"): 0}
 onready var timer: Timer = $Timer
 onready var hear_radius: Area2D = $Character_Detector_Hear
 onready var view_radius: Area2D = $Character_Detector_View
-onready var eventManager: EventManager = $EventManager
+onready var questManager: QuestManager = $QuestManager
 
 
 func _ready() -> void:
 	sName = "Oma"
-	var startEvent = AIEvent.new(get_node("../Player"), 20)
-	eventManager.activate_event(startEvent)
-	home = get_tree().get_nodes_in_group("flatsEmpty")[0]
-	home.remove_from_group("flatsEmpty")
+	var startQuest = AIQuest.new(get_node("../Player"), 20)
+	questManager.activate_quest(startQuest)
+	home = get_tree().get_nodes_in_group("flatsOma")[0]
 	home.add_to_group("flats")
 	home.setText(sName)
 	assert(Events.connect("trash_picked", self, "_on_Player_trash_picked") == 0)
@@ -40,8 +39,7 @@ func _on_Hitbox_area_exited(area: Area2D) -> void:
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = false
 		door = null
-
-
+		
 func _on_Hitbox_area_entered(area: Area2D) -> void:
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = true
@@ -52,13 +50,12 @@ func _on_Hitbox_area_entered(area: Area2D) -> void:
 				dKarma[bewohner] -= 1
 				Events.emit_signal("karma_changed", bewohner, dKarma[bewohner])
 	# Check, ob Neighbour wieder in seine Flat zurueck soll:
-	if eventManager.current_event:
-		if area == eventManager.current_event.target:
+	if questManager.current_quest:
+		if area == questManager.current_quest.target:
 			# neues Ziel setzen: Flat des Neighbour
-			eventManager.remove_current_event()
-			if eventManager.aQueue.size() > 0:
-				eventManager.activate_new_event()
-				print(eventManager.current_event.target.name)
+			questManager.remove_current_quest()
+			if questManager.aQueue.size() > 0:
+				questManager.activate_new_quest()
 	else:
 		if area == home:
 			# warning-ignore:unsafe_method_access
@@ -66,10 +63,10 @@ func _on_Hitbox_area_entered(area: Area2D) -> void:
 
 
 func _on_HitBox_body_entered(body: Node) -> void:
-	if eventManager.current_event:
-		if body == eventManager.current_event.target:
+	if questManager.current_quest:
+		if body == questManager.current_quest.target:
 			# neues Ziel setzen: Flat des Neighbour
-			eventManager.remove_current_event()
+			questManager.remove_current_quest()
 	else:
 		if body == home:
 			# warning-ignore:unsafe_method_access
@@ -96,8 +93,8 @@ func _on_Player_trash_dropped(bewohner: BewohnerBase, bOnDump: bool) -> void:
 			dKarma[bewohner] -= 1
 			calc_speed(bewohner.position)
 			bRunningToPlayer = true
-			var newEvent = AIEvent.new(bewohner, 10)
-			eventManager.activate_event(newEvent)
+			var newQuest = AIQuest.new(bewohner, 10)
+			questManager.activate_quest(newQuest)
 			timer.start()
 		Events.emit_signal("karma_changed", bewohner, dKarma[bewohner])
 
@@ -109,7 +106,7 @@ func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
 
 
 func _on_Neighbour_spawned(spawnedNeighbour: Neighbour) -> void:
-	dKarma[spawnedNeighbour] = 0
+	dKarma[spawnedNeighbour] = 5
 
 
 func _on_Neighbour_passed_trash(passedNeighbour: BewohnerBase) -> void:
@@ -121,7 +118,7 @@ func _on_Neighbour_passed_trash(passedNeighbour: BewohnerBase) -> void:
 #Funktionsbeschreibung: Dieser Detektor bringt die Oma zum stehen um mit Player zu reden (schimpfen).
 func _on_Player_Detector_body_entered(body: BewohnerBase) -> void:
 	if bRunningToPlayer:
-		if body == eventManager.current_event.target:
+		if body == questManager.current_quest.target:
 			var messageOwnState = Message.new(5, "5", self)
 # warning-ignore:unsafe_property_access
 			stateMachine.respond_to(messageOwnState)
@@ -143,8 +140,8 @@ func _on_Timer_timeout() -> void:
 
 
 func activate_new_target() -> bool:
-	eventManager.activate_new_event()
-	if eventManager.current_event:
+	questManager.activate_new_quest()
+	if questManager.current_quest:
 		return true
 	else:
 		return false

@@ -10,9 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
-"class": "AIEvent",
+"class": "AIQuest",
 "language": "GDScript",
-"path": "res://src/Bewohner/AIEvent.gd"
+"path": "res://src/Bewohner/AIQuest.gd"
 }, {
 "base": "BewohnerState",
 "class": "BeingInFlat",
@@ -58,11 +58,6 @@ _global_script_classes=[ {
 "class": "EnteringDoor",
 "language": "GDScript",
 "path": "res://src/Bewohner/States/EnteringDoor.gd"
-}, {
-"base": "Node",
-"class": "EventManager",
-"language": "GDScript",
-"path": "res://src/Bewohner/EventManager.gd"
 }, {
 "base": "BewohnerState",
 "class": "ExitingDoor",
@@ -118,6 +113,16 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://src/Bewohner/Player.gd"
+}, {
+"base": "Node",
+"class": "QuestGenerator",
+"language": "GDScript",
+"path": "res://src/Bewohner/QuestGenerator.gd"
+}, {
+"base": "Node",
+"class": "QuestManager",
+"language": "GDScript",
+"path": "res://src/Bewohner/QuestManager.gd"
 }, {
 "base": "Reference",
 "class": "Response",
@@ -175,7 +180,7 @@ _global_script_classes=[ {
 "path": "res://src/Levels/Wohnung.gd"
 } ]
 _global_script_class_icons={
-"AIEvent": "",
+"AIQuest": "",
 "BeingInFlat": "",
 "Bewohner": "",
 "BewohnerBase": "",
@@ -185,7 +190,6 @@ _global_script_class_icons={
 "Dropping": "",
 "Dump": "",
 "EnteringDoor": "",
-"EventManager": "",
 "ExitingDoor": "",
 "Idle": "",
 "InputManager": "",
@@ -197,6 +201,8 @@ _global_script_class_icons={
 "Oma": "",
 "Picking": "",
 "Player": "",
+"QuestGenerator": "",
+"QuestManager": "",
 "Response": "",
 "Running": "",
 "SpawnerNeighbour": "",
@@ -219,6 +225,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Events="*res://src/Events.gd"
+GlobalVars="*res://src/GlobalVars.gd"
 
 [debug]
 

@@ -91,51 +91,35 @@ position = Vector2( 272, 67 )
 [node name="Door3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 272, 259 )
 
-[node name="Wohnung2" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung2" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 166, 168 )
 maximumTrashAmount = 1
 
-[node name="Wohnung3" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung3" parent="." groups=["flatsOma"] instance=ExtResource( 5 )]
 position = Vector2( 392.368, 167.47 )
 maximumTrashAmount = 1
 
-[node name="Wohnung6" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung6" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 368, 72 )
 maximumTrashAmount = 1
 
-[node name="Wohnung7" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung7" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 165.764, 72 )
 maximumTrashAmount = 1
 
-[node name="Wohnung8" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung8" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 71.5388, 264 )
 maximumTrashAmount = 1
 
-[node name="Wohnung9" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung9" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 165.882, 264 )
 maximumTrashAmount = 1
 
-[node name="Wohnung10" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung10" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 368, 264 )
 maximumTrashAmount = 1
 
-[node name="Player" parent="." groups=[
-"bewohner",
-] instance=ExtResource( 6 )]
+[node name="Player" parent="." groups=["bewohner"] instance=ExtResource( 6 )]
 position = Vector2( 103.109, 187.948 )
 
 [node name="Dump3" parent="." groups=[
@@ -207,8 +191,8 @@ __meta__ = {
 [node name="Label" type="Label" parent="CanvasLayer/PauseMenuPopup/Resume"]
 margin_right = 180.0
 margin_bottom = 20.0
-custom_fonts/font = ExtResource( 14 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 14 )
 text = "RESUME GAME"
 align = 1
 valign = 1
@@ -226,11 +210,14 @@ __meta__ = {
 [node name="Label" type="Label" parent="CanvasLayer/PauseMenuPopup/Restart"]
 margin_right = 180.0
 margin_bottom = 20.0
-custom_fonts/font = ExtResource( 14 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 14 )
 text = "RESTART GAME"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Quit" type="ColorRect" parent="CanvasLayer/PauseMenuPopup"]
 margin_left = 166.0
@@ -245,11 +232,17 @@ __meta__ = {
 [node name="Label" type="Label" parent="CanvasLayer/PauseMenuPopup/Quit"]
 margin_right = 180.0
 margin_bottom = 20.0
-custom_fonts/font = ExtResource( 14 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 14 )
 text = "QUIT GAME"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Muellabfuhr" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
+[connection signal="timeout" from="Muellabfuhr" to="Dump3" method="_on_Muellabfuhr_timeout"]

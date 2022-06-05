@@ -9,7 +9,7 @@
 [ext_resource path="res://src/Bewohner/States/Running.gd" type="Script" id=7]
 [ext_resource path="res://src/Bewohner/States/ChangingFloor.gd" type="Script" id=8]
 [ext_resource path="res://src/Bewohner/States/EnteringDoor.gd" type="Script" id=9]
-[ext_resource path="res://src/Bewohner/EventManager.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/Bewohner/QuestManager.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/Bewohner/States/BeingInFlat.gd" type="Script" id=11]
 [ext_resource path="res://src/Bewohner/InputManagerKI.gd" type="Script" id=12]
 [ext_resource path="res://assets/sfx/footstep_carpet_004.ogg" type="AudioStream" id=13]
@@ -202,7 +202,7 @@ hframes = 6
 vframes = 2
 frame = 7
 
-[node name="EventManager" parent="." instance=ExtResource( 10 )]
+[node name="QuestManager" parent="." instance=ExtResource( 10 )]
 bTargetFlats = true
 
 [node name="InputManager" type="Node" parent="."]

@@ -14,3 +14,6 @@ signal karma_changed(bewohner, iKarma)
 signal neighbour_spawned(neighbour)
 # warning-ignore:unused_signal
 signal neighbour_passed_trash(neighbour)
+# warning-ignore:unused_signal
+signal neighbour_lost(neighbour)
+signal neighbour_quest_requested(neighbour)

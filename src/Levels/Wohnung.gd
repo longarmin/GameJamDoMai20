@@ -8,6 +8,7 @@ var fTrashInWohnung_Menge := 0.0
 var aNeighbours: Array = []
 
 onready var wohnungTrashTimer: Timer = $WohnungTrashTimer
+onready var label: Label = $Label
 
 
 func _ready() -> void:
@@ -18,6 +19,7 @@ func _process(_delta):
 	if fTrashInWohnung_Menge > 1:
 		create_trash()
 	if aNeighbours.size() > 0 && (aTrashBags.size() > 0 || aNeighbours[0].sName == "Oma"):
+		Events.emit_signal("neighbour_quest_requested", aNeighbours[0])
 		exit_flat(aNeighbours[0])
 
 
@@ -33,7 +35,9 @@ func create_trash():
 
 
 func _on_Timer_timeout():
-	if aNeighbours.size() > 0 && aNeighbours[0].sName != "Oma":
+	""" if aNeighbours.size() > 0 && aNeighbours[0].sName != "Oma":
+		fTrashInWohnung_Menge += fTrashCreationSpeed """
+	if aTrashBags.size() == 0:
 		fTrashInWohnung_Menge += fTrashCreationSpeed
 	wohnungTrashTimer.start(randi() % 10 + 3)
 
@@ -61,4 +65,4 @@ func force_exit():
 
 
 func setText(sName):
-	$Label.text = self.name + " " + sName
+	label.text = self.name + " " + sName

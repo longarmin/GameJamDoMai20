@@ -4,10 +4,10 @@ class_name InputManagerKI
 var target
 
 func calculate_direction(position: Vector2) -> Vector2:
-	if owner.eventManager.current_event:
-		target = owner.eventManager.current_event.target
-		if abs(owner.eventManager.current_event.target.position.x - position.x) < 5:
-			owner.eventManager.remove_current_event()
+	if owner.questManager.current_quest:
+		target = owner.questManager.current_quest.target
+		if abs(owner.questManager.current_quest.target.position.x - position.x) < 5:
+			owner.questManager.remove_current_quest()
 			target = owner.home
 	else:
 		target = owner.home

@@ -12,7 +12,7 @@
 [ext_resource path="res://src/Bewohner/States/ChangingFloor.gd" type="Script" id=10]
 [ext_resource path="res://src/Bewohner/States/EnteringDoor.gd" type="Script" id=11]
 [ext_resource path="res://src/Bewohner/States/BeingInFlat.gd" type="Script" id=12]
-[ext_resource path="res://src/Bewohner/EventManager.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/Bewohner/QuestManager.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/Bewohner/States/Talking.gd" type="Script" id=14]
 [ext_resource path="res://src/Bewohner/InputManagerKI.gd" type="Script" id=15]
 [ext_resource path="res://assets/sfx/footstep_carpet_004.ogg" type="AudioStream" id=16]
@@ -226,6 +226,7 @@ font_data = ExtResource( 7 )
 collision_layer = 2
 script = ExtResource( 1 )
 fSpeed = 100.0
+iMaxTrashAmount = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -16 )
@@ -303,8 +304,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EventManager" parent="." instance=ExtResource( 13 )]
-
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource( 15 )
 
@@ -319,6 +318,7 @@ attenuation = 5.46415
 volume_db = -30.0
 pitch_scale = 0.7
 attenuation = 25.992
+[node name="QuestManager" parent="." instance=ExtResource( 13 )]
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
