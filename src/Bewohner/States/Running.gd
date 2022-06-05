@@ -13,7 +13,7 @@ func enter(_dParams: Dictionary) -> void:
 		
 		
 func exit() -> void:
-	pass
+	bewohner.animationPlayer.stop()
 
 
 func handle_input(_event) -> void:

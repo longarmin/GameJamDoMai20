@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/doorOpen_1.ogg-b69498c22373143f171de0547eee40c2.oggstr"
+
+[deps]
+
+source_file="res://assets/sfx/doorOpen_1.ogg"
+dest_files=[ "res://.import/doorOpen_1.ogg-b69498c22373143f171de0547eee40c2.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

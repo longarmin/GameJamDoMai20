@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/Bewohner/Oma.gd" type="Script" id=1]
 [ext_resource path="res://assets/oma.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://src/Bewohner/EventManager.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/Bewohner/States/BeingInFlat.gd" type="Script" id=11]
 [ext_resource path="res://src/Bewohner/InputManagerKI.gd" type="Script" id=12]
+[ext_resource path="res://assets/sfx/footstep_carpet_004.ogg" type="AudioStream" id=13]
 [ext_resource path="res://assets/sfx/schritte-bootsteppich.wav" type="AudioStream" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -93,11 +94,15 @@ tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "clips": [ {
-"end_offset": 0.63,
+"end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource( 14 )
+"stream": ExtResource( 13 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 13 )
 } ],
-"times": PoolRealArray( -0.8 )
+"times": PoolRealArray( 0.1, 0.3 )
 }
 
 [node name="Oma" type="KinematicBody2D"]
@@ -113,9 +118,9 @@ one_way_collision_margin = 0.0
 [node name="Character_Detector_Hear" type="Area2D" parent="."]
 position = Vector2( 0, -24 )
 rotation = 1.5708
-input_pickable = false
 collision_layer = 0
 collision_mask = 6
+input_pickable = false
 
 [node name="Hear_Radius" type="CollisionShape2D" parent="Character_Detector_Hear"]
 shape = SubResource( 2 )
@@ -123,9 +128,9 @@ shape = SubResource( 2 )
 [node name="Character_Detector_View" type="Area2D" parent="."]
 position = Vector2( 0, -23 )
 rotation = 1.5708
-input_pickable = false
 collision_layer = 0
 collision_mask = 6
+input_pickable = false
 
 [node name="View_Radius" type="CollisionShape2D" parent="Character_Detector_View"]
 shape = SubResource( 3 )
@@ -205,7 +210,10 @@ script = ExtResource( 12 )
 
 [node name="StepsSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 14 )
-max_distance = 64.0
+volume_db = -25.0
+pitch_scale = 0.3
+max_distance = 1000.0
+attenuation = 5.46415
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="HitBox" to="." method="_on_Hitbox_area_exited"]

@@ -1,7 +1,7 @@
 extends Area2D
 class_name Stairwell
 
-onready var animated_sprite: AnimatedSprite = $AnimatedSprite
+onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 
 
 func _ready():
@@ -9,11 +9,11 @@ func _ready():
 
 
 func _on_Stairwell_body_entered(_body: Node) -> void:
-	animated_sprite.play("opening")
+	animationPlayer.play("opening")
 
 
 func _on_Stairwell_body_exited(_body: Node) -> void:
-	animated_sprite.play("closing")
+	animationPlayer.play("closing")
 
 
 func use_stairwell(position: Vector2, up: bool) -> Vector2:
