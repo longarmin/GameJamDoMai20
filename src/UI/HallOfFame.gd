@@ -17,7 +17,7 @@ func change_menu_color():
 
 func _ready():
 	change_menu_color()
-	$ScoreLabel.text = "Your Score: " + str(GlobalVars.uScoreTime) + " seconds"
+	$ScoreLabel.text = "Your Score: " + "%0.0f" % GlobalVars.uScoreTime + " seconds"
 	$HTTPRequest.request("https://omashighscore.herokuapp.com/halloffame")
 
 
@@ -44,8 +44,27 @@ func _input(event):
 
 func _on_HTTPRequest_request_completed(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray) -> void:
 	var aJson = JSON.parse(body.get_string_from_utf8())
-	print(str(typeof(aJson.result)))
-	#if typeof(aJson) == "Array("
-	for score in aJson.result:
-		highscoreList.append(score)
-	print(highscoreList)
+	if aJson.result is Array:
+		highscoreList = aJson.result
+	elif aJson.result is Dictionary:
+		highscoreList.append(aJson.result)
+	highscoreList.sort_custom(HighscoreSorter, "sort_ascending")
+	render_highscore_list(highscoreList)
+
+
+func render_highscore_list(highscoreList: Array) -> void:
+	var index = 1
+	$GridContainer/TextRank.text = ""
+	$GridContainer/TextName.text = ""
+	$GridContainer/TextTime.text = ""
+	for eintrag in highscoreList:
+		$GridContainer/TextRank.text = $GridContainer/TextRank.text + str(index) + "\n"
+		$GridContainer/TextName.text = $GridContainer/TextName.text + eintrag.name + "\n"
+		$GridContainer/TextTime.text = $GridContainer/TextTime.text + "%0.0f" % eintrag.score + "s\n"
+		index += 1
+
+class HighscoreSorter:
+	static func sort_ascending(a, b):
+		if a.score < b.score:
+			return true
+		return false

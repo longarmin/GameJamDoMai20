@@ -15,7 +15,7 @@ func change_menu_color():
 
 func _ready():
 	change_menu_color()
-	$ScoreLabel.text = "Your Score:" + str(GlobalVars.uScoreTime) + " seconds"
+	$ScoreLabel.text = "Your Score: " + "%0.0f" % GlobalVars.uScoreTime + " seconds"
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept"):
