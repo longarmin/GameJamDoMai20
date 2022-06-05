@@ -9,10 +9,11 @@ func enter(_dParams: Dictionary) -> void:
 	else:
 		bewohner.animationPlayer.play("running")
 		bewohner.animationPlayer.playback_speed = bewohner.fSpeed * 0.008
+	pass
 		
 		
 func exit() -> void:
-	pass
+	bewohner.animationPlayer.stop()
 
 
 func handle_input(_event) -> void:

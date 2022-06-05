@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://src/Bewohner/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Bewohner/States/Dropping.gd" type="Script" id=2]
@@ -14,6 +14,9 @@
 [ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/UI/ContextBubble.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/Bewohner/States/Talking.gd" type="Script" id=14]
+[ext_resource path="res://assets/sfx/cloth1.ogg" type="AudioStream" id=15]
+[ext_resource path="res://assets/sfx/footstep_carpet_004.ogg" type="AudioStream" id=16]
+[ext_resource path="res://assets/sfx/cloth4.ogg" type="AudioStream" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -34,6 +37,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 6, 7 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("TrashSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 17 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=4]
@@ -114,6 +131,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 9, 10 ]
 }
+tracks/1/type = "audio"
+tracks/1/path = NodePath("TrashSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 15 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=9]
 resource_name = "running"
@@ -131,6 +162,24 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
+tracks/1/type = "audio"
+tracks/1/path = NodePath("StepsSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0652901,
+"start_offset": 0.0,
+"stream": ExtResource( 16 )
+}, {
+"end_offset": 0.0633698,
+"start_offset": 0.0,
+"stream": ExtResource( 16 )
+} ],
+"times": PoolRealArray( 0.1, 0.4 )
+}
 
 [sub_resource type="Animation" id=10]
 resource_name = "runningTrash"
@@ -147,6 +196,24 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 18, 19, 20, 21, 22, 23 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("StepsSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 16 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 16 )
+} ],
+"times": PoolRealArray( 0.1, 0.4 )
 }
 
 [node name="Player" type="KinematicBody2D"]
@@ -231,6 +298,14 @@ editor_draw_limits = true
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource( 7 )
+
+[node name="StepsSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = -40.0
+pitch_scale = 0.6
+
+[node name="TrashSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = -30.0
+pitch_scale = 0.7
 
 [connection signal="trash_dropable" from="." to="UI" method="_on_Player_trash_dropable"]
 [connection signal="trash_notDropable" from="." to="UI" method="_on_Player_trash_notDropable"]
