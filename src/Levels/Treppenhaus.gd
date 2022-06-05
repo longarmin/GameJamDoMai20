@@ -13,10 +13,17 @@ func _on_trash_spawned(trash: Trash):
 func _on_Oma_karmachange(bewohner: BewohnerBase, iKarma: int) -> void:
 	if iKarma == -6:
 		print(bewohner.sName + " hat verloren.")
+		Events.emit_signal("neighbour_lost", bewohner)
 		if bewohner.sName == "Player":
-			get_tree().quit()
+			GlobalVars.sGameOverReason = "PlayerKarmaAtButtom"
+			get_tree().change_scene("res://src/UI/GameOverLose.tscn")
+			get_tree().paused = false
+			return
 		bewohner.queue_free()
 	if iKarma == 6:
 		print(bewohner.sName + " hat gewonnen!")
-		get_tree().quit()
+		GlobalVars.sGameOverReason = "OthersWin"
+		get_tree().change_scene("res://src/UI/GameOverLose.tscn")
 		bewohner.queue_free()
+		get_tree().paused = false
+		return

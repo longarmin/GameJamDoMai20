@@ -12,12 +12,15 @@ var list: String
 func _ready():
 	assert(Events.connect("neighbour_spawned", self, "_on_Neighbour_spawned") == 0)
 	assert(Events.connect("karma_changed", self, "_on_Oma_karmachange") == 0)
+	assert(Events.connect("neighbour_lost", self, "_on_Neighbour_lost") == 0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
+func _on_Neighbour_lost(bewohner) -> void:
+	dKarmaList.erase(bewohner)
 
 func _on_Neighbour_spawned(spawnedNeighbour: Neighbour) -> void:
 	dKarmaList[spawnedNeighbour] = 0

@@ -40,8 +40,7 @@ func _on_Hitbox_area_exited(area: Area2D) -> void:
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = false
 		door = null
-
-
+		
 func _on_Hitbox_area_entered(area: Area2D) -> void:
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = true
@@ -109,7 +108,7 @@ func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
 
 
 func _on_Neighbour_spawned(spawnedNeighbour: Neighbour) -> void:
-	dKarma[spawnedNeighbour] = 0
+	dKarma[spawnedNeighbour] = 5
 
 
 func _on_Neighbour_passed_trash(passedNeighbour: BewohnerBase) -> void:

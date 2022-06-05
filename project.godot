@@ -219,6 +219,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Events="*res://src/Events.gd"
+GlobalVars="*res://src/GlobalVars.gd"
 
 [debug]
 
