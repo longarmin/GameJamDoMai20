@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/montserrat_extrabold.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/UI/LineEdit.gd" type="Script" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
 size = 24
 use_mipmaps = true
 font_data = ExtResource( 3 )
@@ -41,8 +41,8 @@ __meta__ = {
 [node name="Label" type="Label" parent="ExitGame"]
 margin_right = 180.0
 margin_bottom = 40.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "GOTO MENU"
 align = 1
 valign = 1
@@ -63,8 +63,8 @@ __meta__ = {
 [node name="Label" type="Label" parent="EnterScore"]
 margin_right = 180.0
 margin_bottom = 40.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "ENTER SCORE"
 align = 1
 valign = 1
@@ -89,10 +89,10 @@ margin_bottom = 40.0
 rect_rotation = 1.2
 size_flags_horizontal = 15
 size_flags_stretch_ratio = 1.26
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.678431, 0.741176, 0.270588, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0.164706, 0.164706, 0.164706, 1 )
-custom_fonts/font = SubResource( 1 )
 text = "HALL OF FAME"
 align = 1
 valign = 1

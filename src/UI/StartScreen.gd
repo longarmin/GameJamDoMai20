@@ -35,12 +35,7 @@ func _input(event):
 				get_tree().change_scene("res://src/Levels/Treppenhaus.tscn")
 			1:
 				# Load game
-				pass
-#				var next_level_resource = load("res://src/Levels/Treppenhaus.tscn");
-#				var next_level = next_level_resource.instance()
-#				next_level.load_saved_game = true
-#				get_tree().root.call_deferred("add_child", next_level)
-#				queue_free()
+				get_tree().change_scene("res://src/UI/HallOfFame.tscn")
 			2:
 				# Quit game
 				get_tree().quit()

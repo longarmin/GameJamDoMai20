@@ -34,10 +34,13 @@ func _input(event):
 	elif Input.is_action_just_pressed("ui_accept"):
 		match selected_menu:
 			0:
-				var score = {"name": lineedit.text, "score": GlobalVars.uScoreTime}
-				var query = JSON.print(score)
-				var headers = ["Content-Type: application/json"]
-				$HTTPRequest.request("https://omashighscore.herokuapp.com/halloffame", headers, true, HTTPClient.METHOD_POST, query)
+				if GlobalVars.uScoreTime > 5:
+					var score = {"name": lineedit.text, "score": GlobalVars.uScoreTime}
+					var query = JSON.print(score)
+					var headers = ["Content-Type: application/json"]
+					$HTTPRequest.request("https://omashighscore.herokuapp.com/halloffame", headers, true, HTTPClient.METHOD_POST, query)
+					#Verhindern, dass Score mehrmals geschrieben werden kann:
+					GlobalVars.uScoreTime = 0 
 			1:
 				get_tree().change_scene("res://src/UI/StartScreen.tscn")
 

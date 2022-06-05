@@ -15,7 +15,7 @@ var bRunningToPlayer := false
 var sTargetPlayer: String
 var target: Node2D
 
-onready var dKarma: Dictionary = {get_node("../Player"): 5}
+onready var dKarma: Dictionary = {get_node("../Player"): 0}
 onready var timer: Timer = $Timer
 onready var hear_radius: Area2D = $Character_Detector_Hear
 onready var view_radius: Area2D = $Character_Detector_View
