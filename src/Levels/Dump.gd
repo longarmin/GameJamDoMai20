@@ -76,4 +76,4 @@ func _on_Muellabfuhr_timeout():
 
 
 func _on_Dump_area_entered(area: Area2D) -> void:
-	print("area dump entered")
+	pass
