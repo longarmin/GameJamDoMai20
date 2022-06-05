@@ -9,11 +9,9 @@ onready var questGenerator: QuestGenerator = $QuestGenerator
 
 func _ready():
 	assert(Events.connect("neighbour_quest_requested", self, "_on_Quest_requested") == 0)
-	print(questGenerator)
 
 
 func push_new_quest(quest: AIQuest) -> void:
-	print(quest)
 	if quest == null:
 		return
 	aQueue.push_back(quest)
@@ -63,11 +61,6 @@ func _on_quest_spawned(quest: AIQuest, neighbour: Bewohner) -> void:
 func generate_neighbour_quest() -> void:
 	var new_quest = questGenerator.generate_quest()
 	push_new_quest(new_quest)
-	if owner.name == "Oma":
-		print(new_quest.target)
-		print("Omas Quests: " + str(aQueue))
-		if current_quest:
-			print("Omas Target: " + current_quest.target.name)
 
 
 func _on_Quest_requested(neighbour: Bewohner):

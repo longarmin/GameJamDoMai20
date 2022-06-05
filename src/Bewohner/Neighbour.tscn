@@ -158,7 +158,7 @@ font_data = ExtResource( 7 )
 collision_layer = 2
 script = ExtResource( 1 )
 fSpeed = 100.0
-iMaxTrashAmount = 3
+iMaxTrashAmount = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -16 )

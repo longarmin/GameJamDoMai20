@@ -57,7 +57,6 @@ func _on_Hitbox_area_entered(area: Area2D) -> void:
 			questManager.remove_current_quest()
 			if questManager.aQueue.size() > 0:
 				questManager.activate_new_quest()
-				print(questManager.current_quest.target.name)
 	else:
 		if area == home:
 			# warning-ignore:unsafe_method_access
