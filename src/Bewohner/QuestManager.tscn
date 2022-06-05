@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Bewohner/QuestManager.gd" type="Script" id=1]
+[ext_resource path="res://src/Bewohner/QuestGenerator.tscn" type="PackedScene" id=2]
+
+[node name="QuestManager" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="QuestGenerator" parent="." instance=ExtResource( 2 )]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

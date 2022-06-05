@@ -81,13 +81,13 @@ func _ready():
 		spawn(neighbourSpawn)
 
 
-#func spawnMiscellaneous()
 func spawn(neighbourSpawn):
 	neighbourSpawn["neighbourNode"].instanciate(
 		neighbourSpawn["neighbourFlat"], neighbourSpawn["neighbourName"], rand_range(80, 120)
 	)
 	neighbourSpawn["neighbourFlat"].add_to_group("flats")
 	neighbourSpawn["neighbourFlat"].remove_from_group("flatsEmpty")
+	print(neighbourSpawn["neighbourName"] + ": " + str(neighbourSpawn["neighbourFlat"]))
 	get_parent().add_child(neighbourSpawn["neighbourNode"])
 	neighbourSpawn["neighbourNode"].add_to_group("neighbours")
 	neighbourSpawn["neighbourNode"].add_to_group("bewohner")
