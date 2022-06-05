@@ -15,25 +15,25 @@
 [ext_resource path="res://src/UI/PauseMenuPopup.gd" type="Script" id=13]
 [ext_resource path="res://assets/font_default.tres" type="DynamicFont" id=14]
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 18, 18 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 8 )
 region = Rect2( 18, 0, 18, 18 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 8 )
 region = Rect2( 36, 0, 18, 18 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 8 )
 region = Rect2( 54, 0, 18, 18 )
 
-[sub_resource type="SpriteFrames" id=14]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "default",
 "speed": 8.0
@@ -55,7 +55,7 @@ region = Rect2( 64, 0, 32, 32 )
 atlas = ExtResource( 11 )
 region = Rect2( 96, 0, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=15]
+[sub_resource type="SpriteFrames" id=10]
 animations = [ {
 "frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
@@ -91,71 +91,43 @@ position = Vector2( 272, 67 )
 [node name="Door3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 272, 259 )
 
-[node name="Wohnung2" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung2" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 166, 168 )
 maximumTrashAmount = 1
 
-[node name="Wohnung3" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung3" parent="." groups=["flatsOma"] instance=ExtResource( 5 )]
 position = Vector2( 392.368, 167.47 )
 maximumTrashAmount = 1
 
-[node name="Wohnung6" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung6" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 368, 72 )
 maximumTrashAmount = 1
 
-[node name="Wohnung7" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung7" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 165.764, 72 )
 maximumTrashAmount = 1
 
-[node name="Wohnung8" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung8" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 71.5388, 264 )
 maximumTrashAmount = 1
 
-[node name="Wohnung9" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung9" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 165.882, 264 )
 maximumTrashAmount = 1
 
-[node name="Wohnung10" parent="." groups=[
-"flatsEmpty",
-] instance=ExtResource( 5 )]
+[node name="Wohnung10" parent="." groups=["flatsEmpty"] instance=ExtResource( 5 )]
 position = Vector2( 368, 264 )
 maximumTrashAmount = 1
 
-[node name="Player" parent="." groups=[
-"bewohner",
-] instance=ExtResource( 6 )]
+[node name="Player" parent="." groups=["bewohner"] instance=ExtResource( 6 )]
 position = Vector2( 103.109, 187.948 )
 
-[node name="Dump" parent="." groups=[
-"dumps",
-] instance=ExtResource( 7 )]
-position = Vector2( 464, 93.815 )
-
-[node name="Dump2" parent="." groups=[
-"dumps",
-] instance=ExtResource( 7 )]
-position = Vector2( 202.843, 189.142 )
-
-[node name="Dump3" parent="." groups=[
-"dumps",
-] instance=ExtResource( 7 )]
+[node name="Dump3" parent="." groups=["dumps"] instance=ExtResource( 7 )]
 position = Vector2( 464, 286.127 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 72, 85.4798 )
-frames = SubResource( 14 )
+frames = SubResource( 5 )
 frame = 1
 playing = true
 
@@ -168,7 +140,7 @@ collision_layer = 1024
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 91.5388, 76.4798 )
-frames = SubResource( 15 )
+frames = SubResource( 10 )
 frame = 3
 playing = true
 
@@ -217,8 +189,8 @@ __meta__ = {
 [node name="Label" type="Label" parent="CanvasLayer/PauseMenuPopup/Resume"]
 margin_right = 180.0
 margin_bottom = 20.0
-custom_fonts/font = ExtResource( 14 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 14 )
 text = "RESUME GAME"
 align = 1
 valign = 1
@@ -236,8 +208,8 @@ __meta__ = {
 [node name="Label" type="Label" parent="CanvasLayer/PauseMenuPopup/Restart"]
 margin_right = 180.0
 margin_bottom = 20.0
-custom_fonts/font = ExtResource( 14 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 14 )
 text = "RESTART GAME"
 align = 1
 valign = 1
@@ -255,8 +227,8 @@ __meta__ = {
 [node name="Label" type="Label" parent="CanvasLayer/PauseMenuPopup/Quit"]
 margin_right = 180.0
 margin_bottom = 20.0
-custom_fonts/font = ExtResource( 14 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 14 )
 text = "QUIT GAME"
 align = 1
 valign = 1
