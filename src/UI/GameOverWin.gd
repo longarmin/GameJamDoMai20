@@ -19,7 +19,11 @@ func _ready():
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept"):
-		get_tree().change_scene("res://src/UI/StartScreen.tscn")
+		match selected_menu:
+			0:
+				get_tree().change_scene("res://src/UI/HallOfFame.tscn")
+			1:
+				get_tree().change_scene("res://src/UI/StartScreen.tscn")
 	elif Input.is_action_just_pressed("ui_up"):
 		if (selected_menu > 0):
 			selected_menu = selected_menu - 1
