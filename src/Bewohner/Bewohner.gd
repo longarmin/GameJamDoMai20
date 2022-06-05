@@ -20,6 +20,7 @@ onready var sprite: Sprite = $Sprite
 onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 onready var stateMachine: StateMachine = $StateMachine
 onready var inputManager: InputManager = $InputManager
+onready var stepsSound: AudioStreamPlayer2D = $StepsSound
 
 
 func _ready():
