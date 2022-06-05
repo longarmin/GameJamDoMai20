@@ -106,7 +106,7 @@ func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
 
 
 func _on_Neighbour_spawned(spawnedNeighbour: Neighbour) -> void:
-	dKarma[spawnedNeighbour] = 5
+	dKarma[spawnedNeighbour] = 0
 
 
 func _on_Neighbour_passed_trash(passedNeighbour: BewohnerBase) -> void:
