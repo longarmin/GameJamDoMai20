@@ -7,15 +7,14 @@ onready var speechBubble: SpeechBubble = $SpeechBubble
 onready var timerLabel: Label = $Label
 
 var running = true
-var elapsed = 0
 var bTippDrop: bool = false
 var bTippPick: bool = false
 
 
 func _process(delta):
 	if running:
-		elapsed += delta
-	timerLabel.text = "%0.0f" % elapsed
+		GlobalVars.elapsed += delta
+	timerLabel.text = "%0.0f" % GlobalVars.elapsed
 
 
 func _ready() -> void:

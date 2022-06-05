@@ -6,7 +6,7 @@ func change_menu_color():
 	$NewGame.color = Color.gray
 	$HallOfFame.color = Color.gray
 	$ExitGame.color = Color.gray
-	
+
 	match selected_menu:
 		0:
 			$NewGame.color = Color.greenyellow

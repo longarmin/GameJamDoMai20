@@ -17,10 +17,18 @@ func _on_Oma_karmachange(bewohner: BewohnerBase, iKarma: int) -> void:
 		if bewohner.sName == "Player":
 			GlobalVars.sGameOverReason = "PlayerKarmaAtButtom"
 			get_tree().change_scene("res://src/UI/GameOverLose.tscn")
+			bewohner.queue_free()
 			get_tree().paused = false
 			return
 		bewohner.queue_free()
 	if iKarma == 6:
+		if bewohner.sName == "Player":
+			GlobalVars.uScoreTime = GlobalVars.elapsed
+			GlobalVars.elapsed = 0
+			get_tree().change_scene("res://src/UI/GameOverWin.tscn")
+			bewohner.queue_free()
+			get_tree().paused = false
+			return
 		print(bewohner.sName + " hat gewonnen!")
 		GlobalVars.sGameOverReason = "OthersWin"
 		get_tree().change_scene("res://src/UI/GameOverLose.tscn")
