@@ -220,7 +220,7 @@ _global_script_class_icons={
 
 config/name="GameJamMai20"
 run/main_scene="res://src/UI/StartScreen.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/binary_icon.png"
 
 [autoload]
 
