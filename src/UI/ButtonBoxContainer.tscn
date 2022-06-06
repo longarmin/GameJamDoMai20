@@ -1,24 +1,26 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://assets/trashUpButton.png" type="Texture" id=1]
 [ext_resource path="res://assets/trashDownButton.png" type="Texture" id=2]
 [ext_resource path="res://src/UI/ButtonBoxContainer.gd" type="Script" id=3]
 
+[sub_resource type="StreamTexture" id=16]
+load_path = "res://.import/trashUpButton2.png-d399474f1929f577d75208418c8b5bb6.stex"
+
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 10, 24 )
+atlas = SubResource( 16 )
+region = Rect2( 0, 0, 40, 24 )
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 24, 10, 24 )
+atlas = SubResource( 16 )
+region = Rect2( 40, 0, 40, 24 )
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 10, 24, 10, 24 )
+atlas = SubResource( 16 )
+region = Rect2( 0, 24, 40, 24 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 20, 24, 10, 24 )
+atlas = SubResource( 16 )
+region = Rect2( 40, 24, 40, 24 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
@@ -33,30 +35,30 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 10, 24 )
+region = Rect2( 0, 0, 40, 24 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 24, 10, 24 )
+region = Rect2( 40, 0, 40, 24 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 2 )
-region = Rect2( 10, 24, 10, 24 )
+region = Rect2( 0, 24, 40, 24 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 2 )
-region = Rect2( 20, 24, 10, 24 )
+region = Rect2( 40, 24, 40, 24 )
 
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ SubResource( 6 ) ],
+"frames": [ SubResource( 15 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "action",
 "speed": 5.0
@@ -82,6 +84,7 @@ alignment_horizontal = 2
 alignment_vertical = 2
 
 [node name="PickupButton" type="AnimatedSprite" parent="PanelContainer2"]
+position = Vector2( -50, 0.375 )
 frames = SubResource( 5 )
 playing = true
 centered = false
@@ -95,6 +98,7 @@ alignment_horizontal = 2
 alignment_vertical = 2
 
 [node name="DropButton" type="AnimatedSprite" parent="PanelContainer"]
+position = Vector2( -30, 0 )
 frames = SubResource( 10 )
 playing = true
 centered = false
