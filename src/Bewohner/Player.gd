@@ -8,6 +8,7 @@ func _ready():
 	home.remove_from_group("flatsEmpty")
 	home.add_to_group("flats")
 	home.setText(sName)
+	Events.emit_signal("new_game_started", self)
 
 
 func _unhandled_input(_event) -> void:

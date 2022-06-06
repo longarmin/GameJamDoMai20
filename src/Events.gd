@@ -1,6 +1,8 @@
 extends Node
 
 # warning-ignore:unused_signal
+signal new_game_started(bewohner)
+# warning-ignore:unused_signal
 signal trash_spawned(trash)
 # warning-ignore:unused_signal
 signal trash_dropped(bewohner, bOnDump)

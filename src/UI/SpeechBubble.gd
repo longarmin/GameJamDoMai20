@@ -2,6 +2,7 @@ extends Control
 class_name SpeechBubble
 
 onready var text_node: RichTextLabel = $RichTextLabel
+onready var ninepatch: NinePatchRect = $NinePatchRect
 onready var timer: Timer = $Timer
 onready var tween: Tween = $Tween
 
@@ -12,6 +13,11 @@ const margin_offset = 4
 func _ready() -> void:
 	visible = false
 
+func _input(event):
+	if Input.is_action_just_pressed("ui_accept"):
+		print("Just pressed Enter. Time left: " + str(timer.get_time_left()))
+		if timer.get_time_left() > 0.0 || tween.is_active():
+			visible = false
 
 func set_text(text, wait_time = 3):
 	visible = true
@@ -27,6 +33,15 @@ func set_text(text, wait_time = 3):
 	# Set the size of the speech bubble
 	var text_size = text_node.get_font("normal_font").get_string_size(text_node.text)
 	text_node.margin_right = text_size.x + margin_offset
+	var speechBubbleSize = text_size.x/OS.get_window_size().x
+	#	print($Project/display/window/size/width)
+	var temp = text_size.y + 6
+	speechBubbleSize = speechBubbleSize * temp * 2
+	self.rect_size.y = speechBubbleSize
+	ninepatch.rect_size.y = speechBubbleSize
+	text_node.rect_size.y = speechBubbleSize
+	self.rect_position.y = OS.get_window_size().y - speechBubbleSize - 10
+	text_node.rect_position.y = ninepatch.rect_position.y
 	#text_bg.margin_right = text_size.x + margin_offset
 
 	# Animation

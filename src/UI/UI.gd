@@ -18,6 +18,7 @@ func _process(delta):
 
 
 func _ready() -> void:
+	assert(Events.connect("new_game_started", self, "_on_New_game_started") == 0)
 	assert(Events.connect("dialog_started", self, "_on_Oma_dialogue") == 0)
 	assert(Events.connect("karma_changed", self, "_on_Oma_karmachange") == 0)
 	assert(Events.connect("trash_picked", self, "_on_Player_trash_picked") == 0)
@@ -34,7 +35,7 @@ func _on_Player_trash_picked(bewohner: BewohnerBase) -> void:
 					"[color=red]"
 					+ "Tipp"
 					+ ": [/color]"
-					+ "Wenn du den Muell ausserhalb\n von Omas Sichtbereich aufnimmst, bringt dir das wenig."
+					+ "Du hast zwar brav Muell aufgehoben,\n aber ausserhalb von Omas Sichtbereich. \nDamit kannst du sie nicht beeindrucken."
 				)
 			)
 			bTippPick = true
@@ -51,10 +52,23 @@ func _on_Player_trash_dropped(bewohner: BewohnerBase, _bOnDump: bool) -> void:
 					"[color=red]"
 					+ "Tipp"
 					+ ": [/color]"
-					+ "Wenn du den Muell ausserhalb\n von Omas Hoerbereich ablegst, passiert nichts."
+					+ "Wenn du den Muell heimlich ausserhalb\nvon Omas Hoerbereich ablegst, \nbekommt sie es nicht mit."
 				)
 			)
 			bTippDrop = true
+
+func _on_New_game_started(bewohner: BewohnerBase):
+	# tempBubble = speechBubble
+	# speechBubble.rect_size.y = 150
+	# speechBubble.rect_position.y -= 50
+	# $SpeechBubble/NinePatchRect.rect_size.y = 100
+	# $SpeechBubble/RichTextLabel.rect_size.y = 100
+	speechBubble.set_text(
+		(
+			"[color=white]"
+			+ "Willkommen in Omas Haus.\n Du hast " + str(bewohner.home.name) + " gemietet. Wohnung" + str("10 ") + " ist schöner.\nBeeindrucke Oma und du kannst umziehen."
+		)
+	)
 
 
 func _on_Oma_karmachange(bewohner: BewohnerBase, iKarma: int) -> void:

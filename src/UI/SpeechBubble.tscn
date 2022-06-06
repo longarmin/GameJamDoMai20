@@ -11,6 +11,8 @@ extra_spacing_space = 1
 font_data = SubResource( 1 )
 
 [node name="SpeechBubble" type="Control"]
+margin_right = 512.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 512, 50 )
 rect_clip_content = true
 script = ExtResource( 1 )
