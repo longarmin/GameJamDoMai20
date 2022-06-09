@@ -8,6 +8,7 @@
 [ext_resource path="res://src/UI/KarmaList.gd" type="Script" id=6]
 
 [node name="UI" type="CanvasLayer"]
+follow_viewport_enable = true
 script = ExtResource( 1 )
 
 [node name="GridContainer" type="GridContainer" parent="."]
@@ -43,10 +44,11 @@ margin_bottom = 32.0
 size_flags_vertical = 0
 
 [node name="SpeechBubble" parent="." instance=ExtResource( 3 )]
-margin_left = 0.728
-margin_top = 250.0
-margin_right = 512.728
-margin_bottom = 300.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.0
+margin_bottom = 0.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

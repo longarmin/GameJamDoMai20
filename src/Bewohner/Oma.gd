@@ -39,7 +39,8 @@ func _on_Hitbox_area_exited(area: Area2D) -> void:
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = false
 		door = null
-		
+
+
 func _on_Hitbox_area_entered(area: Area2D) -> void:
 	if area.has_method("use_stairwell"):
 		bIsOnDoor = true
@@ -125,7 +126,7 @@ func _on_Player_Detector_body_entered(body: BewohnerBase) -> void:
 			var message = Message.new(5, "5", self)
 # warning-ignore:unsafe_property_access
 			body.stateMachine.respond_to(message)
-			if sTargetPlayer == "Player":
+			if body.name == "Player":
 				Events.emit_signal(
 					"dialog_started",
 					"Oma",
